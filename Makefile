@@ -6,7 +6,7 @@
 #    By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/08 17:11:30 by pnolte            #+#    #+#              #
-#    Updated: 2023/05/09 17:46:30 by pnolte           ###   ########.fr        #
+#    Updated: 2023/05/09 18:31:20 by pnolte           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,8 +50,8 @@ $(OBJ_DIR)%.o: %.c
 	$(CC) $(CFLAGS) $< -c -o $@
 
 $(MLX42):
-	cmake -B build $(LIBMLX)
-	cmake --build build -j4 $(LIBMLX)
+	cmake $(LIBMLX) -B $(LIBMLX)/build
+	cmake --build $(LIBMLX)/build -j4
 
 $(LIBFT):
 	make -C $(LIB_P)
