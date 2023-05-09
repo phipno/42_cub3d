@@ -1,3 +1,5 @@
+raycaster_flat.cpp
+raycaster_textured.cpp
 # Prerequisites
 *.d
 
