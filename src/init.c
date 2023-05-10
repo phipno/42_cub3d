@@ -1,35 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/08 17:15:21 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/10 16:04:29 by pnolte           ###   ########.fr       */
+/*   Created: 2023/05/10 15:45:01 by pnolte            #+#    #+#             */
+/*   Updated: 2023/05/10 16:07:41 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//alle includes die der File braucht oben in den File
-
-#include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
+#include <fcntl.h>
+#include <unistd.h>
 
 #include "inc/cub3d.h"
 #include "lib/MLX42/include/MLX42/MLX42.h"
 
-int	main(int argc, char *argv[]) {
-	t_all all;
+int	cub_map_muncher(t_all a, char *argv[])
+{
+	int fd;
 
-	if (argc != 2)
+	fd = open(argv[1], O_RDONLY);
+	//not sure about that 2
+	if (fd < 2)
 	{
-		perror("Usage: \"./cub3D maps/<pick one>\n");
+
 		return (EXIT_FAILURE);
 	}
-	map
+
+	return (EXIT_SUCCESS);
 }
-
-
 
 /* ************************************************************************** */
