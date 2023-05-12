@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/10 16:05:10 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/05/12 15:30:27 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@
  * @param height The height of the window.
  * @param delta_time The time difference between the previous frame and the current frame.
  */
-typedef struct mlx
+typedef struct s_mlx
 {
 	void*		window;
 	void*		context;
 	int32_t		width;
 	int32_t		height;
 	double		delta_time;
-}	mlx_t;
+}	t_mlx;
 
 /**
  * s_GameInfo, stores data which defines rules and playstyle of the game.
@@ -39,7 +39,13 @@ typedef struct mlx
 
 typedef struct s_GameInfo
 {
-	char **map;
+	char	**map;
+	int		sky_color[3];
+	int		floor_color[3];
+	char	*north_wall;
+	char	*east_wall;
+	char	*south_wall;
+	char	*west_wall;
 }	t_GameInfo;
 
 /**
@@ -56,9 +62,9 @@ typedef struct s_all
 {
 	t_PlayerInfo	per;
 	t_GameInfo		map;
-	mlx_t			mlx;
+	t_mlx			mlx;
 }	t_all;
 
-int	cub_map_muncher(t_all a);
+int	cub_map_muncher(t_all *a, char *argv[]);
 
 #endif
