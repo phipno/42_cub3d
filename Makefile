@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+         #
+#    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/08 17:11:30 by pnolte            #+#    #+#              #
-#    Updated: 2023/05/09 18:31:20 by pnolte           ###   ########.fr        #
+#    Updated: 2023/05/20 15:17:48 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ LIBMLX	:= ./lib/MLX42
 
 all: $(NAME)
 
-$(NAME): $(OBJ_DIR) $(OBJ) $(LIBFT) $(MLX42)
+$(NAME): update $(OBJ_DIR) $(OBJ) $(LIBFT) $(MLX42)
 	$(CC) $(CFLAGS) $(OBJ) $(MLXFLA) $(MLX42) $(LIBFT) -o $(NAME)
 
 $(OBJ_DIR):
@@ -66,6 +66,9 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
+
+update:
+	git submodule foreach git pull
 
 .PHONY: all, clean, fclean, re, libft, MLX42,
 
