@@ -6,7 +6,7 @@
 #    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/08 17:11:30 by pnolte            #+#    #+#              #
-#    Updated: 2023/05/22 11:00:04 by jwillert         ###   ########.fr        #
+#    Updated: 2023/05/22 18:58:23 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ GET_NEXT_LINE         = $(GET_NEXT_LINE_DIR)libgnl.a
 LIBME_DIR             = $(LIBALLME_DIR)libme/
 LIBME_INCLUDE         = $(LIBME_DIR)include/
 
-SUBMODULE             = submodule.init
+SUBMODULE             = ./lib/submodule_init
 
 #	Files
 DEBUG_DIR             = ./debug/
@@ -99,7 +99,7 @@ $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
 
 $(SUBMODULE):
-	touch submodule.init
+	touch $(SUBMODULE)
 	$(MAKE) submodule_update
 
 submodule_update:
@@ -118,7 +118,7 @@ fclean: clean
 
 fclean_all: fclean
 	$(MAKE) fclean -C $(FT_PRINTF_DIR)
-	$(REMOVE) submodule.init
+	$(REMOVE) $(SUBMODULE)
 	$(REMOVE_DIR) $(MLX_DIR)build
 
 re:	fclean_all
