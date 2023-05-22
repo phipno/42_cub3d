@@ -1,4 +1,5 @@
-submodule.init
+*_init
+cub3d
 
 raycaster_flat.cpp
 raycaster_textured.cpp

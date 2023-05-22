@@ -1,9 +1,12 @@
+
+sadasdasdasd
+
 NO ./textures/north.png
 EA ./textures/east.png
 SO ./textures/south.png
 WE ./textures/west.png
 
-F 256,-1,2147483649
+F 254, 1,219
 C 255,255,255
 
         1111111111111111111111111
