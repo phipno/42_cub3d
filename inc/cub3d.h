@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/12 15:30:27 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/05/22 11:18:09 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_mlx
 
 typedef struct s_GameInfo
 {
-	char	**map;
+	char	**parse_map;
 	int		sky_color[3];
 	int		floor_color[3];
 	char	*north_wall;

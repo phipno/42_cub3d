@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 15:45:01 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/12 18:53:22 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/05/22 11:11:53 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,10 +156,8 @@ int		cub_map_muncher(t_all *a, char *argv[])
 
 	if (fail == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-
+	
 	return (EXIT_SUCCESS);
-
-
 }
 
 /* ************************************************************************** */
