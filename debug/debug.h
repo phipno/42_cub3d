@@ -1,36 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   debug.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/08 17:15:21 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/22 10:54:29 by jwillert         ###   ########.fr       */
+/*   Created: 2023/05/21 15:48:45 by jwillert          #+#    #+#             */
+/*   Updated: 2023/05/21 15:52:00 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//alle includes die der File braucht oben in den File
+#ifndef DEBUG_H
+# define DEBUG_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <unistd.h>
-#include "MLX42.h"
-#include "libft.h"
-#include "cub3d.h"
-
-int	main(int argc, char *argv[]) {
-	t_all all;
-
-	if (argc != 2)
-	{
-		ft_putstr_fd("Usage: \"./cub3D maps/<pick one>\n", STDERR_FILENO);
-		return (EXIT_FAILURE);
-	}
-	cub_map_muncher(&all, argv);
-}
-
-
+# ifndef DEBUG_ALLOC
+#  define DEBUG_ALLOC 0
+# endif // DEBUG_ALLOC
 
 /* ************************************************************************** */
+//								DEBUG FUNCTIONS
+/* ************************************************************************** */
+
+# endif // DEBUG_H

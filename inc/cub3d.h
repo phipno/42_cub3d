@@ -6,14 +6,14 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/22 11:18:09 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/05/22 12:40:42 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-#include "lib/MLX42/include/MLX42/MLX42.h"
+#include "MLX42.h"
 
 /**
  * Main MLX handle, carries important data in regards to the program.
@@ -55,7 +55,7 @@ typedef struct s_GameInfo
 typedef struct s_PlayerInfo
 {
 	int	pos_x;
-	int	pos_y
+	int	pos_y;
 }	t_PlayerInfo;
 
 typedef struct s_all
