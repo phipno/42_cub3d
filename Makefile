@@ -89,7 +89,7 @@ $(OBJ_DIR)%.o: %.c
 	$(CC) $(C_FLAGS) $< -c -o $@
 
 $(MLX42):
-	cmake $(MLX_DIR) -B $(MLX_DIR)/build
+	cmake $(MLX_DIR) -B $(MLX_DIR)build
 	cmake --build $(MLX_DIR)/build -j4
 
 $(FT_PRINTF):
