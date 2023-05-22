@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/22 12:40:42 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/05/22 14:22:30 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ typedef struct s_mlx
 
 typedef struct s_GameInfo
 {
-	char	**parse_map;
+	char	**a_map;
+	size_t	map_collum_max;
+	size_t	map_line_max;
 	int		sky_color[3];
 	int		floor_color[3];
 	char	*north_wall;
@@ -66,5 +68,6 @@ typedef struct s_all
 }	t_all;
 
 int	cub_map_muncher(t_all *a, char *argv[]);
+int	creation_of_map(t_GameInfo *map_info, char **da);
 
 #endif

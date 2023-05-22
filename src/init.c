@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 15:45:01 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/22 12:40:54 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/05/22 14:43:07 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,6 @@ int		cub_map_muncher(t_all *a, char *argv[])
 		perror("Read: ");
 		return (EXIT_FAILURE);
 	}
-	printf("%s\n", content);
 
 	char **da;
 
@@ -157,6 +156,8 @@ int		cub_map_muncher(t_all *a, char *argv[])
 	if (fail == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 
+	if (creation_of_map(&a->map, da) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
