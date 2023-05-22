@@ -6,7 +6,7 @@
 #    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/21 16:10:10 by jwillert          #+#    #+#              #
-#    Updated: 2023/05/21 21:31:54 by jwillert         ###   ########.fr        #
+#    Updated: 2023/05/22 10:05:20 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -100,6 +100,8 @@ $(SUBMODULE):
 submodule_update:
 	git submodule update --init --recursive --remote
 	git submodule foreach git pull origin master
+	cd ./lib/liballme/
+	git checkout modules
 
 #	Cleaning targets
 .PHONY: clean fclean fclean_all re ref
