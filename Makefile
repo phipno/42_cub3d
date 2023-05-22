@@ -6,7 +6,7 @@
 #    By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/08 17:11:30 by pnolte            #+#    #+#              #
-#    Updated: 2023/05/22 16:25:36 by pnolte           ###   ########.fr        #
+#    Updated: 2023/05/22 16:47:25 by pnolte           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ DEBUG_DIR             = ./debug/
 
 SRC_DIR               = ./src/
 SRC_FILES             = main.c\
-						init.c init_map.c valid_map.c
+						init.c init_map.c
 
 OBJ_DIR               = ./obj/
 OBJ_FILES             = $(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(SRC_FILES)))
@@ -69,7 +69,7 @@ INCLUDES              = -I ./inc/ \
 						-I $(LIBME_INCLUDE)
 
 CC                    = cc
-C_FLAGS               = -g3 -Wall -Werror -Wextra -fsanitize=address $(INCLUDES) $(DEBUG_VAR)
+C_FLAGS               = -g3 -Wall -Werror -Wextra $(INCLUDES) $(DEBUG_VAR)
 
 REMOVE                = rm -f
 REMOVE_DIR            = rm -rf

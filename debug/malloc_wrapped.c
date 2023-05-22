@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc_wrapped.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 15:52:58 by jwillert          #+#    #+#             */
-/*   Updated: 2023/05/21 16:02:40 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/22 16:59:24 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	*malloc_wrapped(size_t size_to_alloc, char *file, char *line, int fd)
 {
-	if (DEBUG_ALLOC == 1)
+	if (DEBUG == 1)
 	{
 		ft_putstr_fd(file, fd);
 		ft_putstr_fd(" ", fd);

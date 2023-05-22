@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 15:45:01 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/22 16:09:49 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/05/22 16:41:14 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int	creation_of_map(t_GameInfo *map_info, char **da)
 		return (EXIT_FAILURE);
 	}
 
+
 	size_t line = 0;
 	while (line < map_info->map_line_max)
 	{
@@ -101,8 +102,10 @@ int	creation_of_map(t_GameInfo *map_info, char **da)
 		line++;
 	}
 
+
 	if (parse_map(map_info, da) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
+
 
 	for (int i = 0; map_info->a_map[i] != NULL; i++) {
 		printf("%s\n", map_info->a_map[i]);
