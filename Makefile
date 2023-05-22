@@ -3,72 +3,128 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+         #
+#    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/08 17:11:30 by pnolte            #+#    #+#              #
-#    Updated: 2023/05/12 12:08:29 by pnolte           ###   ########.fr        #
+#    Updated: 2023/05/22 11:00:04 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #.~"~._.~"~._.~"~._.~"~.__.~"~._.~"~. VARS .~"~._.~"~.__.~"~._.~"~._.~"~._.~"~.#
 
-NAME	:= cub3d
+NAME                  = cub3d
 
-CC		:= cc
+#	Brew
+BREW_FIND             = if test -d /Users/$(USER)/.brew; \
+						then echo /Users/$(USER)/.brew/; \
+						elif test -d /Users/$(USER)/goinfre/.brew; \
+               			then echo /Users/$(USER)/goinfre/.brew/; \
+						else echo ""; fi
+BREW_DIR              = $(shell $(BREW_FIND))
 
-CFLAGS	:= -I src/ -I lib/ -g3 -Wall -Werror -Wextra
+#	Libraries
+MLX_DIR               = ./lib/MLX42/
+MLX_FLAGS             = -I include -lglfw -L $(BREW_DIR)opt/glfw/lib/
+MLX42                 = $(MLX_DIR)build/libmlx42.a
 
-MLXFLA	:= -I include -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/"
+LIBALLME_DIR          = ./lib/liballme/
 
-VPATH	:= src/
+LIBFT_DIR             = $(LIBALLME_DIR)libft/
+LIBFT_INCLUDE         = $(LIBFT_DIR)include/
+LIBFT                 = $(LIBFT_DIR)libft.a
 
-OBJ_DIR	:= obj/
+FT_PRINTF_DIR         = $(LIBALLME_DIR)ft_printf/
+FT_PRINTF_INCLUDE     = $(FT_PRINTF_DIR)include/
+FT_PRINTF             = $(FT_PRINTF_DIR)libftprintf.a
 
-SRC		:=	main.c \
-			init.c \
+GET_NEXT_LINE_DIR     = $(LIBALLME_DIR)get_next_line/
+GET_NEXT_LINE_INCLUDE = $(GET_NEXT_LINE_DIR)include/
+GET_NEXT_LINE         = $(GET_NEXT_LINE_DIR)libgnl.a
 
-OBJ		:= $(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(SRC)))
+LIBME_DIR             = $(LIBALLME_DIR)libme/
+LIBME_INCLUDE         = $(LIBME_DIR)include/
 
-LIBFT	:= lib/libft-phipno/libft.a
+SUBMODULE             = submodule.init
 
-LIB_P	:= ./lib/libft-phipno
+#	Files
+DEBUG_DIR             = ./debug/
 
-MLX42	:= lib/MLX42/build/libmlx42.a
+SRC_DIR               = ./src/
+SRC_FILES             = main.c\
+						init.c
 
-LIBMLX	:= ./lib/MLX42
+OBJ_DIR               = ./obj/
+OBJ_FILES             = $(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(SRC_FILES)))
+
+VPATH                 = $(SRC_DIR):$(DEBUG_DIR)
+
+#	Compilation helpers
+DEBUG_VAR             = $(shell echo $$DEBUG_FLAG)
+
+INCLUDES              = -I ./inc/ \
+                        -I ./lib/MLX42/include/MLX42/ \
+						-I $(LIBFT_INCLUDE) \
+						-I $(FT_PRINTF_INCLUDE) \
+						-I $(GET_NEXT_LINE_INCLUDE) \
+						-I $(LIBME_INCLUDE)
+
+CC                    = cc
+C_FLAGS               = -g3 -Wall -Werror -Wextra $(INCLUDES) $(DEBUG_VAR)
+
+REMOVE                = rm -f
+REMOVE_DIR            = rm -rf
 
 #.~"~._.~"~._.~"~._.~"~.__.~"~._.~"~. RULES .~"~._.~"~.__.~"~._.~"~._.~"~._.~"~#
 
+#	General targets
+.PHONY: all submodule_update
+
 all: $(NAME)
 
-$(NAME): $(OBJ_DIR) $(OBJ) $(LIBFT) $(MLX42)
-	$(CC) $(CFLAGS) $(OBJ) $(MLXFLA) $(MLX42) $(LIBFT) -o $(NAME)
-
-$(OBJ_DIR):
-	mkdir obj
+$(NAME): $(SUBMODULE) $(OBJ_FILES) $(MLX42) $(FT_PRINTF) $(LIBFT)
+	$(CC) $(C_FLAGS) $(OBJ_FILES) $(MLX_FLAGS) $(MLX42) $(FT_PRINTF) \
+	$(LIBFT) -o $(NAME)
 
 $(OBJ_DIR)%.o: %.c
-	$(CC) $(CFLAGS) $< -c -o $@
+	$(CC) $(C_FLAGS) $< -c -o $@
 
 $(MLX42):
-	cmake $(LIBMLX) -B $(LIBMLX)/build
-	cmake --build $(LIBMLX)/build -j4
+	cmake $(MLX_DIR) -B $(MLX_DIR)/build
+	cmake --build $(MLX_DIR)/build -j4
+
+$(FT_PRINTF):
+	$(MAKE) -C $(FT_PRINTF_DIR)
 
 $(LIBFT):
-	make -C $(LIB_P)
+	$(MAKE) -C $(LIBFT_DIR)
 
+$(SUBMODULE):
+	touch submodule.init
+	$(MAKE) submodule_update
+
+submodule_update:
+	git submodule update --init --recursive --remote
+	git submodule foreach git pull origin master
+	cd ./lib/liballme/ && git checkout modules
+
+#	Cleaning targets
+.PHONY: clean fclean fclean_all re ref
 clean:
-	make -C $(LIB_P) clean
-	rm -rf $(OBJ_DIR)
-	rm -rf $(LIBMLX)/build
+	$(MAKE) clean -C $(FT_PRINTF_DIR)
+	$(REMOVE) $(OBJ_FILES)
 
 fclean: clean
-	make -C $(LIB_P) fclean
-	rm -f $(NAME)
+	$(REMOVE) $(NAME)
 
-re: fclean all
+fclean_all: fclean
+	$(MAKE) fclean -C $(FT_PRINTF_DIR)
+	$(REMOVE) submodule.init
+	$(REMOVE_DIR) $(MLX_DIR)build
 
-.PHONY: all, clean, fclean, re, libft, MLX42,
+re:	fclean_all
+	$(MAKE)
+ref: fclean
+	$(MAKE)
 
 #.~"~._.~"~._.~"~._.~"~.__.~"~._.~"~._.~"~._.~"~._.~"~.__.~"~._.~"~._.~"~._.~"~#
 # **************************************************************************** #

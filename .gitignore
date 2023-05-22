@@ -1,3 +1,5 @@
+submodule.init
+
 raycaster_flat.cpp
 raycaster_textured.cpp
 mlx_example_code.c
