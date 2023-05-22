@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/22 14:22:30 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/05/22 16:16:09 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,6 @@ typedef struct s_all
 
 int	cub_map_muncher(t_all *a, char *argv[]);
 int	creation_of_map(t_GameInfo *map_info, char **da);
+int	map_valid_question_mark(t_GameInfo *a);
 
 #endif
