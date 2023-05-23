@@ -28,7 +28,6 @@ MLX_FLAGS             = -I include -lglfw -L $(BREW_DIR)opt/glfw/lib/
 MLX42                 = $(MLX_DIR)build/libmlx42.a
 
 LIBALLME_DIR          = ./lib/liballme/
-
 LIBFT_DIR             = $(LIBALLME_DIR)libft/
 LIBFT_INCLUDE         = $(LIBFT_DIR)include/
 LIBFT                 = $(LIBFT_DIR)libft.a
@@ -46,13 +45,16 @@ LIBME_INCLUDE         = $(LIBME_DIR)include/
 LIBME_VEC_STR         = $(LIBME_DIR)lm_vec_str.a
 LIBME_CONVERT         = $(LIBME_DIR)lm_convert.a
 
-MODULES               = $(MLX42)\
-                        $(FT_PRINTF)\
-						$(LIBFT)\
-						$(GET_NEXT_LINE)\
-						$(LIBME_CONVERT)\
-						$(LIBME_VEC_STR)
+LM_DIRS               = $(LIBFT_DIR)\
+                        $(LIBME_DIR)\
+						$(GET_NEXT_LINE_DIR)\
+						$(FT_PRINTF_DIR)
 
+LIBALLME              =	$(FT_PRINTF)\
+						$(LIBME_CONVERT)\
+						$(LIBME_VEC_STR)\
+						$(GET_NEXT_LINE)\
+						$(LIBFT)\
 
 SUBMODULE             = ./lib/submodule_init
 
@@ -91,8 +93,8 @@ REMOVE_DIR            = rm -rf
 
 all: $(NAME)
 
-$(NAME): $(SUBMODULE) $(OBJ_FILES) $(MODULES)
-	$(CC) $(C_FLAGS) $(OBJ_FILES) $(MLX_FLAGS) $(MODULES) -o $(NAME)
+$(NAME): $(SUBMODULE) $(OBJ_FILES) $(MLX42) $(LIBALLME)
+	$(CC) $(C_FLAGS) $(OBJ_FILES) $(MLX_FLAGS) $(LIBALLME) -o $(NAME)
 
 $(OBJ_DIR)%.o: %.c
 	$(CC) $(C_FLAGS) $< -c -o $@
@@ -101,20 +103,10 @@ $(MLX42):
 	cmake $(MLX_DIR) -B $(MLX_DIR)build
 	cmake --build $(MLX_DIR)/build -j4
 
-$(FT_PRINTF):
-	$(MAKE) -C $(FT_PRINTF_DIR)
-
-$(GET_NEXT_LINE):
-	$(MAKE) -C $(GET_NEXT_LINE_DIR)
-
-$(LIBME_CONVERT):
-	$(MAKE) -C $(LIBME_DIR)
-
-$(LIBME_VEC_STR):
-	$(MAKE) -C $(LIBME_DIR)
-
-$(LIBFT):
-	$(MAKE) -C $(LIBFT_DIR)
+$(LIBALLME):
+	for dir in $(LM_DIRS); do\
+		$(MAKE) -C $$dir; \
+		done
 
 $(SUBMODULE):
 	touch $(SUBMODULE)
