@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 15:45:01 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/22 16:43:50 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/05/23 18:31:19 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,8 +157,11 @@ int		cub_map_muncher(t_all *a, char *argv[])
 	if (creation_of_map(&a->map, da) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 
-	// if (map_valid_question_mark(&a->map) == EXIT_FAILURE)
-	// 	return (EXIT_FAILURE);
+	if (map_valid_question_mark(&a->map) == EXIT_FAILURE)
+	{
+		printf("Validation didnt succed\n");
+		return (EXIT_FAILURE);
+	}
 
 	return (EXIT_SUCCESS);
 }
