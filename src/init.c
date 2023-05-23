@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 15:45:01 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/23 19:53:36 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/23 19:57:48 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	split_that_color(int write_to[3], const char *str)
 	return (EXIT_SUCCESS);
 }
 
-int		cub_map_muncher(t_all *a, char *argv[])
+int		cub_map_muncher(t_all *cub, char *file)
 {
 	int		fd;
 	int		bytes_read;
@@ -81,8 +81,7 @@ int		cub_map_muncher(t_all *a, char *argv[])
 	char	*content;
 	char	*buff;
 
-	(void)a;
-	fd = open(argv[1], O_RDONLY);
+	fd = open(file, O_RDONLY);
 	//not sure about that 2
 	if (fd < 0)
 	{
@@ -109,7 +108,7 @@ int		cub_map_muncher(t_all *a, char *argv[])
 	}
 	printf("Size:%d\n", size);
 	close(fd);
-	fd = open(argv[1], O_RDONLY);
+	fd = open(file, O_RDONLY);
 	if (fd < 0)
 	{
 		perror("Open: ");
@@ -138,26 +137,26 @@ int		cub_map_muncher(t_all *a, char *argv[])
 
 	int fail;
 
-	fail = sub_str_walls(&a->map.north_wall, da[0]);
-	fail = sub_str_walls(&a->map.east_wall, da[1]);
-	fail = sub_str_walls(&a->map.south_wall, da[2]);
-	fail = sub_str_walls(&a->map.west_wall, da[3]);
+	fail = sub_str_walls(&cub->map.north_wall, da[0]);
+	fail = sub_str_walls(&cub->map.east_wall, da[1]);
+	fail = sub_str_walls(&cub->map.south_wall, da[2]);
+	fail = sub_str_walls(&cub->map.west_wall, da[3]);
 
-	printf("%s\n%s\n%s\n%s\n", a->map.north_wall, a->map.east_wall, a->map.south_wall, a->map.west_wall);
+	printf("%s\n%s\n%s\n%s\n", cub->map.north_wall, cub->map.east_wall, cub->map.south_wall, cub->map.west_wall);
 
-	fail = split_that_color(a->map.floor_color, da[4]);
-	fail = split_that_color(a->map.sky_color, da[5]);
+	fail = split_that_color(cub->map.floor_color, da[4]);
+	fail = split_that_color(cub->map.sky_color, da[5]);
 
-	printf("%d %d %d\n", a->map.floor_color[0], a->map.floor_color[1], a->map.floor_color[2]);
-	printf("%d %d %d\n", a->map.sky_color[0], a->map.sky_color[1], a->map.sky_color[2]);
+	printf("%d %d %d\n", cub->map.floor_color[0], cub->map.floor_color[1], cub->map.floor_color[2]);
+	printf("%d %d %d\n", cub->map.sky_color[0], cub->map.sky_color[1], cub->map.sky_color[2]);
 
 	if (fail == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 
-	if (creation_of_map(&a->map, da) == EXIT_FAILURE)
+	if (creation_of_map(&cub->map, da) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 
-	if (map_valid_question_mark(&a->map) == EXIT_FAILURE)
+	if (map_valid_question_mark(&cub->map) == EXIT_FAILURE)
 	{
 		printf("Validation didnt succed\n");
 		return (EXIT_FAILURE);

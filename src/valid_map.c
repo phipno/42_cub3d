@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 16:10:22 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/23 19:53:30 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/23 19:58:00 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 #include "cub3d.h"
 
-int	im_the_logicchecker(t_GameInfo *a, size_t line)
+int	im_the_logicchecker(t_game *a, size_t line)
 {
 	size_t i;
 
@@ -57,7 +57,7 @@ int	nono_wrong_characters(char *map_line)
 	return (false);
 }
 
-int	map_valid_question_mark(t_GameInfo *a)
+int	map_valid_question_mark(t_game *a)
 {
 	size_t	line;
 

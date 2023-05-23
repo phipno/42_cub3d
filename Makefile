@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+         #
+#    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/08 17:11:30 by pnolte            #+#    #+#              #
-#    Updated: 2023/05/23 18:29:19 by pnolte           ###   ########.fr        #
+#    Updated: 2023/05/23 20:04:01 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,16 @@ GET_NEXT_LINE         = $(GET_NEXT_LINE_DIR)libgnl.a
 
 LIBME_DIR             = $(LIBALLME_DIR)libme/
 LIBME_INCLUDE         = $(LIBME_DIR)include/
+LIBME_VEC_STR         = $(LIBME_DIR)lm_vec_str.a
+LIBME_CONVERT         = $(LIBME_DIR)lm_convert.a
+
+MODULES               = $(MLX42)\
+                        $(FT_PRINTF)\
+						$(LIBFT)\
+						$(GET_NEXT_LINE)\
+						$(LIBME_CONVERT)\
+						$(LIBME_VEC_STR)
+
 
 SUBMODULE             = ./lib/submodule_init
 
@@ -81,9 +91,8 @@ REMOVE_DIR            = rm -rf
 
 all: $(NAME)
 
-$(NAME): $(SUBMODULE) $(OBJ_FILES) $(MLX42) $(FT_PRINTF) $(LIBFT)
-	$(CC) $(C_FLAGS) $(OBJ_FILES) $(MLX_FLAGS) $(MLX42) $(FT_PRINTF) \
-	$(LIBFT) -o $(NAME)
+$(NAME): $(SUBMODULE) $(OBJ_FILES) $(MODULES)
+	$(CC) $(C_FLAGS) $(OBJ_FILES) $(MLX_FLAGS) $(MODULES) -o $(NAME)
 
 $(OBJ_DIR)%.o: %.c
 	$(CC) $(C_FLAGS) $< -c -o $@
@@ -94,6 +103,15 @@ $(MLX42):
 
 $(FT_PRINTF):
 	$(MAKE) -C $(FT_PRINTF_DIR)
+
+$(GET_NEXT_LINE):
+	$(MAKE) -C $(GET_NEXT_LINE_DIR)
+
+$(LIBME_CONVERT):
+	$(MAKE) -C $(LIBME_DIR)
+
+$(LIBME_VEC_STR):
+	$(MAKE) -C $(LIBME_DIR)
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
@@ -117,7 +135,7 @@ fclean: clean
 	$(REMOVE) $(NAME)
 
 fclean_all: fclean
-	$(MAKE) fclean -C $(FT_PRINTF_DIR)
+	$(MAKE) fclean -C $(LIBALLME_DIR)
 	$(REMOVE) $(SUBMODULE)
 	$(REMOVE_DIR) $(MLX_DIR)build
 
