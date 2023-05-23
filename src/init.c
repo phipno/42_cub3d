@@ -21,7 +21,6 @@
 
 int	sub_str_walls(char **write_to, const char *str)
 {
-	int		size;
 	int		i;
 	int		fd;
 
@@ -29,7 +28,6 @@ int	sub_str_walls(char **write_to, const char *str)
 	//this while condition needs more defining
 	while (str[i] != '.' && str[i] != '\0')
 		i++;
-	size = ft_strlen(str);
 	*write_to = ft_substr(str, i, ft_strlen(str));
 	fd = open(*write_to, O_RDONLY);
 	if (fd < 0)
