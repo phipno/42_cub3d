@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 15:45:01 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/22 16:41:14 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/05/23 19:48:29 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stdio.h>
 
 
-#include "inc/cub3d.h"
+#include "cub3d.h"
 #include "libft.h"
 
 size_t	find_collum_max(char **da)
@@ -51,7 +51,7 @@ size_t	find_line_max(char **da)
 	return (max_line - 6);
 }
 
-int parse_map(t_GameInfo *map_info, char **da)
+int parse_map(t_game *map_info, char **da)
 {
 	size_t	line;
 	size_t	collum;
@@ -75,7 +75,7 @@ int parse_map(t_GameInfo *map_info, char **da)
 	return (EXIT_SUCCESS);
 }
 
-int	creation_of_map(t_GameInfo *map_info, char **da)
+int	creation_of_map(t_game *map_info, char **da)
 {
 	map_info->map_collum_max = find_collum_max(da);
 	map_info->map_line_max = find_line_max(da);
