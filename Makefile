@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
+#    By: jwillert <jwillert@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/08 17:11:30 by pnolte            #+#    #+#              #
-#    Updated: 2023/05/23 20:04:01 by jwillert         ###   ########.fr        #
+#    Updated: 2023/05/24 00:10:02 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,16 +45,16 @@ LIBME_INCLUDE         = $(LIBME_DIR)include/
 LIBME_VEC_STR         = $(LIBME_DIR)lm_vec_str.a
 LIBME_CONVERT         = $(LIBME_DIR)lm_convert.a
 
-LM_DIRS               = $(LIBFT_DIR)\
+LIBALLME_SUBDIRS      = $(LIBFT_DIR)\
                         $(LIBME_DIR)\
 						$(GET_NEXT_LINE_DIR)\
 						$(FT_PRINTF_DIR)
 
-LIBALLME              =	$(FT_PRINTF)\
+LIBALLME_MODULES      =	$(FT_PRINTF)\
 						$(LIBME_CONVERT)\
 						$(LIBME_VEC_STR)\
 						$(GET_NEXT_LINE)\
-						$(LIBFT)\
+						$(LIBFT)
 
 SUBMODULE             = ./lib/submodule_init
 
@@ -93,8 +93,8 @@ REMOVE_DIR            = rm -rf
 
 all: $(NAME)
 
-$(NAME): $(SUBMODULE) $(OBJ_FILES) $(MLX42) $(LIBALLME)
-	$(CC) $(C_FLAGS) $(OBJ_FILES) $(MLX_FLAGS) $(LIBALLME) -o $(NAME)
+$(NAME): $(SUBMODULE) $(OBJ_FILES) $(MLX42) $(LIBALLME_MODULES)
+	$(CC) $(C_FLAGS) $(OBJ_FILES) $(MLX_FLAGS) $(LIBALLME_MODULES) -o $(NAME)
 
 $(OBJ_DIR)%.o: %.c
 	$(CC) $(C_FLAGS) $< -c -o $@
@@ -103,8 +103,8 @@ $(MLX42):
 	cmake $(MLX_DIR) -B $(MLX_DIR)build
 	cmake --build $(MLX_DIR)/build -j4
 
-$(LIBALLME):
-	for dir in $(LM_DIRS); do\
+$(LIBALLME_MODULES):
+	for dir in $(LIBALLME_SUBDIRS); do\
 		$(MAKE) -C $$dir; \
 		done
 
@@ -120,11 +120,14 @@ submodule_update:
 #	Cleaning targets
 .PHONY: clean fclean fclean_all re ref
 clean:
-	$(MAKE) clean -C $(FT_PRINTF_DIR)
+	$(MAKE) clean -C $(LIBALLME_DIR)
 	$(REMOVE) $(OBJ_FILES)
 
 fclean: clean
 	$(REMOVE) $(NAME)
+
+ref: fclean
+	$(MAKE)
 
 fclean_all: fclean
 	$(MAKE) fclean -C $(LIBALLME_DIR)
@@ -132,8 +135,6 @@ fclean_all: fclean
 	$(REMOVE_DIR) $(MLX_DIR)build
 
 re:	fclean_all
-	$(MAKE)
-ref: fclean
 	$(MAKE)
 
 #.~"~._.~"~._.~"~._.~"~.__.~"~._.~"~._.~"~._.~"~._.~"~.__.~"~._.~"~._.~"~._.~"~#
