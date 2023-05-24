@@ -6,7 +6,7 @@
 #    By: jwillert <jwillert@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/08 17:11:30 by pnolte            #+#    #+#              #
-#    Updated: 2023/05/24 10:24:24 by jwillert         ###   ########           #
+#    Updated: 2023/05/24 11:03:57 by jwillert         ###   ########           #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,7 @@ SRC_FILES             = main.c\
 
 OBJ_DIR               = ./obj/
 OBJ_FILES             = $(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(SRC_FILES)))
+D_FILES               = $(patsubst %.o, %.d, $(OBJ_FILES))
 
 VPATH                 = $(SRC_DIR):$(DEBUG_DIR)
 
@@ -68,12 +69,12 @@ VPATH                 = $(SRC_DIR):$(DEBUG_DIR)
 DEBUG_VAR             = $(shell echo $$DEBUG_FLAG)
 
 CC                    = cc
+CFLAGS                = -Wall -Werror -Wextra
 
 INCLUDES              = -I ./include \
 						-I ./lib/MLX42/include/MLX42/ \
 						$(foreach dir,$(LIBALLME_SUBDIRS), -I$(dir)include)
-
-C_FLAGS               = -g3 -Wall -Werror -Wextra $(INCLUDES) $(DEBUG_VAR)
+C_FLAGS               = -g3 $(CFLAGS) $(INCLUDES) $(DEBUG_VAR)
 
 REMOVE                = rm -f
 REMOVE_DIR            = rm -rf
@@ -116,6 +117,7 @@ submodule_update:
 clean:
 	$(MAKE) clean -C $(LIBALLME_DIR)
 	$(REMOVE) $(OBJ_FILES)
+	$(REMOVE) $(D_FILES)
 
 fclean: clean
 	$(REMOVE) $(NAME)
