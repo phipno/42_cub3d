@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jwillert <jwillert@student.42heilbronn.    +#+  +:+       +#+         #
+#    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/08 17:11:30 by pnolte            #+#    #+#              #
-#    Updated: 2023/05/24 11:03:57 by jwillert         ###   ########           #
+#    Updated: 2023/05/24 12:27:57 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,22 +45,23 @@ LIBALLME_MODULES      = $(FT_PRINTF_DIR)libftprintf.a\
 						$(GET_NEXT_LINE_DIR)libgnl.a\
                         $(LIBME_DIR)lm_vec_str.a\
                         $(LIBME_DIR)lm_convert.a\
+						$(LIBME_DIR)lm_str.a\
 						$(LIBFT_DIR)libft.a
 
 #---------------------files
 
 DEBUG_DIR             = ./debug/
-DEBUG_SRC             = 
+DEBUG_SRC             =
 
 SRC_DIR               = ./src/
 SRC_FILES             = main.c\
 						init.c\
 						init_map.c\
-						valid_map.c
+						valid_map.c\
+						hooks.c
 
 OBJ_DIR               = ./obj/
 OBJ_FILES             = $(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(SRC_FILES)))
-D_FILES               = $(patsubst %.o, %.d, $(OBJ_FILES))
 
 VPATH                 = $(SRC_DIR):$(DEBUG_DIR)
 
@@ -88,7 +89,7 @@ REMOVE_DIR            = rm -rf
 all: $(NAME)
 
 $(NAME): $(SUBMODULE) $(OBJ_FILES) $(MLX42) $(LIBALLME_MODULES)
-	$(CC) $(C_FLAGS) $(OBJ_FILES) $(MLX_FLAGS) $(LIBALLME_MODULES) -o $(NAME)
+	$(CC) $(C_FLAGS) $(OBJ_FILES) $(MLX_FLAGS) $(MLX42) $(LIBALLME_MODULES) -o $(NAME)
 
 $(OBJ_DIR)%.o: %.c
 	$(CC) $(C_FLAGS) $< -c -o $@

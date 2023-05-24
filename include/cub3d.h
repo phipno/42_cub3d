@@ -6,14 +6,22 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/23 19:48:26 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/24 12:33:18 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-#include "MLX42.h"
+# include "MLX42.h"
+# include <stdlib.h>	// needed for size_t
+
+
+//--------------------Properties
+# define WIDTH 640
+# define HEIGHT 480
+
+
 
 /**
  * Main MLX handle, carries important data in regards to the program.
@@ -24,14 +32,14 @@
  * @param delta_time The time difference between the previous frame and the
  * current frame.
  */
-typedef struct s_mlx
-{
-	void*		window;
-	void*		context;
-	int32_t		width;
-	int32_t		height;
-	double		delta_time;
-}	t_mlx;
+// typedef struct s_mlx
+// {
+// 	void*		window;
+// 	void*		context;
+// 	int32_t		width;
+// 	int32_t		height;
+// 	double		delta_time;
+// }	t_mlx;
 
 /**
  * s_game, stores data which defines rules and playstyle of the game.
@@ -65,11 +73,12 @@ typedef struct s_all
 {
 	t_player	per;
 	t_game		map;
-	t_mlx		mlx;
+	mlx_t		*mlx;
 }	t_all;
 
-int	cub_map_muncher(t_all *cub, char *file);
-int	creation_of_map(t_game *map_info, char **da);
-int	map_valid_question_mark(t_game *a);
+int		cub_map_muncher(t_all *cub, char *file);
+int		creation_of_map(t_game *map_info, char **da);
+int		map_valid_question_mark(t_game *a);
+void	hook_keys(mlx_key_data_t key_data, void *context);
 
 #endif
