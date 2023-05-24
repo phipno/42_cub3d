@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:15:21 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/24 15:18:46 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/05/24 15:41:26 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>		// needed for MACROS
 #include "MLX42.h"		// needed for MACROS, mlx_*
-#include "libft.h"		// needed for ft_putstr_fd()
+#include "libft.h"		// needed for ft_putstr_fd(), ft_putendl_fd()
 #include "cub3d.h"		// needed for t_all
 #include "ft_printf.h"	// needed for ft_printf()
 

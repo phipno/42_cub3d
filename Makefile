@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+         #
+#    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/08 17:11:30 by pnolte            #+#    #+#              #
-#    Updated: 2023/05/24 15:20:40 by pnolte           ###   ########.fr        #
+#    Updated: 2023/05/24 15:42:29 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -109,6 +109,15 @@ submodule_update:
 	git submodule update --init --recursive --remote
 	#git submodule foreach git pull origin master
 	cd ./lib/liballme/ && git checkout modules && git pull
+
+#---------------------parser test
+.PHONY: mtest
+
+mtest: fclean
+	export DEBUG_FLAG='-g -DPARSER_TEST=1' && $(MAKE)
+	for map in $(shell ls ./maps); do \
+		./$(NAME) ./maps/$$map; \
+		done
 
 #---------------------cleaning targets
 

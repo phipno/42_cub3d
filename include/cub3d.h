@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/24 15:17:36 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/05/24 15:39:59 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@
 # include "MLX42.h"
 # include <stdlib.h>	// needed for size_t
 
+//--------------------Parser test
+#ifndef PARSING_TESTER
+# define PARSING_TESTER 0
+# endif // PARSING_TESTER
 
 //--------------------Properties
 # define WIDTH 640
 # define HEIGHT 480
-
-
 
 /**
  * Main MLX handle, carries important data in regards to the program.
