@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/24 12:33:18 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/24 12:43:35 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_all
 	t_player	per;
 	t_game		map;
 	mlx_t		*mlx;
+	mlx_image_t	*image;
 }	t_all;
 
 int		cub_map_muncher(t_all *cub, char *file);

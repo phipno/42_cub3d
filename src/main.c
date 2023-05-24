@@ -6,15 +6,21 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:15:21 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/24 12:34:11 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/24 12:57:02 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>		// needed for MACROS
-#include "MLX42.h"		// needed for MACROS
+#include "MLX42.h"		// needed for MACROS, mlx_*
 #include "libft.h"		// needed for ft_putstr_fd()
 #include "cub3d.h"		// needed for t_all
 #include "ft_printf.h"	// needed for ft_printf()
+
+void	cub_exit(int exit_code, int fd, char *message)
+{
+	ft_putendl_fd(message, fd);
+	exit(exit_code);
+}
 
 int	main(int argc, char *argv[])
 {
@@ -23,28 +29,37 @@ int	main(int argc, char *argv[])
 
 	if (argc != 2)
 	{
-		ft_putstr_fd("Usage: \"./cub3D maps/<pick one>\n", STDERR_FILENO);
-		return (EXIT_FAILURE);
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Usage: \"./cub3D maps/<pick one>");
 	}
 
-	// parsing
+	// map parsing
 	status = cub_map_muncher(&all, argv[1]);
-
 
 	// mlx init
 	all.mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
 	if (all.mlx == NULL)
 	{
-		ft_putstr_fd("Error: mlx init\n", 2);
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Error: mlx init");
+	}
+
+	all.image = mlx_new_image(all.mlx, WIDTH, HEIGHT);
+	if (all.image == NULL)
+	{
+		mlx_terminate(all.mlx);
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Error: image init");
 	}
 
 	// main program
-
 	mlx_key_hook(all.mlx, &hook_keys, &all);
+
+
+	if (mlx_image_to_window(all.mlx, all.image, 0, 0) == -1)
+	{
+		mlx_terminate(all.mlx);
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Error: image to window");
+	}
+
 	mlx_loop(all.mlx);
-
-
-
 
 	// cleaning up
 	mlx_terminate(all.mlx);
