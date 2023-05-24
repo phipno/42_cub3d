@@ -6,14 +6,13 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 16:10:22 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/23 19:58:00 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/24 19:03:14 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include <stdlib.h>
 #include <stdio.h>
-
 #include "cub3d.h"
 
 int	im_the_logicchecker(t_game *a, size_t line)
@@ -29,7 +28,7 @@ int	im_the_logicchecker(t_game *a, size_t line)
 		{
 			if (line == 0 || line == a->map_line_max)
 				return (true);
-			if (i == 0 || i == a->map_collum_max)
+			if (i == 0 || i == a->map_column_max)
 				return (true);
 			if (a->a_map[line][i - 1] == ' ' ||  a->a_map[line][i + 1] == ' '
 				|| a->a_map[line + 1][i] == ' ' || a->a_map[line - 1][i]== ' ')
