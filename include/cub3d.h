@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/24 15:17:36 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/05/24 19:04:11 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@
 typedef struct s_game
 {
 	char	**a_map;
-	size_t	map_collum_max;
+	size_t	map_column_max;
 	size_t	map_line_max;
 	int		sky_color[3];
 	int		floor_color[3];
