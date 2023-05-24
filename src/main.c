@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:15:21 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/24 12:57:02 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/24 13:52:13 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,14 @@ int	main(int argc, char *argv[])
 
 	// main program
 	mlx_key_hook(all.mlx, &hook_keys, &all);
-
-
 	if (mlx_image_to_window(all.mlx, all.image, 0, 0) == -1)
 	{
 		mlx_terminate(all.mlx);
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Error: image to window");
 	}
-
 	mlx_loop(all.mlx);
 
-	// cleaning up
+	// clean up
 	mlx_terminate(all.mlx);
 	ft_printf(STDERR_FILENO, "Exited with status: %d\n", status);
 	return (status);

@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 15:45:01 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/23 19:57:48 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/24 13:51:37 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "cub3d.h"
 #include "libft.h"
 #include "MLX42.h"
+#include "lm_str.h"
 
 int	sub_str_walls(char **write_to, const char *str)
 {
@@ -80,6 +81,11 @@ int		cub_map_muncher(t_all *cub, char *file)
 	int		size;
 	char	*content;
 	char	*buff;
+
+	if (lm_str_check_viable_end(file, ".cub") != 1)
+	{
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Error: map: wrong file extension");
+	}
 
 	fd = open(file, O_RDONLY);
 	//not sure about that 2

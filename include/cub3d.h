@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/24 12:43:35 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/24 13:49:40 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,16 @@ typedef struct s_all
 	mlx_image_t	*image;
 }	t_all;
 
+//--------------------Parsing
+
 int		cub_map_muncher(t_all *cub, char *file);
 int		creation_of_map(t_game *map_info, char **da);
 int		map_valid_question_mark(t_game *a);
+
+//--------------------Game
 void	hook_keys(mlx_key_data_t key_data, void *context);
+
+//--------------------Clean Up
+void	cub_exit(int exit_code, int fd, char *message);
 
 #endif
