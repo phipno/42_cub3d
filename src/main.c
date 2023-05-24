@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:15:21 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/24 13:52:13 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:36:48 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int	main(int argc, char *argv[])
 
 	// map parsing
 	status = cub_map_muncher(&all, argv[1]);
-
+	if (PARSING_TESTER)
+		exit (status);
 	// mlx init
 	all.mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
 	if (all.mlx == NULL)
