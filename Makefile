@@ -6,7 +6,7 @@
 #    By: jwillert <jwillert@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/08 17:11:30 by pnolte            #+#    #+#              #
-#    Updated: 2023/05/24 00:10:02 by jwillert         ###   ########.fr        #
+#    Updated: 2023/05/24 10:19:21 by jwillert         ###   ########           #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 NAME                  = cub3d
 
-#	Brew
+#	brew
 BREW_FIND             = if test -d /Users/$(USER)/.brew; \
 						then echo /Users/$(USER)/.brew/; \
 						elif test -d /Users/$(USER)/goinfre/.brew; \
@@ -22,65 +22,56 @@ BREW_FIND             = if test -d /Users/$(USER)/.brew; \
 						else echo ""; fi
 BREW_DIR              = $(shell $(BREW_FIND))
 
-#	Libraries
+#---------------------libs
+
+SUBMODULE             = ./lib/submodule_init
+
 MLX_DIR               = ./lib/MLX42/
 MLX_FLAGS             = -I include -lglfw -L $(BREW_DIR)opt/glfw/lib/
 MLX42                 = $(MLX_DIR)build/libmlx42.a
 
 LIBALLME_DIR          = ./lib/liballme/
 LIBFT_DIR             = $(LIBALLME_DIR)libft/
-LIBFT_INCLUDE         = $(LIBFT_DIR)include/
-LIBFT                 = $(LIBFT_DIR)libft.a
-
 FT_PRINTF_DIR         = $(LIBALLME_DIR)ft_printf/
-FT_PRINTF_INCLUDE     = $(FT_PRINTF_DIR)include/
-FT_PRINTF             = $(FT_PRINTF_DIR)libftprintf.a
-
 GET_NEXT_LINE_DIR     = $(LIBALLME_DIR)get_next_line/
-GET_NEXT_LINE_INCLUDE = $(GET_NEXT_LINE_DIR)include/
-GET_NEXT_LINE         = $(GET_NEXT_LINE_DIR)libgnl.a
-
 LIBME_DIR             = $(LIBALLME_DIR)libme/
-LIBME_INCLUDE         = $(LIBME_DIR)include/
-LIBME_VEC_STR         = $(LIBME_DIR)lm_vec_str.a
-LIBME_CONVERT         = $(LIBME_DIR)lm_convert.a
 
 LIBALLME_SUBDIRS      = $(LIBFT_DIR)\
                         $(LIBME_DIR)\
 						$(GET_NEXT_LINE_DIR)\
 						$(FT_PRINTF_DIR)
 
-LIBALLME_MODULES      =	$(FT_PRINTF)\
-						$(LIBME_CONVERT)\
-						$(LIBME_VEC_STR)\
-						$(GET_NEXT_LINE)\
-						$(LIBFT)
+LIBALLME_MODULES      = $(FT_PRINTF_DIR)libftprintf.a\
+						$(GET_NEXT_LINE_DIR)libgnl.a\
+                        $(LIBME_DIR)lm_vec_str.a\
+                        $(LIBME_DIR)lm_convert.a\
+						$(LIBFT_DIR)libft.a
 
-SUBMODULE             = ./lib/submodule_init
+#---------------------files
 
-#	Files
 DEBUG_DIR             = ./debug/
+DEBUG_SRC             = 
 
 SRC_DIR               = ./src/
 SRC_FILES             = main.c\
-						init.c init_map.c valid_map.c
+						init.c\
+						init_map.c\
+						valid_map.c
 
 OBJ_DIR               = ./obj/
 OBJ_FILES             = $(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(SRC_FILES)))
 
 VPATH                 = $(SRC_DIR):$(DEBUG_DIR)
 
-#	Compilation helpers
+#	compilation
 DEBUG_VAR             = $(shell echo $$DEBUG_FLAG)
 
-INCLUDES              = -I ./inc/ \
-                        -I ./lib/MLX42/include/MLX42/ \
-						-I $(LIBFT_INCLUDE) \
-						-I $(FT_PRINTF_INCLUDE) \
-						-I $(GET_NEXT_LINE_INCLUDE) \
-						-I $(LIBME_INCLUDE)
-
 CC                    = cc
+
+INCLUDES              = -I ./include \
+						-I ./lib/MLX42/include/MLX42/ \
+						$(foreach dir,$(LIBALLME_SUBDIRS), -I$(dir)include)
+
 C_FLAGS               = -g3 -Wall -Werror -Wextra $(INCLUDES) $(DEBUG_VAR)
 
 REMOVE                = rm -f
@@ -88,7 +79,8 @@ REMOVE_DIR            = rm -rf
 
 #.~"~._.~"~._.~"~._.~"~.__.~"~._.~"~. RULES .~"~._.~"~.__.~"~._.~"~._.~"~._.~"~#
 
-#	General targets
+#---------------------general targets
+
 .PHONY: all submodule_update
 
 all: $(NAME)
@@ -114,10 +106,11 @@ $(SUBMODULE):
 
 submodule_update:
 	git submodule update --init --recursive --remote
-	git submodule foreach git pull origin master
-	cd ./lib/liballme/ && git checkout modules
+	#git submodule foreach git pull origin master
+	cd ./lib/liballme/ && git checkout modules && git pull
 
-#	Cleaning targets
+#---------------------cleaning targets
+
 .PHONY: clean fclean fclean_all re ref
 clean:
 	$(MAKE) clean -C $(LIBALLME_DIR)
