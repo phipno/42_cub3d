@@ -6,7 +6,7 @@
 #    By: jwillert <jwillert@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/08 17:11:30 by pnolte            #+#    #+#              #
-#    Updated: 2023/05/24 10:19:21 by jwillert         ###   ########           #
+#    Updated: 2023/05/24 10:24:24 by jwillert         ###   ########           #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,8 @@ OBJ_FILES             = $(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(SRC_FILES
 
 VPATH                 = $(SRC_DIR):$(DEBUG_DIR)
 
-#	compilation
+#---------------------compilation
+
 DEBUG_VAR             = $(shell echo $$DEBUG_FLAG)
 
 CC                    = cc
