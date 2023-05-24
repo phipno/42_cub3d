@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 15:45:01 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/23 19:48:29 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:23:37 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdio.h>
-
+#include <string.h>
 
 #include "cub3d.h"
 #include "libft.h"
@@ -51,67 +51,51 @@ size_t	find_line_max(char **da)
 	return (max_line - 6);
 }
 
-int parse_map(t_game *map_info, char **da)
+
+void	creation_of_map(t_game *map, char **content_split)
+{
+	map->map_collum_max = find_collum_max(content_split);
+	map->map_line_max = find_line_max(content_split);
+	//@note print statement for **map sizes
+	// printf("Collum_Max: %zu\nLine_Max: %zu\n", map->map_collum_max + 1, map->map_line_max);
+	map->a_map = ft_calloc(map->map_line_max + 1, sizeof(char *));
+	if (map->a_map == NULL)
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, strerror(1));
+	size_t line = 0;
+	while (line < map->map_line_max)
+	{
+		map->a_map[line] = ft_calloc(map->map_collum_max + 1, sizeof(char));
+		if (map->a_map == NULL)
+			cub_exit(EXIT_FAILURE, STDERR_FILENO, strerror(1));
+		line++;
+	}
+}
+
+void	parse_map(t_game *map, char **content_split)
 {
 	size_t	line;
 	size_t	collum;
 
 	line = 0;
-	while (da[line + 6] != NULL)
+	while (content_split[line + 6] != NULL)
 	{
 		collum = 0;
-		while (collum < map_info->map_collum_max)
+		while (collum < map->map_collum_max)
 		{
-			if (collum >= ft_strlen(da[line + 6]))
-				map_info->a_map[line][collum] = ' ';
+			if (collum >= ft_strlen(content_split[line + 6]))
+				map->a_map[line][collum] = ' ';
 			else
-				map_info->a_map[line][collum] = da[line + 6][collum];
+				map->a_map[line][collum] = content_split[line + 6][collum];
 			collum++;
 		}
-		map_info->a_map[line][collum] = '\0';
+		map->a_map[line][collum] = '\0';
 		line++;
 	}
-	map_info->a_map[line] = NULL;
-	return (EXIT_SUCCESS);
-}
-
-int	creation_of_map(t_game *map_info, char **da)
-{
-	map_info->map_collum_max = find_collum_max(da);
-	map_info->map_line_max = find_line_max(da);
-	printf("Collum_Max: %zu\nLine_Max: %zu\n", map_info->map_collum_max + 1, map_info->map_line_max);
-
-
-	map_info->a_map = ft_calloc(map_info->map_line_max + 1, sizeof(char *));
-	if (map_info->a_map == NULL)
-	{
-		perror("Malloc: ");
-		return (EXIT_FAILURE);
+	map->a_map[line] = NULL;
+	// @note print statement for the **map
+	for (int i = 0; map->a_map[i] != NULL; i++) {
+		printf("%s\n", map->a_map[i]);
 	}
-
-
-	size_t line = 0;
-	while (line < map_info->map_line_max)
-	{
-		map_info->a_map[line] = ft_calloc(map_info->map_collum_max + 1, sizeof(char));
-		if (map_info->a_map == NULL)
-		{
-			perror("Malloc: ");
-			return (EXIT_FAILURE);
-		}
-		line++;
-	}
-
-
-	if (parse_map(map_info, da) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-
-
-	for (int i = 0; map_info->a_map[i] != NULL; i++) {
-		printf("%s\n", map_info->a_map[i]);
-	}
-
-	return (EXIT_SUCCESS);
 }
 
 /* ************************************************************************** */

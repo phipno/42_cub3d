@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 15:45:01 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/24 13:51:37 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:20:16 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,161 +14,105 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "cub3d.h"
 #include "libft.h"
 #include "MLX42.h"
 #include "lm_str.h"
 
-int	sub_str_walls(char **write_to, const char *str)
-{
-	int		i;
-	int		fd;
-
-	i = 0;
-	//this while condition needs more defining
-	while (str[i] != '.' && str[i] != '\0')
-		i++;
-	*write_to = ft_substr(str, i, ft_strlen(str));
-	fd = open(*write_to, O_RDONLY);
-	if (fd < 0)
-	{
-		ft_putstr_fd("Open Error \"", 2);
-		ft_putstr_fd((char *)str, 2);
-		ft_putstr_fd("\" : ", 2);
-		perror("");
-		return (EXIT_FAILURE);
-	}
-	close(fd);
-	return (EXIT_SUCCESS);
-}
-
-int	split_that_color(int write_to[3], const char *str)
-{
-	int		i;
-	char	*sub;
-	char	**split;
-
-	i = 0;
-	while (ft_isdigit(str[i]) == 0 && str[i] != '\0')
-		i++;
-	sub = ft_substr(str, i, ft_strlen(str));
-	split = ft_split(sub, ',');
-	i = 0;
-	while (i < 3 && split[i] != NULL) {
-		write_to[i] = ft_atoi(split[i]);
-		i++;
-	}
-	i = 0;
-	while (i < 3)
-	{
-		if (write_to[i] > 255 || write_to[i] < 0)
-		{
-			ft_putstr_fd("Color Error: \"", 2);
-			ft_putstr_fd((char *)str, 2);
-			ft_putstr_fd("\"\n", 2);
-			return (EXIT_FAILURE);
-		}
-		i++;
-	}
-	return (EXIT_SUCCESS);
-}
-
-int		cub_map_muncher(t_all *cub, char *file)
+static int	determine_file_size(char *file)
 {
 	int		fd;
-	int		bytes_read;
 	int		size;
-	char	*content;
+	int		bytes_read;
 	char	*buff;
 
-	if (lm_str_check_viable_end(file, ".cub") != 1)
-	{
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Error: map: wrong file extension");
-	}
-
 	fd = open(file, O_RDONLY);
-	//not sure about that 2
 	if (fd < 0)
-	{
-		perror("Open: ");
-		return (EXIT_FAILURE);
-	}
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, strerror(1));
 	size = 0;
 	bytes_read = 1;
 	buff = ft_calloc(1024, sizeof(char));
 	if (buff == NULL)
-	{
-		perror("Malloc: ");
-		return EXIT_FAILURE;
-	}
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, strerror(1));
 	while (bytes_read != 0)
 	{
 		bytes_read = read(fd, buff, 1024);
 		if (bytes_read == -1)
-		{
-			perror("Read: ");
-			return (EXIT_FAILURE);
-		}
+			cub_exit(EXIT_FAILURE, STDERR_FILENO, strerror(1));
 		size += bytes_read;
 	}
+	//@note print statement here
 	printf("Size:%d\n", size);
+	free(buff);
 	close(fd);
+	return (size);
+}
+
+static char	**get_file_content_split(int size, char *file)
+{
+	int		fd;
+	char	*content;
+	char	**content_split;
+
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-	{
-		perror("Open: ");
-		return (EXIT_FAILURE);
-	}
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, strerror(1));
 	content = ft_calloc(size, sizeof(char));
-	if (buff == NULL)
-	{
-		perror("Malloc: ");
-		return EXIT_FAILURE;
-	}
+	if (content == NULL)
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, strerror(1));
 	if (read(fd, content, size) == -1)
-	{
-		perror("Read: ");
-		return (EXIT_FAILURE);
-	}
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, strerror(1));
+	content_split = ft_split(content, '\n');
+	close(fd);
+	free(content);
+	return (content_split);
+}
 
-	char **da;
-
-	da = ft_split(content, '\n');
-	for (int i = 0; da[i] != NULL; i++) {
-		printf("%d. %s\n", i, da[i]);
-	}
-
-	//parsing into each variable
-
+static int	variable_shall_be_declared (t_game *map, char **content_split)
+{
 	int fail;
 
-	fail = sub_str_walls(&cub->map.north_wall, da[0]);
-	fail = sub_str_walls(&cub->map.east_wall, da[1]);
-	fail = sub_str_walls(&cub->map.south_wall, da[2]);
-	fail = sub_str_walls(&cub->map.west_wall, da[3]);
+	fail = sub_str_walls(&map->north_wall, content_split[0]);
+	fail = sub_str_walls(&map->east_wall, content_split[1]);
+	fail = sub_str_walls(&map->south_wall, content_split[2]);
+	fail = sub_str_walls(&map->west_wall, content_split[3]);
 
-	printf("%s\n%s\n%s\n%s\n", cub->map.north_wall, cub->map.east_wall, cub->map.south_wall, cub->map.west_wall);
+	fail = split_that_color(map->floor_color, content_split[4]);
+	fail = split_that_color(map->sky_color, content_split[5]);
 
-	fail = split_that_color(cub->map.floor_color, da[4]);
-	fail = split_that_color(cub->map.sky_color, da[5]);
-
-	printf("%d %d %d\n", cub->map.floor_color[0], cub->map.floor_color[1], cub->map.floor_color[2]);
-	printf("%d %d %d\n", cub->map.sky_color[0], cub->map.sky_color[1], cub->map.sky_color[2]);
+	//@note print statement for walls and color
+	printf("%s\n%s\n%s\n%s\n", map->north_wall, map->east_wall, map->south_wall, map->west_wall);
+	printf("%d %d %d\n", map->floor_color[0], map->floor_color[1], map->floor_color[2]);
+	printf("%d %d %d\n", map->sky_color[0], map->sky_color[1], map->sky_color[2]);
 
 	if (fail == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-
-	if (creation_of_map(&cub->map, da) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-
-	if (map_valid_question_mark(&cub->map) == EXIT_FAILURE)
-	{
-		printf("Validation didnt succed\n");
-		return (EXIT_FAILURE);
-	}
-
 	return (EXIT_SUCCESS);
+}
+
+void	cub_map_muncher(t_all *cub, char *file)
+{
+	char	**content_split;
+
+	if (lm_str_check_viable_end(file, ".cub") != 1)
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, "map: wrong file extension");
+	content_split = get_file_content_split(determine_file_size(file), file);
+
+
+	//@note content_split print statement here
+	// for (int i = 0; content_split[i] != NULL; i++) {
+	// 	printf("%d. %s\n", i, content_split[i]);
+	// }
+
+	//parsing into each variable
+	if (variable_shall_be_declared(&cub->map, content_split) == EXIT_FAILURE)
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, "");
+	creation_of_map(&cub->map, content_split);
+	parse_map(&cub->map, content_split);
+	if (map_valid_question_mark(&cub->map) == EXIT_FAILURE)
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Map didnt pass validation");
 }
 
 /* ************************************************************************** */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/24 13:49:40 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:17:36 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,13 @@ typedef struct s_all
 
 //--------------------Parsing
 
-int		cub_map_muncher(t_all *cub, char *file);
-int		creation_of_map(t_game *map_info, char **da);
+void	cub_map_muncher(t_all *cub, char *file);
+void	creation_of_map(t_game *map_info, char **da);
+void	parse_map(t_game *map, char **content_split);
 int		map_valid_question_mark(t_game *a);
+
+int		split_that_color(int write_to[3], const char *str);
+int		sub_str_walls(char **write_to, const char *str);
 
 //--------------------Game
 void	hook_keys(mlx_key_data_t key_data, void *context);

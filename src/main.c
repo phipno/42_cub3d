@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:15:21 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/24 13:52:13 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:18:46 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 void	cub_exit(int exit_code, int fd, char *message)
 {
+	ft_putstr_fd("Error: ", fd);
 	ft_putendl_fd(message, fd);
 	exit(exit_code);
 }
@@ -27,13 +28,14 @@ int	main(int argc, char *argv[])
 	t_all	all;
 	int		status;
 
+	status = EXIT_SUCCESS;
 	if (argc != 2)
 	{
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Usage: \"./cub3D maps/<pick one>");
 	}
 
 	// map parsing
-	status = cub_map_muncher(&all, argv[1]);
+	cub_map_muncher(&all, argv[1]);
 
 	// mlx init
 	all.mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
