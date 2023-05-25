@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:15:21 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/25 16:49:33 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/05/25 20:33:10 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	main(int argc, char *argv[])
 
 	// map parsing
 	cub_map_muncher(&all, argv[1]);
-
 	if (PARSING_TESTER)
 		return (EXIT_SUCCESS);
 
@@ -54,6 +53,8 @@ int	main(int argc, char *argv[])
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Error: image init");
 	}
 	draw_heaven_and_hell(all);
+	draw_troll(all);
+
 	// main program
 	mlx_key_hook(all.mlx, &hook_keys, &all);
 	if (mlx_image_to_window(all.mlx, all.image, 0, 0) == -1)

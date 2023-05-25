@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 15:45:01 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/25 19:38:01 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/05/25 20:35:33 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,48 @@ static void	variable_shall_be_declared (t_game *map, char **content_split)
 
 	//@note print statement for walls and color
 	printf("%s\n%s\n%s\n%s\n", map->north_wall, map->east_wall, map->south_wall, map->west_wall);
-	printf("%x %x %x  Alpha:%d\n", map->floor_color.rgba.r, map->floor_color.rgba.b, map->floor_color.rgba.g, map->sky_color.rgba.a);
-	printf("%x %x %x  Alpha:%d\n", map->sky_color.rgba.r, map->sky_color.rgba.b, map->sky_color.rgba.g, map->sky_color.rgba.a);
+	printf("%x %x %x  Alpha:%x\n", map->floor_color.rgba.r, map->floor_color.rgba.b, map->floor_color.rgba.g, map->sky_color.rgba.a);
+	printf("%x %x %x  Alpha:%x\n", map->sky_color.rgba.r, map->sky_color.rgba.b, map->sky_color.rgba.g, map->sky_color.rgba.a);
 	printf("%x\n", map->floor_color.colour);
 	printf("%x\n", map->sky_color.colour);
 
+}
+
+void	get_player_start(t_all *cub)
+{
+	int		x;
+	int		y;
+	bool	only_one;
+
+	y = 0;
+	only_one = false;
+	while (cub->map.a_map[y] != NULL)
+	{
+		x = 0;
+		while (cub->map.a_map[y][x] != '\0')
+		{
+			if (cub->map.a_map[y][x] == 'N' || cub->map.a_map[y][x] == 'E'
+				|| cub->map.a_map[y][x] == 'S' || cub->map.a_map[y][x] == 'W')
+			{
+				if (only_one == true)
+					cub_exit(EXIT_FAILURE, STDERR_FILENO, "to many spawns in map file");
+				if (cub->map.a_map[y][x] == 'N')
+					cub->per.direction = 0;
+				if (cub->map.a_map[y][x] == 'E')
+					cub->per.direction = 90;
+				if (cub->map.a_map[y][x] == 'S')
+					cub->per.direction = 180;
+				if (cub->map.a_map[y][x] == 'W')
+					cub->per.direction = 260;
+				cub->per.pos_x = x + 0.5;
+				cub->per.pos_y = y + 0.5;
+				only_one = true;
+			}
+			x++;
+		}
+		y++;
+	}
+	printf("PosX_Y: %f | %f\nDir: %f\n", cub->per.pos_x, cub->per.pos_y, cub->per.direction);
 }
 
 void	cub_map_muncher(t_all *cub, char *file)
@@ -113,6 +150,8 @@ void	cub_map_muncher(t_all *cub, char *file)
 	parse_map(&cub->map, content_split);
 	if (map_valid_question_mark(&cub->map) == EXIT_FAILURE)
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Map didnt pass validation");
+	get_player_start(cub);
+	cub->per.fov = 90;
 }
 
 /* ************************************************************************** */

@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/25 19:34:45 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/05/25 20:32:55 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@
 typedef union u_rgba {
 	int32_t	colour;
 	struct s_rgba {
-		uint8_t	r;
-		uint8_t	g;
-		uint8_t	b;
 		uint8_t	a;
+		uint8_t	b;
+		uint8_t	g;
+		uint8_t	r;
 	} rgba;
 }	t_rgba;
 
@@ -78,10 +78,10 @@ typedef struct s_game
 
 typedef struct s_player
 {
-	int	pos_x;
-	int	pos_y;
-	int	fov;
-	int	direction;
+	float	pos_x;
+	float	pos_y;
+	int		fov;
+	float	direction;
 }	t_player;
 
 typedef struct s_all
@@ -104,6 +104,7 @@ void	sub_str_walls(char **write_to, const char *str);
 
 //--------------------Drawing
 void	draw_heaven_and_hell(t_all cub);
+void	draw_troll(t_all cub);
 
 //--------------------Game
 void	hook_keys(mlx_key_data_t key_data, void *context);

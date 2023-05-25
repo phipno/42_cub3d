@@ -1,9 +1,13 @@
-asdsadasdasdasdasda
-sdasdasdasdasdasdas
-dasdasdasdasdasdasd
-asdasdsadasdasdasd
-asdasdasdasdasdasdas
-dasdasdasdsadasdasd
-sadasdasdasdsada
-sdasdasdasdasdasdasasda
-sdasdasdasdasdasdasasdaasdasd
+NO ./textures/north.png
+EA ./textures/east.png
+SO ./textures/south.png
+WE ./textures/west.png
+
+F 144, 128, 111
+C 111, 127, 144
+
+1111111
+1101011
+1100011
+110N011
+1111111
