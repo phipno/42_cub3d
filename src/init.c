@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 15:45:01 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/24 15:20:16 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/05/25 19:12:51 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,26 +70,29 @@ static char	**get_file_content_split(int size, char *file)
 	return (content_split);
 }
 
-static int	variable_shall_be_declared (t_game *map, char **content_split)
+static void	variable_shall_be_declared (t_game *map, char **content_split)
 {
 	int fail;
 
-	fail = sub_str_walls(&map->north_wall, content_split[0]);
-	fail = sub_str_walls(&map->east_wall, content_split[1]);
-	fail = sub_str_walls(&map->south_wall, content_split[2]);
-	fail = sub_str_walls(&map->west_wall, content_split[3]);
-
-	fail = split_that_color(map->floor_color, content_split[4]);
-	fail = split_that_color(map->sky_color, content_split[5]);
+	fail = 0;
+	while (content_split[fail] != NULL)
+		fail++;
+	if (fail < 9)
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Not enough Information given in .cub file");
+	sub_str_walls(&map->north_wall, content_split[0]);
+	sub_str_walls(&map->east_wall, content_split[1]);
+	sub_str_walls(&map->south_wall, content_split[2]);
+	sub_str_walls(&map->west_wall, content_split[3]);
+	split_that_color(&map->floor_color, content_split[4]);
+	split_that_color(&map->sky_color, content_split[5]);
 
 	//@note print statement for walls and color
 	printf("%s\n%s\n%s\n%s\n", map->north_wall, map->east_wall, map->south_wall, map->west_wall);
-	printf("%d %d %d\n", map->floor_color[0], map->floor_color[1], map->floor_color[2]);
-	printf("%d %d %d\n", map->sky_color[0], map->sky_color[1], map->sky_color[2]);
+	printf("%x %x %x  Alpha:%d\n", map->floor_color.rgba.r, map->floor_color.rgba.b, map->floor_color.rgba.g, map->sky_color.rgba.a);
+	printf("%d %x %x  Alpha:%d\n", map->sky_color.rgba.r, map->sky_color.rgba.b, map->sky_color.rgba.g, map->sky_color.rgba.a);
+	printf("%x\n", map->sky_color.colour);
+	printf("%x\n", map->floor_color.colour);
 
-	if (fail == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
 }
 
 void	cub_map_muncher(t_all *cub, char *file)
@@ -99,16 +102,13 @@ void	cub_map_muncher(t_all *cub, char *file)
 	if (lm_str_check_viable_end(file, ".cub") != 1)
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "map: wrong file extension");
 	content_split = get_file_content_split(determine_file_size(file), file);
-
-
 	//@note content_split print statement here
 	// for (int i = 0; content_split[i] != NULL; i++) {
 	// 	printf("%d. %s\n", i, content_split[i]);
 	// }
 
 	//parsing into each variable
-	if (variable_shall_be_declared(&cub->map, content_split) == EXIT_FAILURE)
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "");
+	variable_shall_be_declared(&cub->map, content_split);
 	creation_of_map(&cub->map, content_split);
 	parse_map(&cub->map, content_split);
 	if (map_valid_question_mark(&cub->map) == EXIT_FAILURE)

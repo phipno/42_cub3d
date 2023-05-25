@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
+#    By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/08 17:11:30 by pnolte            #+#    #+#              #
-#    Updated: 2023/05/24 15:45:45 by jwillert         ###   ########.fr        #
+#    Updated: 2023/05/25 18:46:42 by pnolte           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ LIBALLME_SUBDIRS      = $(LIBFT_DIR)\
 LIBALLME_MODULES      = $(FT_PRINTF_DIR)libftprintf.a\
 						$(GET_NEXT_LINE_DIR)libgnl.a\
                         $(LIBME_DIR)lm_vec_str.a\
+						$(LIBME_DIR)lm_array_str.a\
                         $(LIBME_DIR)lm_convert.a\
 						$(LIBME_DIR)lm_str.a\
 						$(LIBFT_DIR)libft.a
@@ -56,7 +57,8 @@ DEBUG_SRC             =
 SRC_DIR               = ./src/
 SRC_FILES             = main.c\
 						init.c init_map.c init_wall_color.c valid_map.c\
-						hooks.c
+						hooks.c \
+						drawing.c
 
 OBJ_DIR               = ./obj/
 OBJ_FILES             = $(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(SRC_FILES)))
@@ -68,7 +70,7 @@ VPATH                 = $(SRC_DIR):$(DEBUG_DIR)
 DEBUG_VAR             = $(shell echo $$DEBUG_FLAG)
 
 CC                    = cc
-CFLAGS                = -Wall -Werror -Wextra
+CFLAGS                = -Wall -Werror -Wextra -fsanitize=address
 
 INCLUDES              = -I ./include \
 						-I ./lib/MLX42/include/MLX42/ \

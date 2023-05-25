@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 14:09:49 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/24 15:22:51 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/05/25 19:10:36 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,13 @@
 
 #include "libft.h"
 #include "cub3d.h"
+#include "lm_array_str.h"
 
-int	sub_str_walls(char **write_to, const char *str)
+int get_rgba(int r, int g, int b, int a)
+{
+    return (r << 24 | g << 16 | b << 8 | a);
+}
+void	sub_str_walls(char **write_to, const char *str)
 {
 	int		i;
 	int		fd;
@@ -30,26 +35,27 @@ int	sub_str_walls(char **write_to, const char *str)
 	fd = open(*write_to, O_RDONLY);
 	if (fd < 0)
 	{
-		ft_putstr_fd("Open Error \"", 2);
+		ft_putstr_fd("Open \"", 2);
 		ft_putstr_fd((char *)str, 2);
 		ft_putstr_fd("\" : ", 2);
 		perror("");
-		return (EXIT_FAILURE);
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Wall Texutres!");
 	}
 	close(fd);
-	return (EXIT_SUCCESS);
 }
 
-static int	color_integrity(int write_to[3], const char *str)
+static int	color_integrity(t_rgba *color, const char *str)
 {
 	int i;
 
 	i = 0;
 	while (i < 3)
 	{
-		if (write_to[i] > 255 || write_to[i] < 0)
+		if ((color->rgba.b > 255 || color->rgba.b < 0)
+			&& (color->rgba.g > 255 || color->rgba.g < 0)
+			&& (color->rgba.r > 255 || color->rgba.r < 0))
 		{
-			ft_putstr_fd("Color Error: \"", 2);
+			ft_putstr_fd("Color: \"", 2);
 			ft_putstr_fd((char *)str, 2);
 			ft_putstr_fd("\"\n", 2);
 			return (false);
@@ -59,7 +65,7 @@ static int	color_integrity(int write_to[3], const char *str)
 	return (true);
 }
 
-int	split_that_color(int write_to[3], const char *str)
+void	split_that_color(t_rgba *color, const char *str)
 {
 	int		i;
 	char	*sub;
@@ -70,15 +76,16 @@ int	split_that_color(int write_to[3], const char *str)
 		i++;
 	sub = ft_substr(str, i, ft_strlen(str));
 	split = ft_split(sub, ',');
+	printf("Content_Color: %s, R.%s, G.%s, B.%s\n", sub, split[0], split[1], split[2]);
 	i = 0;
-	while (i < 3 && split[i] != NULL) {
-		write_to[i] = ft_atoi(split[i]);
+	while (split[i] != NULL)
 		i++;
-	}
-	if (color_integrity(write_to, str) == false)
-		return (EXIT_FAILURE);
-
-	return (EXIT_SUCCESS);
+	if (i < 3)
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, "There are not enough colors");
+	color->colour = get_rgba(ft_atoi(split[0]), ft_atoi(split[1]), ft_atoi(split[2]), 255);
+	lm_array_str_free(split);
+	if (color_integrity(color, str) == false)
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Color should only be in range of 0-255");
 }
 
 /* ************************************************************************** */

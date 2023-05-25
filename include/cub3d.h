@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/24 19:06:41 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/25 19:13:18 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,16 @@
 // 	double		delta_time;
 // }	t_mlx;
 
+typedef union u_rgba {
+	int32_t	colour;
+	struct s_rgba {
+		uint8_t	a;
+		uint8_t	b;
+		uint8_t	g;
+		uint8_t	r;
+	} rgba;
+}	t_rgba;
+
 /**
  * s_game, stores data which defines rules and playstyle of the game.
  * @param map The passed data from .cub map files.
@@ -53,13 +63,14 @@ typedef struct s_game
 	char	**a_map;
 	size_t	map_column_max;
 	size_t	map_line_max;
-	int		sky_color[3];
-	int		floor_color[3];
+	t_rgba	sky_color;
+	t_rgba	floor_color;
 	char	*north_wall;
 	char	*east_wall;
 	char	*south_wall;
 	char	*west_wall;
 }	t_game;
+
 
 /**
  * s_player, holds data which is important for player information.
@@ -69,6 +80,8 @@ typedef struct s_player
 {
 	int	pos_x;
 	int	pos_y;
+	int	fov;
+	int	direction;
 }	t_player;
 
 typedef struct s_all
@@ -79,15 +92,18 @@ typedef struct s_all
 	mlx_image_t	*image;
 }	t_all;
 
-//--------------------Parsing
 
+//--------------------Parsing
 void	cub_map_muncher(t_all *cub, char *file);
 void	creation_of_map(t_game *map_info, char **da);
 void	parse_map(t_game *map, char **content_split);
 int		map_valid_question_mark(t_game *a);
 
-int		split_that_color(int write_to[3], const char *str);
-int		sub_str_walls(char **write_to, const char *str);
+void	split_that_color(t_rgba *color, const char *str);
+void	sub_str_walls(char **write_to, const char *str);
+
+//--------------------Drawing
+void	draw_heaven_and_hell(t_all cub);
 
 //--------------------Game
 void	hook_keys(mlx_key_data_t key_data, void *context);

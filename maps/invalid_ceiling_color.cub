@@ -2,9 +2,9 @@ NO ./../textures/north_texture
 SO ./../textures/south_texture
 WE ./../textures/west_texture
 EA ./../textures/east_texture
-    
+
 F 220,100,0
-C
+C 1,1,1
 
 11111111111111111111
 10000000010000100001
