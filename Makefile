@@ -6,7 +6,7 @@
 #    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/08 17:11:30 by pnolte            #+#    #+#              #
-#    Updated: 2023/05/24 15:45:45 by jwillert         ###   ########.fr        #
+#    Updated: 2023/05/25 20:00:55 by jwillert         ###   ########           #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,9 @@ BREW_DIR              = $(shell $(BREW_FIND))
 SUBMODULE             = ./lib/submodule_init
 
 MLX_DIR               = ./lib/MLX42/
+# @note MLX Readme Linking suggestions:
+# MacOS: -lglfw(3) -framework Cocoa -framework OpenGL -framework IOKit
+# Linux: -ldl -lglfw(3) -pthread -lm
 MLX_FLAGS             = -I include -lglfw -L $(BREW_DIR)opt/glfw/lib/
 MLX42                 = $(MLX_DIR)build/libmlx42.a
 
@@ -55,8 +58,9 @@ DEBUG_SRC             =
 
 SRC_DIR               = ./src/
 SRC_FILES             = main.c\
-						init.c init_map.c init_wall_color.c valid_map.c\
-						hooks.c
+						minimap.c
+						#hooks.c
+						#init.c init_map.c init_wall_color.c valid_map.c\
 
 OBJ_DIR               = ./obj/
 OBJ_FILES             = $(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(SRC_FILES)))
@@ -114,7 +118,7 @@ submodule_update:
 .PHONY: mtest
 
 mtest: fclean
-	export DEBUG_FLAG='-g -DPARSER_TEST=1' && $(MAKE)
+	export DEBUG_FLAG='-g -DPARSING_TESTER=1' && $(MAKE)
 	for map in $(shell ls ./maps); do \
 		./$(NAME) ./maps/$$map; \
 		done
