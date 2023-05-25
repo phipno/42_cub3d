@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 15:45:01 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/25 19:12:51 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/05/25 19:38:01 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,9 @@ static void	variable_shall_be_declared (t_game *map, char **content_split)
 	//@note print statement for walls and color
 	printf("%s\n%s\n%s\n%s\n", map->north_wall, map->east_wall, map->south_wall, map->west_wall);
 	printf("%x %x %x  Alpha:%d\n", map->floor_color.rgba.r, map->floor_color.rgba.b, map->floor_color.rgba.g, map->sky_color.rgba.a);
-	printf("%d %x %x  Alpha:%d\n", map->sky_color.rgba.r, map->sky_color.rgba.b, map->sky_color.rgba.g, map->sky_color.rgba.a);
-	printf("%x\n", map->sky_color.colour);
+	printf("%x %x %x  Alpha:%d\n", map->sky_color.rgba.r, map->sky_color.rgba.b, map->sky_color.rgba.g, map->sky_color.rgba.a);
 	printf("%x\n", map->floor_color.colour);
+	printf("%x\n", map->sky_color.colour);
 
 }
 

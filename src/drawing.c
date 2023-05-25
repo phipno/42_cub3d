@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:48:45 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/25 19:13:02 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/05/25 19:30:36 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	draw_heaven_and_hell(t_all cub)
 		while (x < WIDTH)
 		{
 			if (y < HEIGHT / 2)
-				mlx_put_pixel(cub.image, x, y, cub.map.floor_color.colour);
+				mlx_put_pixel(cub.image, x, y, cub.map.sky_color.colour);
 			else
 				mlx_put_pixel(cub.image, x, y, cub.map.floor_color.colour);
 			x++;
