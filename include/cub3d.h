@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/25 20:32:55 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/05/30 15:09:58 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,42 +16,17 @@
 # include "MLX42.h"
 # include <stdlib.h>	// needed for size_t
 
-//--------------------Parser test
+//--------------------parser test
 #ifndef PARSING_TESTER
 # define PARSING_TESTER 0
 # endif // PARSING_TESTER
 
-//--------------------Properties
+//--------------------properties
 # define WIDTH 640
 # define HEIGHT 480
 
-/**
- * Main MLX handle, carries important data in regards to the program.
- * @param window The window itself.
- * @param context Abstracted opengl data.
- * @param width The width of the window.
- * @param height The height of the window.
- * @param delta_time The time difference between the previous frame and the
- * current frame.
- */
-// typedef struct s_mlx
-// {
-// 	void*		window;
-// 	void*		context;
-// 	int32_t		width;
-// 	int32_t		height;
-// 	double		delta_time;
-// }	t_mlx;
-
-typedef union u_rgba {
-	int32_t	colour;
-	struct s_rgba {
-		uint8_t	a;
-		uint8_t	b;
-		uint8_t	g;
-		uint8_t	r;
-	} rgba;
-}	t_rgba;
+//--------------------debug macros
+# define DEBUG_FD STDERR_FILENO
 
 /**
  * s_game, stores data which defines rules and playstyle of the game.
@@ -98,7 +73,6 @@ void	cub_map_muncher(t_all *cub, char *file);
 void	creation_of_map(t_game *map_info, char **da);
 void	parse_map(t_game *map, char **content_split);
 int		map_valid_question_mark(t_game *a);
-
 void	split_that_color(t_rgba *color, const char *str);
 void	sub_str_walls(char **write_to, const char *str);
 
@@ -108,6 +82,12 @@ void	draw_troll(t_all cub);
 
 //--------------------Game
 void	hook_keys(mlx_key_data_t key_data, void *context);
+
+//--------------------Colours
+int		colour_get_rgba(int r, int g, int b, int a);
+
+//--------------------Utils
+size_t	return_bigger(size_t x, size_t y);
 
 //--------------------Clean Up
 void	cub_exit(int exit_code, int fd, char *message);

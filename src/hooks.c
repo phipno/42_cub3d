@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:28:07 by jwillert          #+#    #+#             */
-/*   Updated: 2023/05/24 12:32:57 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/30 14:58:18 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	hook_keys(mlx_key_data_t key_data, void *context)
 {
-	t_all *all;
+	t_all	*all;
 
 	(void) key_data;
 	all = (t_all *) context;
