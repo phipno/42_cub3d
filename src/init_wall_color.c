@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_wall_color.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 14:09:49 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/25 19:10:36 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/05/30 15:16:56 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,6 @@
 #include "cub3d.h"
 #include "lm_array_str.h"
 
-int get_rgba(int r, int g, int b, int a)
-{
-    return (r << 24 | g << 16 | b << 8 | a);
-}
 void	sub_str_walls(char **write_to, const char *str)
 {
 	int		i;

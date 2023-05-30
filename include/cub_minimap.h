@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:45:22 by jwillert          #+#    #+#             */
-/*   Updated: 2023/05/30 14:50:03 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/30 15:21:12 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 #define START_X 0
 #define START_Y 0
-#define END_X 600
-#define END_Y 600
+#define END_X 300
+#define END_Y 300
 
 #define COLOUR_FLOOR 	0xFFa
 #define COLOUR_WALL		0xFFFFF
