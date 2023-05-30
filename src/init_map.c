@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 15:45:01 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/24 19:01:27 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/27 20:37:44 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ size_t	find_line_max(char **da)
 	//some hard code :D
 	return (max_line - 6);
 }
-
 
 void	creation_of_map(t_game *map, char **content_split)
 {

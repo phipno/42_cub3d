@@ -1,6 +1,7 @@
 .vscode
 *_init
 cub3d
+main_minimap.c
 
 raycaster_flat.cpp
 raycaster_textured.cpp

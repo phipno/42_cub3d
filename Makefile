@@ -6,7 +6,7 @@
 #    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/08 17:11:30 by pnolte            #+#    #+#              #
-#    Updated: 2023/05/25 20:00:55 by jwillert         ###   ########           #
+#    Updated: 2023/05/30 14:29:23 by jwillert         ###   ########           #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,9 +58,9 @@ DEBUG_SRC             =
 
 SRC_DIR               = ./src/
 SRC_FILES             = main.c\
-						minimap.c
-						#hooks.c
-						#init.c init_map.c init_wall_color.c valid_map.c\
+						minimap.c t_point.c t_minimap.c t_element.c\
+						hooks.c	colours.c utils.c\
+						init.c init_map.c init_wall_color.c valid_map.c\
 
 OBJ_DIR               = ./obj/
 OBJ_FILES             = $(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(SRC_FILES)))

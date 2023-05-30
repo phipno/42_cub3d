@@ -3,70 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert@student.42heilbronn.de            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:49:37 by jwillert          #+#    #+#             */
-/*   Updated: 2023/05/25 21:00:58 by jwillert         ###   ########          */
+/*   Updated: 2023/05/30 14:53:33 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42.h"			// needed for mlx_*()
-#include "cub_minimap.h"	// needed for t_vec_pos
+#include "cub_minimap.h"	// needed for t_point
 #include "cub3d.h"			// needed for t_all
 #include "ft_printf.h"		// needed for ft_printf()
+#include <stdio.h>			// needed for printf()
+#include <unistd.h>			// needed for STDERR_FILENO
 
-void	vec_pos_print(int fd, char *name, t_vec_pos *vec)
+static void	minimap_draw_element(mlx_image_t *image, size_t x, size_t y,
+	t_minimap minimap)
 {
-	ft_printf(fd, "______________________\n");
-	ft_printf(fd, "t_vec_pos: %s\n", name);
-	ft_printf(fd, "           %p\n", vec);
-	ft_printf(fd, "           |x %d|\n", vec->x);
-	ft_printf(fd, "           |y %d|\n", vec->y);
-	ft_printf(fd, "______________________\n");
-}
+	t_point	start;
+	t_point	end;
 
-void	minimap_print(int fd, t_minimap *mini)
-{
-	ft_printf(fd, "______________________\n");
-	ft_printf(fd, "t_minimap:\n");
-	ft_printf(fd, "           %p\n", mini);
-	ft_printf(fd, "______________________\n");
-}
-
-int	minimap_init(t_minimap *minimap, t_vec_pos start, t_vec_pos end)
-{
-	minimap->start = start;
-	minimap->end = end;
-
-	//get the scale depending on the distance between start and end
-	minimap->scale_x = (minimap->start.y) - (minimap->end.y);
-	minimap->scale_y = (minimap->start.x) - (minimap->end.x);
-
-	ft_printf(2, "scale_y = %d\n", minimap->scale_x);
-	ft_printf(2, "scale_x = %d\n", minimap->scale_y);
-
-	return (EXIT_SUCCESS);
-}
-
-int	minimap_draw(mlx_image_t *image, t_vec_pos *start, t_vec_pos *end)
-{
-	//loop through pixels until you hit end position
-	int x;
-	int y;
-	
-	x = start->x;
-	y = start->y;
-	while (y < end->y && y < HEIGHT)
+	x = x * minimap.element.size_x + minimap.element.size_x;
+	y = y * minimap.element.size_y + minimap.element.size_y;
+	point_set(&start, x, y);
+	point_set(&end, x + minimap.element.size_x, y + minimap.element.size_y);
+	while (y < end.y)
 	{
-		while (x < end->x && x < WIDTH)
+		while (x < end.x)
 		{
-			mlx_put_pixel(image, x, y, 0xFF);
+			mlx_put_pixel(image, x, y, minimap.element.colour);
 			x += 1;
-			ft_printf(DEBUG_FD, "x = %d\n", x);
 		}
-		x = start->x;
+		x = start.x;
 		y += 1;
-		ft_printf(DEBUG_FD, "y = %d\n", y);
+	}
+}
+
+int	minimap_draw(char **map, mlx_image_t *image, t_minimap minimap)
+{
+	size_t	index_x;
+	size_t	index_y;
+
+	index_x = 0;
+	index_y = 0;
+	while (map[index_y] != NULL)
+	{
+		while (map[index_y][index_x] != '\0')
+		{
+			element_set_colour(&minimap.element, map[index_y][index_x]);
+			minimap_draw_element(image, index_x, index_y, minimap);
+			index_x += 1;
+		}
+		index_x = 0;
+		index_y += 1;
 	}
 	return (EXIT_SUCCESS);
 }
