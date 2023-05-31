@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/31 10:33:41 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/31 11:01:11 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	hook_keys(mlx_key_data_t key_data, void *context);
 int		get_rgba(int r, int g, int b, int a);
 
 //--------------------Utils
-size_t	return_bigger(size_t x, size_t y);
+size_t	get_bigger_sizet(size_t x, size_t y);
 
 //--------------------Clean Up
 void	cub_exit(int exit_code, int fd, char *message);

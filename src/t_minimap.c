@@ -6,15 +6,15 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:08:24 by jwillert          #+#    #+#             */
-/*   Updated: 2023/05/31 10:53:59 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/31 11:01:23 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minimap.h"	// needed for t_minimap, debug_*()
+#include "minimap.h"		// needed for t_minimap, debug_*()
 #include "cub3d.h"			// needed for get_rgba()
-#include <unistd.h>			// needed for STDERR_FILENO
 #include "ft_printf.h"		// needed for ft_printf()
 
+#include <unistd.h>			// needed for STDERR_FILENO
 #include <stdio.h>			// needed for debug printf()
 
 void	debug_print_t_minimap(char *name, t_minimap minimap)
@@ -46,7 +46,7 @@ void	minimap_init(t_minimap *minimap, t_game game)
 	size_t	size;
 	size_t	scale;
 
-	scale = return_bigger(game.map_column_max, game.map_line_max);
+	scale = get_bigger_sizet(game.map_column_max, game.map_line_max);
 	size = END_X - START_X;
 	x = size / scale;
 	size = END_Y - START_Y;

@@ -6,12 +6,12 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 11:40:43 by jwillert          #+#    #+#             */
-/*   Updated: 2023/05/30 14:56:06 by jwillert         ###   ########          */
+/*   Updated: 2023/05/31 10:58:50 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>			// needed for malloc(), free()
-#include "cub_minimap.h"	// needed for t_point
+#include "minimap.h"	// needed for t_point
 #include "ft_printf.h"		// needed for ft_printf()
 #include "cub3d.h"			// needed for MACROS
 #include <unistd.h>			// needed for STDERR_FILENO
