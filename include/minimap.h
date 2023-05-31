@@ -6,12 +6,12 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:45:22 by jwillert          #+#    #+#             */
-/*   Updated: 2023/05/31 11:10:40 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/31 11:11:12 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	CUB_MINIMAP_H
-# define CUB_MINIMAP_H
+#ifndef	MINIMAP_H
+# define MINIMAP_H
 
 #include "MLX42.h"	// needed for mlx_image_t
 #include <stdlib.h>	// needed for size_t
