@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:48:45 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/31 13:17:28 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/31 13:38:23 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 
 void	draw_heaven_and_hell(t_all cub)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	y = 0;
 	while (y < HEIGHT)
@@ -37,8 +37,8 @@ void	draw_heaven_and_hell(t_all cub)
 
 void	draw_troll(t_all cub)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	y = 80;
 	while (y < HEIGHT - 80)

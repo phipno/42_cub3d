@@ -6,42 +6,42 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:45:22 by jwillert          #+#    #+#             */
-/*   Updated: 2023/05/31 11:30:39 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/31 13:35:47 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	MINIMAP_H
+#ifndef MINIMAP_H
 # define MINIMAP_H
 
 /* -------------------------------------------------------------------------- */
 //								includes
 /* -------------------------------------------------------------------------- */
 
-#include "MLX42.h"	// needed for mlx_image_t
-#include <stdlib.h>	// needed for size_t
-#include "cub3d.h"	// needed for t_game
+# include "MLX42.h"	// needed for mlx_image_t
+# include <stdlib.h>	// needed for size_t
+# include "cub3d.h"	// needed for t_game
 
 /* -------------------------------------------------------------------------- */
 //								macros
 /* -------------------------------------------------------------------------- */
 
 // start and end location of minimap in pixel
-#define START_X 0
-#define START_Y 0
-#define END_X 120
-#define END_Y 120
+# define START_X 0
+# define START_Y 0
+# define END_X 120
+# define END_Y 120
 
 // macros for game.map symbols
-#define SYMBOL_FLOOR '0'
-#define SYMBOL_WALL '1'
-#define SYMBOL_EMPTY ' '
+# define SYMBOL_FLOOR '0'
+# define SYMBOL_WALL '1'
+# define SYMBOL_EMPTY ' '
 
 // indexes for colour array in minimap.colours[5]
-#define WHITE 0
-#define BLACK 1
-#define MAGENTA 2
-#define YELLOW 3
-#define GREEN 4
+# define WHITE 0
+# define BLACK 1
+# define MAGENTA 2
+# define YELLOW 3
+# define GREEN 4
 
 /* -------------------------------------------------------------------------- */
 //								structs
@@ -58,7 +58,7 @@ typedef struct s_point
 /// @param size_t size_x
 /// @param size_t size_y
 /// @param int32_t colour
-typedef struct	s_minimap_element
+typedef struct s_minimap_element
 {
 	size_t	size_x;
 	size_t	size_y;
@@ -69,7 +69,7 @@ typedef struct	s_minimap_element
 /// @param t_point end
 /// @param t_minimap_element element
 /// @param int32_t colours[5]
-typedef struct	s_minimap
+typedef struct s_minimap
 {
 	t_point				start;
 	t_point				end;

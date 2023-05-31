@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:49:37 by jwillert          #+#    #+#             */
-/*   Updated: 2023/05/31 13:10:45 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/31 13:37:49 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ static void	minimap_draw_border(mlx_image_t *image, t_minimap minimap)
 	size_t	y;
 
 	point_set(&start, START_X, START_Y);
-	point_set(&end, END_X + minimap.element.size_x,	END_Y + minimap.element.size_y);
+	point_set(&end, END_X + minimap.element.size_x,
+		END_Y + minimap.element.size_y);
 	x = start.x;
 	y = start.y;
 	while (y < end.y + minimap.element.size_y)

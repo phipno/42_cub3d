@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:08:24 by jwillert          #+#    #+#             */
-/*   Updated: 2023/05/31 13:10:16 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/31 13:36:58 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ void	debug_print_t_minimap(char *name, t_minimap minimap)
 
 static void	set_array_colours(int32_t *colours)
 {
-	colours[0] = get_rgba(255, 255, 255, 255); 	// WHITE
-	colours[1] = get_rgba(0, 0, 0, 255);		// BLACK
-	colours[2] = get_rgba(255, 0, 255, 255);		// MAGENTA
-	colours[3] = get_rgba(255, 255, 0, 255);	// YELLOW
-	colours[4] = get_rgba(0, 255, 0, 255);		// GREEN
+	colours[0] = get_rgba(255, 255, 255, 255);
+	colours[1] = get_rgba(0, 0, 0, 255);
+	colours[2] = get_rgba(255, 0, 255, 255);
+	colours[3] = get_rgba(255, 255, 0, 255);
+	colours[4] = get_rgba(0, 255, 0, 255);
 }
 
 void	minimap_init(t_minimap *minimap, t_game game)
@@ -56,6 +56,7 @@ void	minimap_init(t_minimap *minimap, t_game game)
 	y = size / scale;
 	element_set(&minimap->element, x, y);
 	point_set(&minimap->start, START_X, START_Y);
-	point_set(&minimap->end, END_X + minimap->element.size_x, END_Y + minimap->element.size_y);
+	point_set(&minimap->end, END_X + minimap->element.size_x,
+		END_Y + minimap->element.size_y);
 	set_array_colours(minimap->colours);
 }

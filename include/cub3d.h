@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/31 13:20:43 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/31 13:36:20 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,19 @@
 # define DEBUG_FD STDERR_FILENO
 
 //if defined as 1, will print out all debug_*() output
-#ifndef DEBUG
-# define DEBUG 0
+# ifndef DEBUG
+#  define DEBUG 0
 # endif // DEBUG
 
 //if defined as 1, program exits after parsing
-#ifndef PARSING_TESTER
-# define PARSING_TESTER 0
+# ifndef PARSING_TESTER
+#  define PARSING_TESTER 0
 # endif // PARSING_TESTER
 
 # define WIDTH 640
 # define HEIGHT 480
 
-//--------------------debug macros
-
-# define DEBUG_FD STDERR_FILENO
+//--------------------structs
 
 typedef union u_rgba {
 	int32_t	colour;
@@ -75,7 +73,7 @@ typedef struct s_all
 	t_game		map;
 	mlx_t		*mlx;
 	mlx_image_t	*image_game;
-	mlx_image_t *image_minimap;
+	mlx_image_t	*image_minimap;
 }	t_all;
 
 //--------------------Parsing
