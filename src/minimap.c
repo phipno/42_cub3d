@@ -6,20 +6,20 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:49:37 by jwillert          #+#    #+#             */
-/*   Updated: 2023/05/30 18:39:14 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/31 10:53:52 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42.h"			// needed for mlx_*()
-#include "cub_minimap.h"	// needed for t_point
+#include "minimap.h"	// needed for t_point
 #include "cub3d.h"			// needed for t_all
 #include "ft_printf.h"		// needed for ft_printf()
-#include <stdio.h>			// needed for printf()
 #include <unistd.h>			// needed for STDERR_FILENO
 
-// @todo fix adjustable starting location
-static void	minimap_draw_element(mlx_image_t *image, size_t index_x, size_t index_y,
-	t_minimap minimap)
+#include <stdio.h>			// needed for printf()
+
+static void	minimap_draw_element(mlx_image_t *image, size_t index_x,
+	size_t index_y, t_minimap minimap)
 {
 	t_point	element_start;
 	t_point	element_end;
@@ -29,7 +29,8 @@ static void	minimap_draw_element(mlx_image_t *image, size_t index_x, size_t inde
 	x = START_X + (index_x * minimap.element.size_x + minimap.element.size_x);
 	y = START_Y + (index_y * minimap.element.size_y + minimap.element.size_y);
 	point_set(&element_start, x, y);
-	point_set(&element_end, END_X + minimap.element.size_x, END_Y + minimap.element.size_y);
+	point_set(&element_end, x + minimap.element.size_x,
+		y + minimap.element.size_y);
 	while (y < element_end.y && y < HEIGHT)
 	{
 		while (x < element_end.x && x < WIDTH)
@@ -44,18 +45,19 @@ static void	minimap_draw_element(mlx_image_t *image, size_t index_x, size_t inde
 
 static void	minimap_draw_border(mlx_image_t *image, t_minimap minimap)
 {
-	t_point start;
+	t_point	start;
 	t_point	end;
 	size_t	x;
 	size_t	y;
 
 	point_set(&start, START_X, START_Y);
-	point_set(&end, END_X + minimap.element.size_x, END_Y + minimap.element.size_y);
+	point_set(&end, END_X + minimap.element.size_x,
+		END_Y + minimap.element.size_y);
 	x = start.x;
 	y = start.y;
 	while (y < end.y + minimap.element.size_y)
 	{
-		while (x < end.x + minimap.element.size_y)
+		while (x < end.x + minimap.element.size_x)
 		{
 			mlx_put_pixel(image, x, y, minimap.colours[MAGENTA]);
 			x += 1;
@@ -63,10 +65,9 @@ static void	minimap_draw_border(mlx_image_t *image, t_minimap minimap)
 		x = start.x;
 		y += 1;
 	}
-
 }
 
-int	minimap_draw(char **map, mlx_image_t *image, t_minimap minimap)
+void	minimap_draw(char **map, mlx_image_t *image, t_minimap minimap)
 {
 	size_t	index_x;
 	size_t	index_y;
@@ -85,5 +86,4 @@ int	minimap_draw(char **map, mlx_image_t *image, t_minimap minimap)
 		index_x = 0;
 		index_y += 1;
 	}
-	return (EXIT_SUCCESS);
 }

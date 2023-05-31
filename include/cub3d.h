@@ -6,14 +6,14 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/30 16:38:19 by jwillert         ###   ########          */
+/*   Updated: 2023/05/31 10:33:41 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "MLX42.h"
+# include "MLX42.h"		// needed for mlx_t, mlx_image_t, mlx_key_data_t
 # include <stdlib.h>	// needed for size_t
 
 //--------------------parser test
