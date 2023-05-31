@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 11:40:43 by jwillert          #+#    #+#             */
-/*   Updated: 2023/05/31 10:58:50 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/31 11:03:46 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,15 @@ void	debug_print_t_point(char *name, t_point point)
 	int	fd;
 
 	fd = DEBUG_FD;
-	ft_printf(fd, "______________________\n");
-	ft_printf(fd, "t_point: %s\n", name);
-	ft_printf(fd, "           %p\n", point);
-	ft_printf(fd, "           |x %d|\n", point.x);
-	ft_printf(fd, "           |y %d|\n", point.y);
-	ft_printf(fd, "______________________\n");
+	if (DEBUG)
+	{
+		ft_printf(fd, "______________________\n");
+		ft_printf(fd, "t_point: %s\n", name);
+		ft_printf(fd, "           %p\n", point);
+		ft_printf(fd, "           |x %d|\n", point.x);
+		ft_printf(fd, "           |y %d|\n", point.y);
+		ft_printf(fd, "______________________\n");
+	}
 }
 
 void	point_set(t_point *point, int x, int y)

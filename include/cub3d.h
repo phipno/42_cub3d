@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/31 11:01:11 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/31 11:06:45 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,17 @@
 # include "MLX42.h"		// needed for mlx_t, mlx_image_t, mlx_key_data_t
 # include <stdlib.h>	// needed for size_t
 
-//--------------------parser test
+//--------------------debugging
+
+// @note defines where all debugging information is writte to
+# define DEBUG_FD STDERR_FILENO
+
+//@note if defined as 1 will print out all debug_*() output
+#ifndef DEBUG
+# define DEBUG 0
+# endif // DEBUG
+
+//@note if defined as 1, program exits after parsing
 #ifndef PARSING_TESTER
 # define PARSING_TESTER 0
 # endif // PARSING_TESTER
@@ -24,9 +34,6 @@
 //--------------------properties
 # define WIDTH 640
 # define HEIGHT 480
-
-//--------------------debug macros
-# define DEBUG_FD STDERR_FILENO
 
 /**
  * s_game, stores data which defines rules and playstyle of the game.

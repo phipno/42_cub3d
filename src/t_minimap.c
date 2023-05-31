@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:08:24 by jwillert          #+#    #+#             */
-/*   Updated: 2023/05/31 11:01:23 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/31 11:03:17 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,16 @@ void	debug_print_t_minimap(char *name, t_minimap minimap)
 {
 	int	fd;
 
-	fd = DEBUG_FD;
-	ft_printf(fd, "__________________\n");
-	ft_printf(fd, "%s\n", name);
-	debug_print_t_point("minimap.start", minimap.start);
-	debug_print_t_point("minimap.end", minimap.start);
-	debug_print_t_element("minimap.element", minimap.element);
-	ft_printf(fd, "__________________\n");
+	if (DEBUG)
+	{
+		fd = DEBUG_FD;
+		ft_printf(fd, "__________________\n");
+		ft_printf(fd, "%s\n", name);
+		debug_print_t_point("minimap.start", minimap.start);
+		debug_print_t_point("minimap.end", minimap.start);
+		debug_print_t_element("minimap.element", minimap.element);
+		ft_printf(fd, "__________________\n");
+	}
 }
 
 static void	set_array_colours(int32_t *colours)

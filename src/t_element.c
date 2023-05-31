@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:08:24 by jwillert          #+#    #+#             */
-/*   Updated: 2023/05/31 10:53:55 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/31 11:03:32 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,15 @@ void	debug_print_t_element(char *name, t_minimap_element element)
 	int	fd;
 
 	fd = DEBUG_FD;
-	ft_printf(fd, "--\n");
-	ft_printf(fd, "t_element: %s\n", name);
-	ft_printf(fd, "size_x %u\n", element.size_x);
-	ft_printf(fd, "size_y %u\n", element.size_y);
-	ft_printf(fd, "colour %d\n", element.colour);
-	ft_printf(fd, "--\n");
+	if (DEBUG)
+	{
+		ft_printf(fd, "--\n");
+		ft_printf(fd, "t_element: %s\n", name);
+		ft_printf(fd, "size_x %u\n", element.size_x);
+		ft_printf(fd, "size_y %u\n", element.size_y);
+		ft_printf(fd, "colour %d\n", element.colour);
+		ft_printf(fd, "--\n");
+	}
 }
 
 void	element_set(t_minimap_element *element, size_t size_x, size_t size_y)
