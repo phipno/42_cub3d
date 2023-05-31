@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:15:21 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/30 15:11:28 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/31 12:36:50 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "MLX42.h"		// needed for MACROS, mlx_*
 #include "libft.h"		// needed for ft_putstr_fd(), ft_putendl_fd()
 #include "cub3d.h"		// needed for t_all
-#include "cub_minimap.h"// needed for t_minimap
+#include "minimap.h"	// needed for t_minimap
 #include "ft_printf.h"	// needed for ft_printf()
 
 void	cub_exit(int exit_code, int fd, char *message)
