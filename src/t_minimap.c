@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:08:24 by jwillert          #+#    #+#             */
-/*   Updated: 2023/05/31 13:36:58 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/31 17:07:46 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "ft_printf.h"		// needed for ft_printf()
 
 #include <unistd.h>			// needed for STDERR_FILENO
-#include <stdio.h>			// needed for debug printf()
+#include <stdio.h>			// needed for printf() (DEBUGGING)
 
 void	debug_print_t_minimap(char *name, t_minimap minimap)
 {
@@ -42,21 +42,47 @@ static void	set_array_colours(int32_t *colours)
 	colours[4] = get_rgba(0, 255, 0, 255);
 }
 
-void	minimap_init(t_minimap *minimap, t_game game)
+static void	minimap_init_corner(t_minimap *minimap, size_t max_column, size_t max_line)
 {
 	size_t	x;
-	size_t	y;
+	size_t	y;	
 	size_t	size;
-	size_t	scale;
 
-	scale = get_bigger_sizet(game.map_column_max, game.map_line_max);
+	minimap->offset = HEIGHT / 100 * 2;
 	size = END_X - START_X;
-	x = size / scale;
+	x = size / max_column;
 	size = END_Y - START_Y;
-	y = size / scale;
+	y = size / max_line;
 	element_set(&minimap->element, x, y);
 	point_set(&minimap->start, START_X, START_Y);
 	point_set(&minimap->end, END_X + minimap->element.size_x,
 		END_Y + minimap->element.size_y);
+}
+
+static void	minimap_init_fullscreen(t_minimap *minimap, size_t max_column, size_t max_line)
+{
+	size_t	x;
+	size_t	y;
+
+	x = WIDTH / max_column;
+	y = HEIGHT / max_line;
+	minimap->offset = HEIGHT / 100 * 10;
+	element_set(&minimap->element, x, y);
+	point_set(&minimap->start, 0, 0);
+	point_set(&minimap->end, WIDTH, HEIGHT);
+}
+
+void	minimap_init(t_minimap *minimap, size_t max_column, size_t max_line,
+			int mode)
+{
 	set_array_colours(minimap->colours);
+	//@note MODE_OFF?!
+	if (mode == MODE_CORNER)
+	{
+		minimap_init_corner(minimap, max_column, max_line);
+	}
+	else if (mode == MODE_FULLSCREEN)
+	{
+		minimap_init_fullscreen(minimap, max_column, max_line);
+	}
 }
