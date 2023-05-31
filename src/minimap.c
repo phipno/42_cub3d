@@ -6,17 +6,16 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:49:37 by jwillert          #+#    #+#             */
-/*   Updated: 2023/05/31 10:53:52 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/31 13:10:45 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42.h"			// needed for mlx_*()
-#include "minimap.h"	// needed for t_point
+#include "minimap.h"		// needed for t_point
 #include "cub3d.h"			// needed for t_all
 #include "ft_printf.h"		// needed for ft_printf()
-#include <unistd.h>			// needed for STDERR_FILENO
 
-#include <stdio.h>			// needed for printf()
+#include <unistd.h>			// needed for STDERR_FILENO
 
 static void	minimap_draw_element(mlx_image_t *image, size_t index_x,
 	size_t index_y, t_minimap minimap)
@@ -51,8 +50,7 @@ static void	minimap_draw_border(mlx_image_t *image, t_minimap minimap)
 	size_t	y;
 
 	point_set(&start, START_X, START_Y);
-	point_set(&end, END_X + minimap.element.size_x,
-		END_Y + minimap.element.size_y);
+	point_set(&end, END_X + minimap.element.size_x,	END_Y + minimap.element.size_y);
 	x = start.x;
 	y = start.y;
 	while (y < end.y + minimap.element.size_y)

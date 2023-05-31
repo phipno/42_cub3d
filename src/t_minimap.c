@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:08:24 by jwillert          #+#    #+#             */
-/*   Updated: 2023/05/31 11:03:17 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/31 13:10:16 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ static void	set_array_colours(int32_t *colours)
 {
 	colours[0] = get_rgba(255, 255, 255, 255); 	// WHITE
 	colours[1] = get_rgba(0, 0, 0, 255);		// BLACK
-	colours[2] = get_rgba(255, 0, 255, 50);		// MAGENTA
+	colours[2] = get_rgba(255, 0, 255, 255);		// MAGENTA
 	colours[3] = get_rgba(255, 255, 0, 255);	// YELLOW
-	colours[4] = get_rgba(0, 255, 0, 70);		// GREEN
+	colours[4] = get_rgba(0, 255, 0, 255);		// GREEN
 }
 
 void	minimap_init(t_minimap *minimap, t_game game)

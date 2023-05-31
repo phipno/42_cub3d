@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/31 12:36:39 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/31 13:04:17 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ typedef struct s_all
 	t_player	per;
 	t_game		map;
 	mlx_t		*mlx;
-	mlx_image_t	*image;
+	mlx_image_t	*image_game;
+	mlx_image_t *image_minimap;
 }	t_all;
 
 
