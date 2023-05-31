@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/31 11:06:45 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/31 11:09:44 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 // @note defines where all debugging information is writte to
 # define DEBUG_FD STDERR_FILENO
 
-//@note if defined as 1 will print out all debug_*() output
+//@note if defined as 1, will print out all debug_*() output
 #ifndef DEBUG
 # define DEBUG 0
 # endif // DEBUG
