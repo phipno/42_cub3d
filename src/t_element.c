@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:08:24 by jwillert          #+#    #+#             */
-/*   Updated: 2023/05/30 14:57:11 by jwillert         ###   ########          */
+/*   Updated: 2023/05/30 17:15:49 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,26 @@ void	element_set(t_minimap_element *element, size_t size_x, size_t size_y)
 	element->size_y = size_y;
 }
 
-void	element_set_colour(t_minimap_element *element, char symbol)
+void	element_set_colour(t_minimap *minimap, char symbol)
 {
-	if (symbol == '0')
+	if (symbol == SYMBOL_EMPTY)
 	{
-		element->colour = COLOUR_FLOOR;
+		minimap->element.colour = minimap->colours[GREEN];
 	}
-	else if (symbol == '1')
+	else if (symbol == SYMBOL_FLOOR)
 	{
-		element->colour = COLOUR_WALL;
+		minimap->element.colour = minimap->colours[WHITE];
 	}
-	else if (symbol == 'N')
+	else if (symbol == SYMBOL_WALL)
 	{
-		element->colour = COLOUR_PLAYER;
+		minimap->element.colour = minimap->colours[BLACK];
 	}
-	else if (symbol == ' ')
+	else if (symbol == 'N' || symbol == 'W' || symbol == 'E' || symbol == 'S')
 	{
-		element->colour = COLOUR_EMPTY;
+		minimap->element.colour = minimap->colours[YELLOW];
 	}
 	else
 	{
-		element->colour = COLOUR_NOTFOUND;
+		minimap->element.colour = minimap->colours[MAGENTA];
 	}
 }

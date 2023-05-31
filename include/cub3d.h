@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/30 14:23:13 by jwillert         ###   ########          */
+/*   Updated: 2023/05/30 16:38:19 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int		sub_str_walls(char **write_to, const char *str);
 void	hook_keys(mlx_key_data_t key_data, void *context);
 
 //--------------------Colours
-int		colour_get_rgba(int r, int g, int b, int a);
+int		get_rgba(int r, int g, int b, int a);
 
 //--------------------Utils
 size_t	return_bigger(size_t x, size_t y);
