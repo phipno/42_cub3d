@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/31 13:04:17 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/31 13:20:43 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define HEIGHT 480
 
 //--------------------debug macros
+
 # define DEBUG_FD STDERR_FILENO
 
 typedef union u_rgba {
@@ -76,7 +77,6 @@ typedef struct s_all
 	mlx_image_t	*image_game;
 	mlx_image_t *image_minimap;
 }	t_all;
-
 
 //--------------------Parsing
 void	cub_map_muncher(t_all *cub, char *file);
