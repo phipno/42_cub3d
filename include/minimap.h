@@ -6,41 +6,58 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:45:22 by jwillert          #+#    #+#             */
-/*   Updated: 2023/05/31 11:11:12 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/31 11:30:39 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef	MINIMAP_H
 # define MINIMAP_H
 
+/* -------------------------------------------------------------------------- */
+//								includes
+/* -------------------------------------------------------------------------- */
+
 #include "MLX42.h"	// needed for mlx_image_t
 #include <stdlib.h>	// needed for size_t
 #include "cub3d.h"	// needed for t_game
 
-//@note start and end location of minimap in pixel
+/* -------------------------------------------------------------------------- */
+//								macros
+/* -------------------------------------------------------------------------- */
+
+// start and end location of minimap in pixel
 #define START_X 0
 #define START_Y 0
 #define END_X 120
 #define END_Y 120
 
-//@note macros for game.map symbols
+// macros for game.map symbols
 #define SYMBOL_FLOOR '0'
 #define SYMBOL_WALL '1'
 #define SYMBOL_EMPTY ' '
 
-//@note indexes for colour array in minimap.colours[5]
+// indexes for colour array in minimap.colours[5]
 #define WHITE 0
 #define BLACK 1
 #define MAGENTA 2
 #define YELLOW 3
 #define GREEN 4
 
+/* -------------------------------------------------------------------------- */
+//								structs
+/* -------------------------------------------------------------------------- */
+
+/// @param size_t x
+/// @param size_t y
 typedef struct s_point
 {
 	size_t	x;
 	size_t	y;
 }			t_point;
 
+/// @param size_t size_x
+/// @param size_t size_y
+/// @param int32_t colour
 typedef struct	s_minimap_element
 {
 	size_t	size_x;
@@ -48,6 +65,10 @@ typedef struct	s_minimap_element
 	int32_t	colour;
 }				t_minimap_element;
 
+/// @param t_point start
+/// @param t_point end
+/// @param t_minimap_element element
+/// @param int32_t colours[5]
 typedef struct	s_minimap
 {
 	t_point				start;
@@ -56,6 +77,11 @@ typedef struct	s_minimap
 	int32_t				colours[5];
 }			t_minimap;
 
+/* -------------------------------------------------------------------------- */
+//								functions
+/* -------------------------------------------------------------------------- */
+
+// @note might not be needed
 t_point	*point_get_new(int x, int y);
 void	point_set(t_point *point, int x, int y);
 void	debug_print_t_point(char *name, t_point point);

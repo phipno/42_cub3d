@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 11:40:43 by jwillert          #+#    #+#             */
-/*   Updated: 2023/05/31 11:03:46 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/31 11:15:05 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	point_set(t_point *point, int x, int y)
 	point->y = y;
 }
 
+// @note might not be needed
 t_point	*point_get_new(int x, int y)
 {
 	t_point	*point_new;
