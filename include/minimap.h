@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:45:22 by jwillert          #+#    #+#             */
-/*   Updated: 2023/05/31 16:40:27 by jwillert         ###   ########          */
+/*   Updated: 2023/06/04 13:40:50 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 /* -------------------------------------------------------------------------- */
 
 // start and end location of minimap in pixel
-# define START_X  0
-# define START_Y  0
+# define START_X  10
+# define START_Y  10
 # define END_X    120
 # define END_Y    120
 # define MINIMAP_OFFSET 10
@@ -76,11 +76,14 @@ typedef struct s_minimap_element
 /// @param int32_t colours[5]
 typedef struct s_minimap
 {
-	t_point				start;
-	t_point				end;
+	t_point				border_start;
+	t_point				border_end;
+	t_point				content_start;
+	t_point				content_end;
 	t_minimap_element	element;
 	int32_t				colours[5];
-	size_t				offset;
+	size_t				offset_x;
+	size_t				offset_y;
 }			t_minimap;
 
 /* -------------------------------------------------------------------------- */

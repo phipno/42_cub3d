@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:28:07 by jwillert          #+#    #+#             */
-/*   Updated: 2023/05/31 17:06:25 by jwillert         ###   ########          */
+/*   Updated: 2023/05/31 20:27:15 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	handle_m(t_all *all)
 	static unsigned int	i;
 
 	i += 1;
-//	printf("i_counter: %d\n", i);
+	//	printf("i_counter: %d\n", i);
 	if (i == 1)	
 	{
 		mlx_delete_image(all->mlx, all->image_minimap);
@@ -64,7 +64,6 @@ static void	handle_m(t_all *all)
 			cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_minimap to window");
 		}
 	}
-
 }
 
 void	hook_keys(mlx_key_data_t key_data, void *context)

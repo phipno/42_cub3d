@@ -5,6 +5,24 @@
 -	evaluate player pos and only draw surroundings
 -	toogle m between modes (fullscreen, player relative, off)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 -------------------------------------------------------------------------------
 
 <feature><raycasting>
