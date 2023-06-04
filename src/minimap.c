@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:49:37 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/04 14:44:33 by jwillert         ###   ########          */
+/*   Updated: 2023/06/04 15:48:10 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ static void	minimap_draw_element(mlx_image_t *image, size_t index_x,
 	//debug_print_t_point("element start", element_start);
 	//debug_print_t_point("element end", element_end);
 
-	while (y <= element_end.y && y <= minimap.content_end.y && y < HEIGHT)
+	while (y < element_end.y)
 	{
-		while (x <= element_end.x && x <= minimap.content_end.x && x < WIDTH)
+		while (x < element_end.x)
 		{
 			mlx_put_pixel(image, x, y, minimap.element.colour);
 			x += 1;

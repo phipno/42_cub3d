@@ -6,7 +6,9 @@
 -	toogle m between modes (fullscreen, player relative, off)
 
 
+ determine size of border_plane
 
+ determine size of content_plane
 
 
 
