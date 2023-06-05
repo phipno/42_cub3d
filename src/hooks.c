@@ -6,22 +6,19 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:28:07 by jwillert          #+#    #+#             */
-/*   Updated: 2023/05/31 20:27:15 by jwillert         ###   ########          */
+/*   Updated: 2023/06/05 12:51:17 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42.h"  // needed for MACROS, mlx_*(), mlx_key_data_t
 #include "cub3d.h"  // needed for t_all
-
 #include <unistd.h> // needed for STDERR_FILENO
-#include <stdio.h>	// needed for printf() (DEBUGGING)
 
 static void	handle_m(t_all *all)
 {
-	static unsigned int	i;
+	static size_t	i;
 
 	i += 1;
-	//	printf("i_counter: %d\n", i);
 	if (i == 1)	
 	{
 		mlx_delete_image(all->mlx, all->image_minimap);
@@ -32,8 +29,8 @@ static void	handle_m(t_all *all)
 			mlx_terminate(all->mlx);
 			cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_minimap init");
 		}
-		minimap_init(all->minimap, all->map.map_column_max, all->map.map_line_max,
-				MODE_CORNER);
+		minimap_init(all->minimap, all->map.map_column_max, 
+				all->map.map_line_max, MODE_CORNER);
 		minimap_draw(all->map.a_map, all->image_minimap, *all->minimap);
 	}
 	else if (i == 2)
@@ -52,8 +49,8 @@ static void	handle_m(t_all *all)
 			cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_minimap init");
 		}
 		all->image_minimap->enabled = true;
-		minimap_init(all->minimap, all->map.map_column_max, all->map.map_line_max,
-			MODE_FULLSCREEN);
+		minimap_init(all->minimap, all->map.map_column_max, 
+				all->map.map_line_max, MODE_FULLSCREEN);
 		minimap_draw(all->map.a_map, all->image_minimap, *all->minimap);
 	}
 	if (i != 2)

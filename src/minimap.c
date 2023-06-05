@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:49:37 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/04 15:48:10 by jwillert         ###   ########          */
+/*   Updated: 2023/06/05 13:23:20 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "minimap.h"		// needed for t_point
 #include "cub3d.h"			// needed for t_all
 #include "ft_printf.h"		// needed for ft_printf()
-
 #include <unistd.h>			// needed for STDERR_FILENO
 
 static void	minimap_draw_element(mlx_image_t *image, size_t index_x,
@@ -22,26 +21,22 @@ static void	minimap_draw_element(mlx_image_t *image, size_t index_x,
 {
 	t_point	element_start;
 	t_point	element_end;
-	size_t	x;
-	size_t	y;
+	double	x;
+	double	y;
 
-	element_start.x = minimap.content_start.x + index_x * minimap.element.size_x;
-	element_start.y = minimap.content_start.y + index_y * minimap.element.size_y;
-
+	element_start.x = minimap.content_start.x
+		+ (double) index_x * minimap.element.size_x;
+	element_start.y = minimap.content_start.y
+		+ (double) index_y * minimap.element.size_y;
 	x = element_start.x;
 	y = element_start.y;
-
 	element_end.x = element_start.x + minimap.element.size_x;
 	element_end.y = element_start.y + minimap.element.size_y;
-
-	//debug_print_t_point("element start", element_start);
-	//debug_print_t_point("element end", element_end);
-
-	while (y < element_end.y)
+	while (y < element_end.y && y < HEIGHT)
 	{
-		while (x < element_end.x)
+		while (x < element_end.x && y < WIDTH)
 		{
-			mlx_put_pixel(image, x, y, minimap.element.colour);
+			mlx_put_pixel(image, (int) x, (int) y, minimap.element.colour);
 			x += 1;
 		}
 		x = element_start.x;
@@ -56,9 +51,9 @@ static void	minimap_draw_border(mlx_image_t *image, t_minimap minimap)
 
 	x = minimap.border_start.x;
 	y = minimap.border_start.y;
-	while (y < minimap.border_end.y)
+	while (y < minimap.border_end.y && y < HEIGHT)
 	{
-		while (x < minimap.border_end.x)
+		while (x < minimap.border_end.x && y < WIDTH)
 		{
 			mlx_put_pixel(image, x, y, minimap.colours[MAGENTA]);
 			x += 1;
