@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:49:37 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/05 13:23:20 by jwillert         ###   ########          */
+/*   Updated: 2023/06/05 15:29:40 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	minimap_draw_element(mlx_image_t *image, size_t index_x,
 	element_end.y = element_start.y + minimap.element.size_y;
 	while (y < element_end.y && y < HEIGHT)
 	{
-		while (x < element_end.x && y < WIDTH)
+		while (x < element_end.x && x < WIDTH)
 		{
 			mlx_put_pixel(image, (int) x, (int) y, minimap.element.colour);
 			x += 1;
@@ -53,7 +53,7 @@ static void	minimap_draw_border(mlx_image_t *image, t_minimap minimap)
 	y = minimap.border_start.y;
 	while (y < minimap.border_end.y && y < HEIGHT)
 	{
-		while (x < minimap.border_end.x && y < WIDTH)
+		while (x < minimap.border_end.x && x < WIDTH)
 		{
 			mlx_put_pixel(image, x, y, minimap.colours[MAGENTA]);
 			x += 1;

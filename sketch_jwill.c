@@ -2,14 +2,9 @@
 
 <feature><minimap>
 
--	evaluate player pos and only draw surroundings
--	toogle m between modes (fullscreen, player relative, off)
+for fullscreen version:
 
-
- determine size of border_plane
-
- determine size of content_plane
-
+- find middle point of map, assign it to middle point of image
 
 
 
