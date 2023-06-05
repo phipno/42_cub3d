@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:08:24 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/05 15:28:50 by jwillert         ###   ########          */
+/*   Updated: 2023/06/05 18:37:51 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	minimap_init_corner(t_minimap *minimap, double max_column,
 	double	size_y;
 	double	scale;
 
-	scale = get_bigger_sizet(max_column, max_line);
+	scale = (double) get_bigger_sizet(max_column, max_line);
 	minimap->offset_x = (END_X - START_X) / 100 * 2;
 	minimap->offset_y = (END_Y - START_Y) / 100 * 2;
 	point_set(&minimap->content_start,
@@ -83,7 +83,7 @@ static void	minimap_init_fullscreen(t_minimap *minimap, double max_column,
 
 	minimap->offset_x = 0;
 	minimap->offset_y = 0;
-	scale = get_bigger_sizet(max_column, max_line);
+	scale = (double) get_bigger_sizet(max_column, max_line) + (double) 1;
 	point_set(&mid, WIDTH / 2, HEIGHT / 2);
 	size_x = (WIDTH - (WIDTH / 100 * 10)) / scale;
 	size_y = (HEIGHT - (HEIGHT / 100 * 10)) / scale;
@@ -95,11 +95,11 @@ static void	minimap_init_fullscreen(t_minimap *minimap, double max_column,
 		mid.x + max_column / 2 * size_x,
 		mid.y + max_line / 2 * size_y);
 	point_set(&minimap->border_start,
-		minimap->content_start.x,
-		minimap->content_start.y);
+		mid.x - max_column / 2 * size_x - 10,
+		mid.y - max_line / 2 * size_y - 10);
 	point_set(&minimap->border_end,
-		minimap->content_end.x,
-		minimap->content_end.y);
+		mid.x + max_column / 2 * size_x + 10,
+		mid.y + max_line / 2 * size_y + 10);
 }
 
 void	minimap_init(t_minimap *minimap, size_t max_column, size_t max_line,
