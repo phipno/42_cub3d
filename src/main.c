@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:15:21 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/06 19:38:52 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/06 23:41:00 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	main(int argc, char *argv[])
 	all.minimap = &minimap;
 	minimap_init(&minimap, all.map.map_column_max, all.map.map_line_max,
 			MODE_FULLSCREEN);
-	minimap_draw(all.map.a_map, all.image_minimap, &minimap);
+	minimap_draw(all.per.pos, all.map.a_map, all.image_minimap, &minimap);
 	if (mlx_image_to_window(all.mlx, all.image_minimap, 0, 0) == -1)
 	{
 		mlx_terminate(all.mlx);

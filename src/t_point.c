@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   t_point.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 11:40:43 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/06 15:05:42 by jwillert         ###   ########          */
+/*   Updated: 2023/06/07 00:16:44 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,12 @@ void	point_set_mid(t_point *mid, t_point a, t_point b)
 	point_set(mid, size_x, size_y);
 }
 
+// void	point_draw_direction(mlx_image_t *image, t_point a, double diameter,
+// 			int32_t colour)
+// {
+
+// }
+
 void	point_draw_disc(mlx_image_t *image, t_point a, double diameter,
 			int32_t colour)
 {
@@ -58,6 +64,7 @@ void	point_draw_disc(mlx_image_t *image, t_point a, double diameter,
 	r = diameter / 2;
 	x = diameter * -1;
 	y = diameter * -1;
+	printf("X:%f Y:%f\n", a.x, a.y);
 	while (y < diameter)
 	{
 		while (x < diameter)

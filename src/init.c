@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 15:45:01 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/30 16:24:42 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/06 23:40:03 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,15 +123,15 @@ void	get_player_start(t_all *cub)
 					cub->per.direction = 180;
 				if (cub->map.a_map[y][x] == 'W')
 					cub->per.direction = 260;
-				cub->per.pos_x = x + 0.5;
-				cub->per.pos_y = y + 0.5;
+				cub->per.pos.x = x + 0.5;
+				cub->per.pos.y = y + 0.5;
 				only_one = true;
 			}
 			x++;
 		}
 		y++;
 	}
-	printf("PosX_Y: %f | %f\nDir: %f\n", cub->per.pos_x, cub->per.pos_y, cub->per.direction);
+	printf("PosX_Y: %f | %f\nDir: %f\n", cub->per.pos.x, cub->per.pos.y, cub->per.direction);
 }
 
 void	cub_map_muncher(t_all *cub, char *file)

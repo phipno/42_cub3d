@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:45:22 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/06 15:10:47 by jwillert         ###   ########          */
+/*   Updated: 2023/06/06 23:40:44 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,6 @@ void	element_set_colour(t_minimap *minimap, char symbol);
 void	debug_print_t_minimap(char *name, t_minimap minimap);
 void	minimap_init(t_minimap *minimap, size_t max_column, size_t max_line,
 			int mode);
-void	minimap_draw(char **map, mlx_image_t *image, t_minimap *minimap);
+void	minimap_draw(t_point per, char **map, mlx_image_t *image, t_minimap *minimap);
 
 #endif // MINIMAP_H

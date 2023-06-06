@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:28:07 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/06 11:16:29 by jwillert         ###   ########          */
+/*   Updated: 2023/06/06 23:42:54 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	toggle_minimap_fullscreen(t_all *all)
 	all->image_minimap->enabled = true;
 	minimap_init(all->minimap, all->map.map_column_max,
 		all->map.map_line_max, MODE_FULLSCREEN);
-	minimap_draw(all->map.a_map, all->image_minimap, all->minimap);
+	minimap_draw(all->per.pos, all->map.a_map, all->image_minimap, all->minimap);
 }
 
 static void	toggle_minimap_corner(t_all *all)
@@ -42,7 +42,7 @@ static void	toggle_minimap_corner(t_all *all)
 	}
 	minimap_init(all->minimap, all->map.map_column_max,
 		all->map.map_line_max, MODE_CORNER);
-	minimap_draw(all->map.a_map, all->image_minimap, all->minimap);
+	minimap_draw(all->per.pos, all->map.a_map, all->image_minimap, all->minimap);
 }
 
 static void	toggle_minimap(t_all *all)
@@ -87,4 +87,12 @@ void	hook_keys(mlx_key_data_t key_data, void *context)
 	{
 		toggle_minimap(all);
 	}
+	else if (mlx_is_key_down(all->mlx, MLX_KEY_W) == true)
+		all->per.pos.y += 0.01;
+	else if (mlx_is_key_down(all->mlx, MLX_KEY_S) == true)
+		all->per.pos.y -= 0.01;
+	else if (mlx_is_key_down(all->mlx, MLX_KEY_A) == true)
+		all->per.pos.x += 0.01;
+	else if (mlx_is_key_down(all->mlx, MLX_KEY_D) == true)
+		all->per.pos.x -= 0.01;
 }

@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/06 19:39:09 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/06 23:38:41 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
 #  define PARSING_TESTER 0
 # endif // PARSING_TESTER
 
-# define WIDTH  640
-# define HEIGHT 480
+# define WIDTH  1920
+# define HEIGHT 1080
 
 //--------------------structs
 
@@ -73,8 +73,7 @@ typedef struct s_game
 
 typedef struct s_player
 {
-	float	pos_x;
-	float	pos_y;
+	t_point	pos;
 	int		fov;
 	float	direction;
 }	t_player;
