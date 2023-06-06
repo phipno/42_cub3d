@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 15:45:01 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/25 20:35:33 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/05/30 16:24:42 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ static void	variable_shall_be_declared (t_game *map, char **content_split)
 
 }
 
+
+//@note this function defenitly needs cutting
 void	get_player_start(t_all *cub)
 {
 	int		x;
@@ -143,8 +145,6 @@ void	cub_map_muncher(t_all *cub, char *file)
 	// for (int i = 0; content_split[i] != NULL; i++) {
 	// 	printf("%d. %s\n", i, content_split[i]);
 	// }
-
-	//parsing into each variable
 	variable_shall_be_declared(&cub->map, content_split);
 	creation_of_map(&cub->map, content_split);
 	parse_map(&cub->map, content_split);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/30 15:17:01 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/30 16:09:19 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,6 @@
 //--------------------debug macros
 # define DEBUG_FD STDERR_FILENO
 
-/**
- * s_game, stores data which defines rules and playstyle of the game.
- * @param map The passed data from .cub map files.
-*/
 
 typedef union u_rgba {
 	int32_t	colour;
@@ -42,6 +38,11 @@ typedef union u_rgba {
 		uint8_t	r;
 	} rgba;
 }	t_rgba;
+
+/**
+ * s_game, stores data which defines rules and playstyle of the game.
+ * @param map The passed data from .cub map files.
+*/
 
 typedef struct s_game
 {
@@ -58,7 +59,7 @@ typedef struct s_game
 
 
 /**
- * s_player, holds data which is important for player information.
+ * @param player, holds data which is important for player information.
 */
 
 typedef struct s_player

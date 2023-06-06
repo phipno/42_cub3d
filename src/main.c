@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:15:21 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/30 15:11:28 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/31 21:31:40 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 #include "cub3d.h"		// needed for t_all
 #include "cub_minimap.h"// needed for t_minimap
 #include "ft_printf.h"	// needed for ft_printf()
+
+#include "stdio.h"
+#include <math.h>
 
 void	cub_exit(int exit_code, int fd, char *message)
 {
@@ -71,6 +74,12 @@ int	main(int argc, char *argv[])
 
 	// clean up
 	mlx_terminate(all.mlx);
+	float test[5] = {0.512412, 0.1, 0.5, 0.4999999, 1.00};
+
+	for (int i = 0; i < 5; i++)
+	{
+		printf("%d\n", (int)test[i]);
+	}
 	ft_printf(STDERR_FILENO, "Exited with status: %d\n", status);
 	return (status);
 }
