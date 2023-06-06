@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 15:45:01 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/30 15:11:03 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/31 16:02:54 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	creation_of_map(t_game *map, char **content_split)
 {
 	map->map_column_max = find_column_max(content_split);
 	map->map_line_max = find_line_max(content_split);
+	map->max = get_bigger_sizet(map->map_column_max, map->map_line_max);
 	//@note print statement for **map sizes
 	// printf("Collum_Max: %zu\nLine_Max: %zu\n", map->map_column_max + 1, map->map_line_max);
 	map->a_map = ft_calloc(map->map_line_max + 1, sizeof(char *));

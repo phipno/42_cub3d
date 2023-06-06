@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:45:22 by jwillert          #+#    #+#             */
-/*   Updated: 2023/05/31 13:35:47 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/06 15:10:47 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,51 +17,55 @@
 //								includes
 /* -------------------------------------------------------------------------- */
 
-# include "MLX42.h"	// needed for mlx_image_t
+# include "MLX42.h"		// needed for mlx_image_t
 # include <stdlib.h>	// needed for size_t
-# include "cub3d.h"	// needed for t_game
 
 /* -------------------------------------------------------------------------- */
 //								macros
 /* -------------------------------------------------------------------------- */
 
-// start and end location of minimap in pixel
-# define START_X 0
-# define START_Y 0
-# define END_X 120
-# define END_Y 120
+// start and end location of minimap (cornered) in pixel
+# define START_X  10
+# define START_Y  10
+# define END_X    130
+# define END_Y    130
+
+// modes for the minimap
+# define MODE_OFF         0
+# define MODE_CORNER      1
+# define MODE_FULLSCREEN  2
 
 // macros for game.map symbols
-# define SYMBOL_FLOOR '0'
-# define SYMBOL_WALL '1'
-# define SYMBOL_EMPTY ' '
+# define SYMBOL_FLOOR  '0'
+# define SYMBOL_WALL   '1'
+# define SYMBOL_EMPTY  ' '
 
 // indexes for colour array in minimap.colours[5]
-# define WHITE 0
-# define BLACK 1
+# define WHITE   0
+# define BLACK   1
 # define MAGENTA 2
-# define YELLOW 3
-# define GREEN 4
+# define YELLOW  3
+# define GREEN   4
 
 /* -------------------------------------------------------------------------- */
 //								structs
 /* -------------------------------------------------------------------------- */
 
-/// @param size_t x
-/// @param size_t y
+/// @param double x
+/// @param double y
 typedef struct s_point
 {
-	size_t	x;
-	size_t	y;
+	double	x;
+	double	y;
 }			t_point;
 
-/// @param size_t size_x
-/// @param size_t size_y
+/// @param double size_x
+/// @param double size_y
 /// @param int32_t colour
 typedef struct s_minimap_element
 {
-	size_t	size_x;
-	size_t	size_y;
+	double	size_x;
+	double	size_y;
 	int32_t	colour;
 }				t_minimap_element;
 
@@ -71,27 +75,39 @@ typedef struct s_minimap_element
 /// @param int32_t colours[5]
 typedef struct s_minimap
 {
-	t_point				start;
-	t_point				end;
+	t_point				border_start;
+	t_point				border_end;
+	t_point				content_start;
+	t_point				content_end;
+	t_point				player_pos;
 	t_minimap_element	element;
 	int32_t				colours[5];
+	double				offset_x;
+	double				offset_y;
+	double				size_x;
+	double				size_y;
+	int					flag_player;
 }			t_minimap;
 
 /* -------------------------------------------------------------------------- */
 //								functions
 /* -------------------------------------------------------------------------- */
 
-// @note might not be needed
-t_point	*point_get_new(int x, int y);
-void	point_set(t_point *point, int x, int y);
 void	debug_print_t_point(char *name, t_point point);
+void	point_set(t_point *point, int x, int y);
+void	point_set_mid(t_point *mid, t_point a, t_point b);
+void	point_draw_disc(mlx_image_t *image, t_point a, double diameter,
+			int32_t colour);
+//void	point_draw_circle(mlx_image_t *image, t_point a, double diameter,
+//			int32_t colour);
 
+void	debug_print_t_element(char *name, t_minimap_element element);
 void	element_set(t_minimap_element *element, size_t size_x, size_t size_y);
 void	element_set_colour(t_minimap *minimap, char symbol);
-void	debug_print_t_element(char *name, t_minimap_element element);
 
-void	minimap_init(t_minimap *minimap, t_game game);
-void	minimap_draw(char **map, mlx_image_t *image, t_minimap minimap);
 void	debug_print_t_minimap(char *name, t_minimap minimap);
+void	minimap_init(t_minimap *minimap, size_t max_column, size_t max_line,
+			int mode);
+void	minimap_draw(char **map, mlx_image_t *image, t_minimap *minimap);
 
 #endif // MINIMAP_H

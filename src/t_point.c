@@ -6,50 +6,102 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 11:40:43 by jwillert          #+#    #+#             */
-/*   Updated: 2023/05/31 12:46:54 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/06 15:05:42 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minimap.h"		// needed for t_point
-#include "ft_printf.h"		// needed for ft_printf()
 #include "cub3d.h"			// needed for MACROS
-
 #include <unistd.h>			// needed for STDERR_FILENO
 #include <stdlib.h>			// needed for malloc(), free()
+#include <stdio.h>			// needed for dprintf()
 
-void	debug_print_t_point(char *name, t_point point)
+void	debug_print_t_point(char *name, t_point a)
 {
 	int	fd;
 
 	fd = DEBUG_FD;
 	if (DEBUG)
 	{
-		ft_printf(fd, "______________________\n");
-		ft_printf(fd, "t_point: %s\n", name);
-		ft_printf(fd, "           %p\n", point);
-		ft_printf(fd, "           |x %d|\n", point.x);
-		ft_printf(fd, "           |y %d|\n", point.y);
-		ft_printf(fd, "______________________\n");
+		dprintf(fd, "______________________\n");
+		dprintf(fd, "t_point: %s\n", name);
+		dprintf(fd, "           %p\n", (void *) &a);
+		dprintf(fd, "           |x %f|\n", a.x);
+		dprintf(fd, "           |y %f|\n", a.y);
+		dprintf(fd, "______________________\n");
 	}
 }
 
-void	point_set(t_point *point, int x, int y)
+void	point_set(t_point *a, int x, int y)
 {
-	point->x = x;
-	point->y = y;
+	a->x = x;
+	a->y = y;
 }
 
-// @note might not be needed
-t_point	*point_get_new(int x, int y)
+void	point_set_mid(t_point *mid, t_point a, t_point b)
 {
-	t_point	*point_new;
+	double	size_x;
+	double	size_y;
 
-	point_new = malloc (sizeof (t_point));
-	if (point_new == NULL)
+	size_x = (b.x + a.x) / 2;
+	size_y = (b.y + a.y) / 2;
+	point_set(mid, size_x, size_y);
+}
+
+void	point_draw_disc(mlx_image_t *image, t_point a, double diameter,
+			int32_t colour)
+{
+	double	x;
+	double	y;
+	double	r;
+
+	r = diameter / 2;
+	x = diameter * -1;
+	y = diameter * -1;
+	while (y < diameter)
 	{
-		return (NULL);
+		while (x < diameter)
+		{
+			if (x * x + y * y < diameter * diameter / 4)
+			{
+				mlx_put_pixel(image, (int)(x + a.x), (int)(y + a.y), colour);
+			}
+			x += 1;
+		}
+		x = diameter * -1;
+		y += 1;
 	}
-	point_new->x = x;
-	point_new->y = y;
-	return (point_new);
 }
+
+//void	point_draw_circle(mlx_image_t *image, t_point a, double diameter,
+//		int32_t colour)
+//{
+//	int	x;
+//	int	y;
+//	int	decision;
+//
+//	x = (int) diameter;
+//	y = 0;
+//	decision = 1 - x;
+//	while (y <= x)
+//	{
+//		mlx_put_pixel(image, (int) a.x + x, (int) a.y + y, colour);
+//		mlx_put_pixel(image, (int) a.x - x, (int) a.y - y, colour);
+//		mlx_put_pixel(image, (int) a.x - y, (int) a.y + x, colour);
+//		mlx_put_pixel(image, (int) a.x - x, (int) a.y + y, colour);
+//		mlx_put_pixel(image, (int) a.x - y, (int) a.y - x, colour);
+//		mlx_put_pixel(image, (int) a.x + y, (int) a.y + x, colour);
+//		mlx_put_pixel(image, (int) a.x + y, (int) a.y - x, colour);
+//		mlx_put_pixel(image, (int) a.x + x, (int) a.y - y, colour);
+//		y += 1;
+//		if (decision <= 0)
+//		{
+//			decision = decision + (2 * y + 1);
+//		}
+//		else
+//		{
+//			x -= 1;
+//			decision = decision + (2 * (y - x) + 1);
+//		}
+//	}
+//}

@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/06 19:37:41 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/06 19:39:09 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "MLX42.h"		// needed for mlx_t, mlx_image_t, mlx_key_data_t
 # include <stdlib.h>	// needed for size_t
+# include "minimap.h"	// needed for t_minimap
 
 //--------------------macros
 
@@ -31,7 +32,7 @@
 #  define PARSING_TESTER 0
 # endif // PARSING_TESTER
 
-# define WIDTH 640
+# define WIDTH  640
 # define HEIGHT 480
 
 //--------------------structs
@@ -56,6 +57,7 @@ typedef struct s_game
 	char	**a_map;
 	size_t	map_column_max;
 	size_t	map_line_max;
+	size_t	max;
 	t_rgba	sky_color;
 	t_rgba	floor_color;
 	char	*north_wall;
@@ -84,6 +86,7 @@ typedef struct s_all
 	mlx_t		*mlx;
 	mlx_image_t	*image_game;
 	mlx_image_t	*image_minimap;
+	t_minimap	*minimap;
 }	t_all;
 
 //--------------------Parsing
