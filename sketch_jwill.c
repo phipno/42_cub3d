@@ -2,24 +2,6 @@
 
 <feature><minimap>
 
-for fullscreen version:
-
-- find middle point of map, assign it to middle point of image
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 -------------------------------------------------------------------------------
 
 <feature><raycasting>

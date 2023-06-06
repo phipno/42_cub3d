@@ -6,16 +6,14 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:08:24 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/05 18:37:51 by jwillert         ###   ########          */
+/*   Updated: 2023/06/06 11:10:21 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minimap.h"		// needed for t_minimap, debug_*()
 #include "cub3d.h"			// needed for get_rgba()
-#include "ft_printf.h"		// needed for ft_printf()
 #include <unistd.h>			// needed for STDERR_FILENO
-
-#include <stdio.h>
+#include <stdio.h>			// needed for dprintf()
 
 void	debug_print_t_minimap(char *name, t_minimap minimap)
 {
@@ -24,14 +22,17 @@ void	debug_print_t_minimap(char *name, t_minimap minimap)
 	if (DEBUG)
 	{
 		fd = DEBUG_FD;
-		ft_printf(fd, "__________________\n");
-		ft_printf(fd, "%s\n", name);
+		dprintf(fd, "__________________\n");
+		dprintf(fd, "%s\n", name);
 		debug_print_t_point("minimap.border_start", minimap.border_start);
 		debug_print_t_point("minimap.border_end", minimap.border_end);
 		debug_print_t_point("minimap.content_start", minimap.content_start);
 		debug_print_t_point("minimap.content_end", minimap.content_end);
+		debug_print_t_point("minimap.player_pos", minimap.player_pos);
 		debug_print_t_element("minimap.element", minimap.element);
-		ft_printf(fd, "__________________\n");
+		dprintf(fd, "minimap.offset_x [%f]\n", minimap.offset_x);
+		dprintf(fd, "minimap.offset_y [%f]\n", minimap.offset_y);
+		dprintf(fd, "__________________\n");
 	}
 }
 
@@ -106,6 +107,7 @@ void	minimap_init(t_minimap *minimap, size_t max_column, size_t max_line,
 			int mode)
 {
 	set_array_colours(minimap->colours);
+	minimap->flag_player = 0;
 	if (mode == MODE_CORNER)
 	{
 		minimap_init_corner(minimap, (double) max_column, (double) max_line);
@@ -115,5 +117,4 @@ void	minimap_init(t_minimap *minimap, size_t max_column, size_t max_line,
 		minimap_init_fullscreen(minimap, (double) max_column,
 			(double) max_line);
 	}
-	debug_print_t_minimap("minimap", *minimap);
 }

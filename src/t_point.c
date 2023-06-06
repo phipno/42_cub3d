@@ -6,16 +6,16 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 11:40:43 by jwillert          #+#    #+#             */
-/*   Updated: 2023/05/31 12:46:54 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/06 11:00:00 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minimap.h"		// needed for t_point
-#include "ft_printf.h"		// needed for ft_printf()
 #include "cub3d.h"			// needed for MACROS
-
 #include <unistd.h>			// needed for STDERR_FILENO
 #include <stdlib.h>			// needed for malloc(), free()
+
+#include <stdio.h>			// needed for dprintf()
 
 void	debug_print_t_point(char *name, t_point point)
 {
@@ -24,12 +24,12 @@ void	debug_print_t_point(char *name, t_point point)
 	fd = DEBUG_FD;
 	if (DEBUG)
 	{
-		ft_printf(fd, "______________________\n");
-		ft_printf(fd, "t_point: %s\n", name);
-		ft_printf(fd, "           %p\n", point);
-		ft_printf(fd, "           |x %d|\n", point.x);
-		ft_printf(fd, "           |y %d|\n", point.y);
-		ft_printf(fd, "______________________\n");
+		dprintf(fd, "______________________\n");
+		dprintf(fd, "t_point: %s\n", name);
+		dprintf(fd, "           %p\n", (void *) &point);
+		dprintf(fd, "           |x %f|\n", point.x);
+		dprintf(fd, "           |y %f|\n", point.y);
+		dprintf(fd, "______________________\n");
 	}
 }
 
@@ -39,7 +39,11 @@ void	point_set(t_point *point, int x, int y)
 	point->y = y;
 }
 
-// @note might not be needed
+void	point_set_mid(t_point *mid, t_point a, t_point b)
+{
+	point_set(mid, b.x - a.x, b.y - a.y);
+}
+
 t_point	*point_get_new(int x, int y)
 {
 	t_point	*point_new;
