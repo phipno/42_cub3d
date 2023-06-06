@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:45:22 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/06 11:07:11 by jwillert         ###   ########          */
+/*   Updated: 2023/06/06 14:13:09 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,10 @@ typedef struct s_minimap
 
 void	point_set(t_point *point, int x, int y);
 void	point_set_mid(t_point *mid, t_point a, t_point b);
-t_point	*point_get_new(int x, int y);
+void	point_draw_circle(mlx_image_t *image, t_point a, double diameter,
+			int32_t colour);
+void	point_draw_disc(mlx_image_t *image, t_point a, double diameter,
+			int32_t colour);
 void	debug_print_t_point(char *name, t_point point);
 
 void	element_set(t_minimap_element *element, size_t size_x, size_t size_y);

@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:28:07 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/05 19:02:43 by jwillert         ###   ########          */
+/*   Updated: 2023/06/06 11:16:29 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	toggle_minimap_fullscreen(t_all *all)
 	all->image_minimap->enabled = true;
 	minimap_init(all->minimap, all->map.map_column_max,
 		all->map.map_line_max, MODE_FULLSCREEN);
-	minimap_draw(all->map.a_map, all->image_minimap, *all->minimap);
+	minimap_draw(all->map.a_map, all->image_minimap, all->minimap);
 }
 
 static void	toggle_minimap_corner(t_all *all)
@@ -42,7 +42,7 @@ static void	toggle_minimap_corner(t_all *all)
 	}
 	minimap_init(all->minimap, all->map.map_column_max,
 		all->map.map_line_max, MODE_CORNER);
-	minimap_draw(all->map.a_map, all->image_minimap, *all->minimap);
+	minimap_draw(all->map.a_map, all->image_minimap, all->minimap);
 }
 
 static void	toggle_minimap(t_all *all)

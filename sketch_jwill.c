@@ -2,6 +2,14 @@
 
 <feature><minimap>
 
+player pos:
+
+
+draw player pos as a circle around the mid point
+// math lib?
+// when to draw?
+
+
 -------------------------------------------------------------------------------
 
 <feature><raycasting>

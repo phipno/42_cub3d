@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:08:24 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/06 11:02:28 by jwillert         ###   ########          */
+/*   Updated: 2023/06/06 13:09:42 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	element_set_colour(t_minimap *minimap, char symbol)
 	else if (symbol == 'N' || symbol == 'W' || symbol == 'E' || symbol == 'S')
 	{
 		minimap->flag_player = 1;
-		minimap->element.colour = minimap->colours[YELLOW];
+		minimap->element.colour = minimap->colours[WHITE];
 	}
 	else
 	{
