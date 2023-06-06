@@ -6,12 +6,12 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:08:24 by jwillert          #+#    #+#             */
-/*   Updated: 2023/05/30 14:57:11 by jwillert         ###   ########          */
+/*   Updated: 2023/05/31 11:03:32 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>			// needed for size_t
-#include "cub_minimap.h"	// needed for t_minimap_element
+#include "minimap.h"	// needed for t_minimap_element
 #include <unistd.h>			// needed for STDERR_FILENO
 #include "ft_printf.h"		// needed for ft_printf()
 
@@ -20,12 +20,15 @@ void	debug_print_t_element(char *name, t_minimap_element element)
 	int	fd;
 
 	fd = DEBUG_FD;
-	ft_printf(fd, "--\n");
-	ft_printf(fd, "t_element: %s\n", name);
-	ft_printf(fd, "size_x %u\n", element.size_x);
-	ft_printf(fd, "size_y %u\n", element.size_y);
-	ft_printf(fd, "colour %d\n", element.colour);
-	ft_printf(fd, "--\n");
+	if (DEBUG)
+	{
+		ft_printf(fd, "--\n");
+		ft_printf(fd, "t_element: %s\n", name);
+		ft_printf(fd, "size_x %u\n", element.size_x);
+		ft_printf(fd, "size_y %u\n", element.size_y);
+		ft_printf(fd, "colour %d\n", element.colour);
+		ft_printf(fd, "--\n");
+	}
 }
 
 void	element_set(t_minimap_element *element, size_t size_x, size_t size_y)
@@ -34,26 +37,26 @@ void	element_set(t_minimap_element *element, size_t size_x, size_t size_y)
 	element->size_y = size_y;
 }
 
-void	element_set_colour(t_minimap_element *element, char symbol)
+void	element_set_colour(t_minimap *minimap, char symbol)
 {
-	if (symbol == '0')
+	if (symbol == SYMBOL_EMPTY)
 	{
-		element->colour = COLOUR_FLOOR;
+		minimap->element.colour = minimap->colours[GREEN];
 	}
-	else if (symbol == '1')
+	else if (symbol == SYMBOL_FLOOR)
 	{
-		element->colour = COLOUR_WALL;
+		minimap->element.colour = minimap->colours[WHITE];
 	}
-	else if (symbol == 'N')
+	else if (symbol == SYMBOL_WALL)
 	{
-		element->colour = COLOUR_PLAYER;
+		minimap->element.colour = minimap->colours[BLACK];
 	}
-	else if (symbol == ' ')
+	else if (symbol == 'N' || symbol == 'W' || symbol == 'E' || symbol == 'S')
 	{
-		element->colour = COLOUR_EMPTY;
+		minimap->element.colour = minimap->colours[YELLOW];
 	}
 	else
 	{
-		element->colour = COLOUR_NOTFOUND;
+		minimap->element.colour = minimap->colours[MAGENTA];
 	}
 }

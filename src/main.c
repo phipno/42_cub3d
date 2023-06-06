@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:15:21 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/31 21:31:40 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/06 19:34:20 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "MLX42.h"		// needed for MACROS, mlx_*
 #include "libft.h"		// needed for ft_putstr_fd(), ft_putendl_fd()
 #include "cub3d.h"		// needed for t_all
-#include "cub_minimap.h"// needed for t_minimap
+#include "minimap.h"	// needed for t_minimap
 #include "ft_printf.h"	// needed for ft_printf()
 
 #include "stdio.h"
@@ -39,12 +39,14 @@ int	main(int argc, char *argv[])
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Usage: \"./cub3D maps/<pick one>");
 	}
 
-	// map parsing
+	//	--------------------->	parsing
+
 	cub_map_muncher(&all, argv[1]);
-	minimap_init(&minimap, all.map);
 
 	if (PARSING_TESTER)
+	{
 		return (EXIT_SUCCESS);
+	}
 
 	// mlx init
 	all.mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
@@ -53,23 +55,45 @@ int	main(int argc, char *argv[])
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "mlx init");
 	}
 
-	all.image = mlx_new_image(all.mlx, WIDTH, HEIGHT);
-	if (all.image == NULL)
+	//	--------------------->	image_game
+
+	all.image_game = mlx_new_image(all.mlx, WIDTH, HEIGHT);
+	if (all.image_game == NULL)
 	{
 		mlx_terminate(all.mlx);
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image init");
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_game init");
 	}
+
 	draw_heaven_and_hell(all);
 	draw_troll(all);
 
-	// main program
-	mlx_key_hook(all.mlx, &hook_keys, &all);
-	if (mlx_image_to_window(all.mlx, all.image, 0, 0) == -1)
+	if (mlx_image_to_window(all.mlx, all.image_game, 0, 0) == -1)
 	{
 		mlx_terminate(all.mlx);
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image to window");
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_game to window");
 	}
-	minimap_draw(all.map.a_map, all.image, minimap);
+
+	//	--------------------->	image_minimap
+
+	all.image_minimap = mlx_new_image(all.mlx, WIDTH, HEIGHT);
+	if (all.image_minimap == NULL)
+	{
+		mlx_terminate(all.mlx);
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_minimap init");
+	}
+
+	minimap_init(&minimap, all.map);
+	minimap_draw(all.map.a_map, all.image_minimap, minimap);
+
+	if (mlx_image_to_window(all.mlx, all.image_minimap, 0, 0) == -1)
+	{
+		mlx_terminate(all.mlx);
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_minimap to window");
+	}
+
+	//	--------------------->	keys and loop
+
+	mlx_key_hook(all.mlx, &hook_keys, &all);
 	mlx_loop(all.mlx);
 
 	// clean up

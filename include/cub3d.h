@@ -6,28 +6,35 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/30 16:09:19 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/06 19:37:41 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "MLX42.h"
+# include "MLX42.h"		// needed for mlx_t, mlx_image_t, mlx_key_data_t
 # include <stdlib.h>	// needed for size_t
 
-//--------------------parser test
-#ifndef PARSING_TESTER
-# define PARSING_TESTER 0
+//--------------------macros
+
+// defines where all debugging information is writte to
+# define DEBUG_FD STDERR_FILENO
+
+//if defined as 1, will print out all debug_*() output
+# ifndef DEBUG
+#  define DEBUG 0
+# endif // DEBUG
+
+//if defined as 1, program exits after parsing
+# ifndef PARSING_TESTER
+#  define PARSING_TESTER 0
 # endif // PARSING_TESTER
 
-//--------------------properties
 # define WIDTH 640
 # define HEIGHT 480
 
-//--------------------debug macros
-# define DEBUG_FD STDERR_FILENO
-
+//--------------------structs
 
 typedef union u_rgba {
 	int32_t	colour;
@@ -75,9 +82,9 @@ typedef struct s_all
 	t_player	per;
 	t_game		map;
 	mlx_t		*mlx;
-	mlx_image_t	*image;
+	mlx_image_t	*image_game;
+	mlx_image_t	*image_minimap;
 }	t_all;
-
 
 //--------------------Parsing
 void	cub_map_muncher(t_all *cub, char *file);
@@ -98,7 +105,7 @@ void	hook_keys(mlx_key_data_t key_data, void *context);
 int		get_rgba(int r, int g, int b, int a);
 
 //--------------------Utils
-size_t	return_bigger(size_t x, size_t y);
+size_t	get_bigger_sizet(size_t x, size_t y);
 
 //--------------------Clean Up
 void	cub_exit(int exit_code, int fd, char *message);
