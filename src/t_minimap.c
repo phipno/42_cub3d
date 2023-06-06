@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:08:24 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/06 11:10:21 by jwillert         ###   ########          */
+/*   Updated: 2023/06/06 15:18:11 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ void	debug_print_t_minimap(char *name, t_minimap minimap)
 		debug_print_t_element("minimap.element", minimap.element);
 		dprintf(fd, "minimap.offset_x [%f]\n", minimap.offset_x);
 		dprintf(fd, "minimap.offset_y [%f]\n", minimap.offset_y);
+		dprintf(fd, "minimap.size_x [%f]\n", minimap.size_x);
+		dprintf(fd, "minimap.size_y [%f]\n", minimap.size_y);
 		dprintf(fd, "__________________\n");
+		dprintf(fd, "\n");
 	}
 }
 
@@ -64,11 +67,11 @@ static void	minimap_init_corner(t_minimap *minimap, double max_column,
 	size_x = (minimap->content_end.x - minimap->content_start.x) / scale;
 	size_y = (minimap->content_end.y - minimap->content_start.y) / scale;
 	element_set(&minimap->element,
-			size_x,
-			size_y);
+		size_x,
+		size_y);
 	point_set(&minimap->border_start,
-			START_X,
-			START_Y);
+		START_X,
+		START_Y);
 	point_set(&minimap->border_end,
 		START_X + minimap->element.size_x * max_column + 2 * minimap->offset_x,
 		START_Y + minimap->element.size_y * max_line + 2 * minimap->offset_y);
@@ -117,4 +120,6 @@ void	minimap_init(t_minimap *minimap, size_t max_column, size_t max_line,
 		minimap_init_fullscreen(minimap, (double) max_column,
 			(double) max_line);
 	}
+	minimap->size_x = minimap->content_end.x - minimap->content_start.x;
+	minimap->size_y = minimap->content_end.y - minimap->content_start.y;
 }
