@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:49:37 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/07 00:16:33 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/07 02:09:42 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static void	minimap_draw_border(mlx_image_t *image, t_minimap minimap)
 	}
 }
 
-void	minimap_draw(t_point per, char **map, mlx_image_t *image, t_minimap *minimap)
+void	minimap_draw(char **map, mlx_image_t *image, t_minimap *minimap)
 {
 	size_t	index_x;
 	size_t	index_y;
@@ -124,9 +124,7 @@ void	minimap_draw(t_point per, char **map, mlx_image_t *image, t_minimap *minima
 		index_x = 0;
 		index_y += 1;
 	}
-	// per.x = (per.x * minimap->size_x) + minimap->offset_x;
-	// per.y = (per.y * minimap->size_y) + minimap->offset_x;
-	point_draw_disc(image, per, minimap->element.size_x / 2,
+	point_draw_disc(image, minimap->player_pos, minimap->element.size_x / 2,
 		minimap->colours[GREEN]);
 	debug_print_t_minimap("minimap", *minimap);
 }

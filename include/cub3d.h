@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/06 23:38:41 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/07 08:48:53 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include "MLX42.h"		// needed for mlx_t, mlx_image_t, mlx_key_data_t
 # include <stdlib.h>	// needed for size_t
 # include "minimap.h"	// needed for t_minimap
+
+#include <stdio.h>
 
 //--------------------macros
 
@@ -35,6 +37,10 @@
 # define WIDTH  1920
 # define HEIGHT 1080
 
+# define PI  3.14159265359
+# define P2  PI / 2
+# define P3  3 * PI / 2
+
 //--------------------structs
 
 typedef union u_rgba {
@@ -51,6 +57,15 @@ typedef union u_rgba {
  * s_game, stores data which defines rules and playstyle of the game.
  * @param map The passed data from .cub map files.
 */
+typedef struct s_raycaster
+{
+	double	x;
+	double	y;
+	double	dir;
+	double	x_offset;
+	double	y_offset;
+	double	distance_per;
+}	t_raycaster;
 
 typedef struct s_game
 {
@@ -74,7 +89,9 @@ typedef struct s_game
 typedef struct s_player
 {
 	t_point	pos;
-	int		fov;
+	t_point st;
+	t_point d_pos;
+	double	fov;
 	float	direction;
 }	t_player;
 
@@ -99,6 +116,7 @@ void	sub_str_walls(char **write_to, const char *str);
 //--------------------Drawing
 void	draw_heaven_and_hell(t_all cub);
 void	draw_troll(t_all cub);
+void	draw_player(t_all cub);
 
 //--------------------Game
 void	hook_keys(mlx_key_data_t key_data, void *context);

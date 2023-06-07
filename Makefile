@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
+#    By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/08 17:11:30 by pnolte            #+#    #+#              #
-#    Updated: 2023/05/30 15:15:38 by jwillert         ###   ########.fr        #
+#    Updated: 2023/06/07 02:25:02 by pnolte           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,7 @@ VPATH                 = $(SRC_DIR):$(DEBUG_DIR)
 DEBUG_VAR             = $(shell echo $$DEBUG_FLAG)
 
 CC                    = cc
-CFLAGS                = -Wall -Werror -Wextra
+CFLAGS                = -Wall -Werror -Wextra -fsanitize=address
 
 INCLUDES              = -I ./include \
 						-I ./lib/MLX42/include/MLX42/ \

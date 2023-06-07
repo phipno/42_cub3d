@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:15:21 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/06 23:41:00 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/07 03:14:42 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	cub_exit(int exit_code, int fd, char *message)
 int	main(int argc, char *argv[])
 {
 	t_all		all;
-	t_minimap	minimap;
+	// t_minimap	minimap;
 	int			status;
 
 	status = EXIT_SUCCESS;
@@ -65,7 +65,8 @@ int	main(int argc, char *argv[])
 	}
 
 	draw_heaven_and_hell(all);
-	draw_troll(all);
+	draw_player(all);
+	// draw_troll(all);
 
 	if (mlx_image_to_window(all.mlx, all.image_game, 0, 0) == -1)
 	{
@@ -73,24 +74,24 @@ int	main(int argc, char *argv[])
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_game to window");
 	}
 
-	//	--------------------->	image_minimap
+	// //	--------------------->	image_minimap
 
-	all.image_minimap = mlx_new_image(all.mlx, WIDTH, HEIGHT);
-	if (all.image_minimap == NULL)
-	{
-		mlx_terminate(all.mlx);
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_minimap init");
-	}
+	// all.image_minimap = mlx_new_image(all.mlx, WIDTH, HEIGHT);
+	// if (all.image_minimap == NULL)
+	// {
+	// 	mlx_terminate(all.mlx);
+	// 	cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_minimap init");
+	// }
 
-	all.minimap = &minimap;
-	minimap_init(&minimap, all.map.map_column_max, all.map.map_line_max,
-			MODE_FULLSCREEN);
-	minimap_draw(all.per.pos, all.map.a_map, all.image_minimap, &minimap);
-	if (mlx_image_to_window(all.mlx, all.image_minimap, 0, 0) == -1)
-	{
-		mlx_terminate(all.mlx);
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_minimap to window");
-	}
+	// all.minimap = &minimap;
+	// minimap_init(&minimap, all.map.map_column_max, all.map.map_line_max,
+	// 		MODE_FULLSCREEN);
+	// minimap_draw(all.map.a_map, all.image_minimap, &minimap);
+	// if (mlx_image_to_window(all.mlx, all.image_minimap, 0, 0) == -1)
+	// {
+	// 	mlx_terminate(all.mlx);
+	// 	cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_minimap to window");
+	// }
 
 	//	--------------------->	keys and loop
 
@@ -99,12 +100,6 @@ int	main(int argc, char *argv[])
 
 	// clean up
 	mlx_terminate(all.mlx);
-	float test[5] = {0.512412, 0.1, 0.5, 0.4999999, 1.00};
-
-	for (int i = 0; i < 5; i++)
-	{
-		printf("%d\n", (int)test[i]);
-	}
 	ft_printf(STDERR_FILENO, "Exited with status: %d\n", status);
 	return (status);
 }

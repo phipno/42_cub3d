@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 15:45:01 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/06 23:40:03 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/07 08:55:25 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <string.h>
+#include <math.h>    //needed for cos
 
 #include "cub3d.h"
 #include "libft.h"
@@ -118,13 +119,15 @@ void	get_player_start(t_all *cub)
 				if (cub->map.a_map[y][x] == 'N')
 					cub->per.direction = 0;
 				if (cub->map.a_map[y][x] == 'E')
-					cub->per.direction = 90;
+					cub->per.direction = P2;
 				if (cub->map.a_map[y][x] == 'S')
-					cub->per.direction = 180;
+					cub->per.direction = PI;
 				if (cub->map.a_map[y][x] == 'W')
-					cub->per.direction = 260;
+					cub->per.direction = P3;
 				cub->per.pos.x = x + 0.5;
 				cub->per.pos.y = y + 0.5;
+				cub->per.d_pos.x = cos(cub->per.direction);
+				cub->per.d_pos.y = sin(cub->per.direction);
 				only_one = true;
 			}
 			x++;
@@ -132,6 +135,8 @@ void	get_player_start(t_all *cub)
 		y++;
 	}
 	printf("PosX_Y: %f | %f\nDir: %f\n", cub->per.pos.x, cub->per.pos.y, cub->per.direction);
+	printf("PoDX_Y: %f | %f\nDir: %f\n", cub->per.d_pos.x, cub->per.d_pos.y, cub->per.direction);
+
 }
 
 void	cub_map_muncher(t_all *cub, char *file)
@@ -151,7 +156,7 @@ void	cub_map_muncher(t_all *cub, char *file)
 	if (map_valid_question_mark(&cub->map) == EXIT_FAILURE)
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Map didnt pass validation");
 	get_player_start(cub);
-	cub->per.fov = 90;
+	cub->per.fov = P2;
 }
 
 /* ************************************************************************** */
