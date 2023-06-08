@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/08 14:16:50 by jwillert         ###   ########          */
+/*   Updated: 2023/06/08 14:35:08 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 
 # define WIDTH  1920
 # define HEIGHT 1080
+
+# define MOVEMENT_SPEED 3
 
 //--------------------structs
 
@@ -82,6 +84,7 @@ typedef struct s_all
 	mlx_image_t	*image_minimap;
 	mlx_image_t	*image_player;
 	int			mode;
+	double		ms;
 }	t_all;
 
 //--------------------Parsing

@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:15:21 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/08 14:07:59 by jwillert         ###   ########          */
+/*   Updated: 2023/06/08 14:27:26 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int	main(int argc, char *argv[])
 
 	//	--------------------->	keys and loop
 
+	all.ms = MOVEMENT_SPEED;
 	mlx_key_hook(all.mlx, &hook_keys, &all);
 	mlx_loop_hook(all.mlx, &hook_frame, &all);
 	mlx_loop(all.mlx);

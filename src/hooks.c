@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:28:07 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/08 14:25:09 by jwillert         ###   ########          */
+/*   Updated: 2023/06/08 14:44:28 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	update_player_pos(t_all *all)
 		mlx_terminate(all->mlx);
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_player to window");
 	}
+	debug_print_t_point("player pos", player_pos);
 }
 
 static void	toggle_minimap(t_all *all)
@@ -103,22 +104,22 @@ static int	hook_movement(t_all *all)
 	y = false;
 	if (mlx_is_key_down(all->mlx, MLX_KEY_W) == true)
 	{
-		all->per.offset_y -= 1;
+		all->per.offset_y -= all->ms;
 		y = true;
 	}
 	else if (mlx_is_key_down(all->mlx, MLX_KEY_S) == true)
 	{
-		all->per.offset_y += 1;
+		all->per.offset_y += all->ms;;
 		y = true;
 	}
 	if (mlx_is_key_down(all->mlx, MLX_KEY_D) == true)
 	{
-		all->per.offset_x += 1;
+		all->per.offset_x += all->ms;;
 		x = true;
 	}
 	else if (mlx_is_key_down(all->mlx, MLX_KEY_A) == true)
 	{
-		all->per.offset_x -= 1;
+		all->per.offset_x -= all->ms;
 		x = true;
 	}
 	if (x == true || y == true)
@@ -129,10 +130,12 @@ static int	hook_movement(t_all *all)
 void	hook_frame(void *context)
 {
 	static int	frame;
+	static long int	fps;
 	t_all		*all;
 
 	all = (t_all *) context;
 	frame += 1;
+	fps += 1;
 	if (frame == 10)
 	{
 		if (all->image_player->enabled == false && all->mode != MODE_OFF)
@@ -145,9 +148,16 @@ void	hook_frame(void *context)
 		}
 		frame = 0;
 	}
+	// @todo make movement smoother, some random acceleration
+	// (mb limit frames that we check)
 	if (hook_movement(all) == true)
 	{
 		update_player_pos(all);
+	}
+	if (fps == 60)
+	{
+		fps = 0;
+		dprintf(DEBUG_FD, "60\n");
 	}
 }
 
