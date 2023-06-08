@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:48:45 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/08 17:56:38 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/08 19:21:15 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,8 @@ void DDA(int X0, int Y0, int X1, int Y1, t_all cub)
     float X = X0;
     float Y = Y0;
     for (int i = 0; i <= steps; i++) {
-		if ((X < 0 || X > WIDTH) && (Y < 0 || Y > HEIGHT))
-			break;
-        mlx_put_pixel(cub.image_game, X, Y, 0xFF0000FF); // put pixel at (X,Y)
+		if ((X >= 0 && X <= WIDTH) && (Y >= 0 && Y <= HEIGHT))
+        	mlx_put_pixel(cub.image_player, X, Y, 0xFF0000FF); // put pixel at (X,Y)
         X += Xinc; // increment in x at each step
         Y += Yinc; // increment in y at each step
     }
@@ -149,16 +148,16 @@ t_raycaster	draw_rays_verti(t_all cub)
 	float nTan = -tan(ray.dir);
 	if (ray.dir > P2 && ray.dir < P3)
 	{
-		ray.x = (((int)cub.per.st.x>>6)<<6) - 0.0001;
+		ray.x = (((int)cub.per.st.x / cub.minimap.element.size_x) * cub.minimap.element.size_x) - 0.0001;
 		ray.y = (cub.per.st.x - ray.x) * nTan + cub.per.st.y;
-		ray.x_offset = -64;
+		ray.x_offset = -(int)cub.minimap.element.size_x;;
 		ray.y_offset = -ray.x_offset * nTan;
 	}
 	if (ray.dir < P2 || ray.dir > P3)
 	{
-		ray.x = (((int)cub.per.st.x>>6)<<6) + 64;
+		ray.x = (((int)cub.per.st.x / cub.minimap.element.size_x) * cub.minimap.element.size_x) + (int)cub.minimap.element.size_x;
 		ray.y = (cub.per.st.x - ray.x) * nTan + cub.per.st.y;
-		ray.x_offset = 64;
+		ray.x_offset = (int)cub.minimap.element.size_x;;
 		ray.y_offset = -ray.x_offset * nTan;
 	}
 	if (ray.dir == P2 || ray.dir == P3)
@@ -170,8 +169,8 @@ t_raycaster	draw_rays_verti(t_all cub)
 	}
 	while (depth_of_field < 8)
 	{
-		map_x = (int)(ray.x)>>6;
-		map_y = (int)(ray.y)>>6;
+		map_x = (int)(ray.x) / (int)cub.minimap.element.size_x;;
+		map_y = (int)(ray.y) / (int)cub.minimap.element.size_x;;
 		if (map_y >= 0 && map_y < (int)cub.map.map_line_max && map_x >= 0 && map_x < (int)cub.map.map_column_max &&
 			cub.map.a_map[map_y][map_x] == '1')
 			depth_of_field = 8;
@@ -197,14 +196,14 @@ t_raycaster	draw_rays_hori(t_all cub)
 	float aTan = -1/tan(ray.dir);
 	if (ray.dir > PI)
 	{
-		ray.y = ray.y = (((int)cub.per.st.y / (int)cub.minimap.element.size_x) * (int)cub.minimap.element.size_x) - 0.0001;
+		ray.y = ray.y = (((int)cub.per.st.y / cub.minimap.element.size_x) * cub.minimap.element.size_x) - 0.0001;
 		ray.x = (cub.per.st.y - ray.y) * aTan + cub.per.st.x;
 		ray.y_offset = (int)-cub.minimap.element.size_x;
 		ray.x_offset = -ray.y_offset * aTan;
 	}
 	if (ray.dir < PI)
 	{
-		ray.y = (((int)cub.per.st.y / (int)cub.minimap.element.size_x) * (int)cub.minimap.element.size_x) + (int)cub.minimap.element.size_x;
+		ray.y = (((int)cub.per.st.y / cub.minimap.element.size_x) * cub.minimap.element.size_x) + (int)cub.minimap.element.size_x;
 		ray.x = (cub.per.st.y - ray.y) * aTan + cub.per.st.x;
 		ray.y_offset = (int)cub.minimap.element.size_x;
 		ray.x_offset = -ray.y_offset * aTan;
@@ -221,7 +220,6 @@ t_raycaster	draw_rays_hori(t_all cub)
 		// divided or multi
 		map_x = (int)(ray.x) / (int)cub.minimap.element.size_x;
 		map_y = (int)(ray.y) / (int)cub.minimap.element.size_x;
-		// printf("MX%d  MY%d\n", map_x, map_y);
 		if (map_y >= 0 && map_y < (int)cub.map.map_line_max && map_x >= 0 && map_x < (int)cub.map.map_column_max &&
 			cub.map.a_map[map_y][map_x] == '1')
 			depth_of_field = 8;
@@ -233,8 +231,8 @@ t_raycaster	draw_rays_hori(t_all cub)
 		}
 	}
 	ray.distance_per = pythagoras(cub.per.st.x, cub.per.st.y, ray.x, ray.y);
+	// printf("PX%f  PY%f   RX%f  RY%f\n", cub.per.st.x, cub.per.st.y, ray.x, ray.y);
 	return (ray);
-	// printf("PX%f  PY%f   RX%f  RY%f\n", cub.per.st.x, cub.per.st.y, ray_x, ray_y);
 }
 
 void	draw_player(t_all cub)
@@ -242,8 +240,9 @@ void	draw_player(t_all cub)
 	// (void)cub;
 
 	printf("SizeX%f SizeY%f\n", cub.minimap.element.size_x, cub.minimap.element.size_y);
-	cub.per.st.x = cub.per.pos.y * cub.minimap.element.size_x;
-	cub.per.st.y = cub.per.pos.y * cub.minimap.element.size_y;
+	// printf("Pos%f Pos%f\n", cub.per.pos.x, cub.per.pos.y);
+	cub.per.st.x = cub.per.pos.x;
+	cub.per.st.y = cub.per.pos.y;
 	// draw_map(cub);
 	// for (int y = cub.per.pos.y * 64; y < cub.per.pos.y * 64 + 10; y++)
 	// {
@@ -258,19 +257,27 @@ void	draw_player(t_all cub)
 	// 	cub);
 	double	angle_add;
 	t_raycaster rays[2];
-
+	printf("Direction%f       Adngle_Add%f\n", cub.per.direction, angle_add);
 	cub.per.direction = cub.per.direction - cub.per.fov / 2;
 	angle_add = cub.per.fov / WIDTH;
-	for (int y = 0; y < WIDTH; y++)
-	{
+	printf("Direction%f       Adngle_Add%f\n", cub.per.direction, angle_add);
+	// for (int y = 0; y < WIDTH; y++)
+	// {
 		rays[0] = draw_rays_hori(cub);
 		rays[1] = draw_rays_verti(cub);
 		if (rays[0].distance_per < rays[1].distance_per)
+		{
+
+			printf("stX%f  stY%f    rX%f  rY%f\n", cub.per.st.x, cub.per.st.y, rays[0].x, rays[0].y);
 			DDA(cub.per.st.x, cub.per.st.y, rays[0].x, rays[0].y, cub);
+		}
 		else
+		{
+			printf("stX%f  stY%f    rX%f  rY%f\n", cub.per.st.x, cub.per.st.y, rays[1].x, rays[1].y);
 			DDA(cub.per.st.x, cub.per.st.y, rays[1].x, rays[1].y, cub);
+		}
 		cub.per.direction += angle_add;
-	}
+	// }
 }
 
 /* ************************************************************************** */

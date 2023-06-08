@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:08:24 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/07 01:16:22 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/08 19:07:59 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ static void	minimap_init_corner(t_minimap *minimap, double max_column,
 	point_set(&minimap->content_end,
 		END_X - minimap->offset_x,
 		END_Y - minimap->offset_y);
-	size_x = (minimap->content_end.x - minimap->content_start.x) / scale;
 	size_y = (minimap->content_end.y - minimap->content_start.y) / scale;
+	size_x = size_y;
 	element_set(&minimap->element,
 		size_x,
 		size_y);
@@ -89,8 +89,8 @@ static void	minimap_init_fullscreen(t_minimap *minimap, double max_column,
 	minimap->offset_y = 0;
 	scale = (double) get_bigger_sizet(max_column, max_line) + (double) 1;
 	point_set(&mid, WIDTH / 2, HEIGHT / 2);
-	size_x = (WIDTH - (WIDTH / 100 * 10)) / scale;
-	size_y = (HEIGHT - (HEIGHT / 100 * 10)) / scale;
+	size_y = (HEIGHT - WIDTH / 100 * 10) / scale;;
+	size_x = size_y;
 	element_set(&minimap->element, size_x, size_y);
 	point_set(&minimap->content_start,
 		mid.x - max_column / 2 * size_x,
