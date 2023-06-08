@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/08 13:20:10 by jwillert         ###   ########          */
+/*   Updated: 2023/06/08 13:49:04 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct s_all
 	mlx_image_t	*image_game;
 	mlx_image_t	*image_minimap;
 	mlx_image_t	*image_player;
+	int			mode;
 }	t_all;
 
 //--------------------Parsing
@@ -93,7 +94,10 @@ void	draw_troll(t_all cub);
 
 //--------------------Game
 void	hook_keys(mlx_key_data_t key_data, void *context);
+void	hook_frame(void *context);
 void	player_set_pos(t_player *per, int x, int y);
+void	update_player_pos(t_all *all);
+void	update_minimap(t_all *all, int mode);
 
 //--------------------Colours
 int		get_rgba(int r, int g, int b, int a);

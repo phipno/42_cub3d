@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:28:07 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/08 13:22:53 by jwillert         ###   ########          */
+/*   Updated: 2023/06/08 13:54:07 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,13 @@
 #include "minimap.h"// needed for macros, t_minimap
 #include <unistd.h> // needed for STDERR_FILENO
 
-static void	update_minimap(t_all *all, int mode)
+void	update_minimap(t_all *all, int mode)
 {
-	all->image_minimap->enabled = true;
-	mlx_delete_image(all->mlx, all->image_minimap);
+	if (all->image_minimap != NULL)
+	{
+		all->image_minimap->enabled = true;
+		mlx_delete_image(all->mlx, all->image_minimap);
+	}
 	all->image_minimap = mlx_new_image(all->mlx, WIDTH, HEIGHT);
 	if (all->image_minimap == NULL)
 	{
@@ -37,11 +40,12 @@ static void	update_minimap(t_all *all, int mode)
 	}
 }	
 
-static void	update_player_pos(t_all *all)
+void	update_player_pos(t_all *all)
 {
 	t_point	player_pos;
 
-	mlx_delete_image(all->mlx, all->image_player);
+	if (all->image_player != NULL)
+		mlx_delete_image(all->mlx, all->image_player);
 	all->image_player = mlx_new_image(all->mlx, WIDTH, HEIGHT);
 	if (all->image_player == NULL)
 	{
@@ -56,7 +60,7 @@ static void	update_player_pos(t_all *all)
 		all->per.pos_y);
 	point_draw_disc(all->image_player,
 		player_pos,
-		all->minimap.element.size_x / 3,
+		all->minimap.element.size_x / 1.3,
 		all->minimap.colours[GREEN]);
 	if (mlx_image_to_window(all->mlx, all->image_player, 0, 0) == -1)
 	{
@@ -72,19 +76,43 @@ static void	toggle_minimap(t_all *all)
 	i += 1;
 	if (i == 1)
 	{
-		update_minimap(all, MODE_CORNER);
+		all->mode = MODE_CORNER;
+		update_minimap(all, all->mode);
 		update_player_pos(all);
 	}
 	else if (i == 2)
 	{
+		all->mode = MODE_OFF;
 		all->image_minimap->enabled = false;
 		all->image_player->enabled = false;
 	}
 	else if (i == 3)
 	{
 		i = 0;
-		update_minimap(all, MODE_FULLSCREEN);
+		all->mode = MODE_FULLSCREEN;
+		update_minimap(all, all->mode);
 		update_player_pos(all);
+	}
+}
+
+void	hook_frame(void *context)
+{
+	t_all	*all;
+	static int	frame;
+	all = (t_all *) context;
+
+	frame += 1;
+	if (frame == 10)
+	{
+		if (all->image_player->enabled == false && all->mode != MODE_OFF)
+		{
+			all->image_player->enabled = true;
+		}
+		else
+		{
+			all->image_player->enabled = false;
+		}
+		frame = 0;
 	}
 }
 

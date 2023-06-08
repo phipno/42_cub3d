@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:15:21 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/07 18:15:41 by jwillert         ###   ########          */
+/*   Updated: 2023/06/08 13:51:40 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,50 +71,19 @@ int	main(int argc, char *argv[])
 
 	//	--------------------->	image_minimap
 
-	all.image_minimap = mlx_new_image(all.mlx, WIDTH, HEIGHT);
-	if (all.image_minimap == NULL)
-	{
-		mlx_terminate(all.mlx);
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_minimap init");
-	}
-
-	minimap_init(&all.minimap, all.map.map_column_max, all.map.map_line_max,
-			MODE_FULLSCREEN);
-	minimap_draw(all.map.a_map, all.image_minimap, &all.minimap);
-
-	if (mlx_image_to_window(all.mlx, all.image_minimap, 0, 0) == -1)
-	{
-		mlx_terminate(all.mlx);
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_minimap to window");
-	}
+	all.image_minimap = NULL;
+	all.mode = MODE_FULLSCREEN;
+	update_minimap(&all, MODE_FULLSCREEN);
 
 	//	--------------------->	image_player
 	
-	all.image_player = mlx_new_image(all.mlx, WIDTH, HEIGHT);
-	if (all.image_player == NULL)
-	{
-		mlx_terminate(all.mlx);
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_player init");
-	}
-
-	// @todo make clean
-	t_point player_pos;
-
-	player_set_pos(&all.per, all.minimap.player_pos.x, all.minimap.player_pos.y);
-	point_set(&player_pos, all.per.pos_x, all.per.pos_y);
-	point_draw_disc(all.image_player, player_pos, all.minimap.element.size_x / 3,
-		all.minimap.colours[GREEN]);
-	debug_print_t_point("player", player_pos);
-
-	if (mlx_image_to_window(all.mlx, all.image_player, 0, 0) == -1)
-	{
-		mlx_terminate(all.mlx);
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_player to window");
-	}
+	all.image_player = NULL;
+	update_player_pos(&all);
 
 	//	--------------------->	keys and loop
 
 	mlx_key_hook(all.mlx, &hook_keys, &all);
+	mlx_loop_hook(all.mlx, &hook_frame, &all);
 	mlx_loop(all.mlx);
 
 	// clean up
