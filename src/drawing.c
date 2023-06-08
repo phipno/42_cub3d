@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:48:45 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/07 10:58:50 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/08 17:56:38 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void DDA(int X0, int Y0, int X1, int Y1, t_all cub)
     float X = X0;
     float Y = Y0;
     for (int i = 0; i <= steps; i++) {
+		if ((X < 0 || X > WIDTH) && (Y < 0 || Y > HEIGHT))
+			break;
         mlx_put_pixel(cub.image_game, X, Y, 0xFF0000FF); // put pixel at (X,Y)
         X += Xinc; // increment in x at each step
         Y += Yinc; // increment in y at each step
@@ -195,16 +197,16 @@ t_raycaster	draw_rays_hori(t_all cub)
 	float aTan = -1/tan(ray.dir);
 	if (ray.dir > PI)
 	{
-		ray.y = (((int)cub.per.st.y>>6)<<6) - 0.0001;
+		ray.y = ray.y = (((int)cub.per.st.y / (int)cub.minimap.element.size_x) * (int)cub.minimap.element.size_x) - 0.0001;
 		ray.x = (cub.per.st.y - ray.y) * aTan + cub.per.st.x;
-		ray.y_offset = -64;
+		ray.y_offset = (int)-cub.minimap.element.size_x;
 		ray.x_offset = -ray.y_offset * aTan;
 	}
 	if (ray.dir < PI)
 	{
-		ray.y = (((int)cub.per.st.y>>6)<<6) + 64;
+		ray.y = (((int)cub.per.st.y / (int)cub.minimap.element.size_x) * (int)cub.minimap.element.size_x) + (int)cub.minimap.element.size_x;
 		ray.x = (cub.per.st.y - ray.y) * aTan + cub.per.st.x;
-		ray.y_offset = 64;
+		ray.y_offset = (int)cub.minimap.element.size_x;
 		ray.x_offset = -ray.y_offset * aTan;
 	}
 	if (ray.dir == 0 || ray.dir == PI)
@@ -216,8 +218,9 @@ t_raycaster	draw_rays_hori(t_all cub)
 	}
 	while (depth_of_field < 8)
 	{
-		map_x = (int)(ray.x)>>6;
-		map_y = (int)(ray.y)>>6;
+		// divided or multi
+		map_x = (int)(ray.x) / (int)cub.minimap.element.size_x;
+		map_y = (int)(ray.y) / (int)cub.minimap.element.size_x;
 		// printf("MX%d  MY%d\n", map_x, map_y);
 		if (map_y >= 0 && map_y < (int)cub.map.map_line_max && map_x >= 0 && map_x < (int)cub.map.map_column_max &&
 			cub.map.a_map[map_y][map_x] == '1')
@@ -238,16 +241,17 @@ void	draw_player(t_all cub)
 {
 	// (void)cub;
 
-	cub.per.st.x = cub.per.pos.y * 64;
-	cub.per.st.y = cub.per.pos.y * 64;
-	draw_map(cub);
-	for (int y = cub.per.pos.y * 64; y < cub.per.pos.y * 64 + 10; y++)
-	{
-		for (int x = cub.per.pos.x * 64; x < cub.per.pos.x * 64 + 10; x++)
-		{
-			mlx_put_pixel(cub.image_game, x, y, 0xFFFF55FF);
-		}
-	}
+	printf("SizeX%f SizeY%f\n", cub.minimap.element.size_x, cub.minimap.element.size_y);
+	cub.per.st.x = cub.per.pos.y * cub.minimap.element.size_x;
+	cub.per.st.y = cub.per.pos.y * cub.minimap.element.size_y;
+	// draw_map(cub);
+	// for (int y = cub.per.pos.y * 64; y < cub.per.pos.y * 64 + 10; y++)
+	// {
+	// 	for (int x = cub.per.pos.x * 64; x < cub.per.pos.x * 64 + 10; x++)
+	// 	{
+	// 		mlx_put_pixel(cub.image_game, x, y, 0xFFFF55FF);
+	// 	}
+	// }
 	// DDA(cub.per.pos.x * 64, cub.per.pos.y * 64,
 	// 		cub.per.pos.x * 64 + 20 * cos(cub.per.direction),
 	// 		cub.per.pos.y * 64 + 20 * sin(cub.per.direction),

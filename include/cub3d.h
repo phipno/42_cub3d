@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/07 08:48:53 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/08 17:24:35 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 //--------------------macros
 
-// defines where all debugging information is writte to
+// defines where all debugging information is written to
 # define DEBUG_FD STDERR_FILENO
 
 //if defined as 1, will print out all debug_*() output
@@ -40,6 +40,8 @@
 # define PI  3.14159265359
 # define P2  PI / 2
 # define P3  3 * PI / 2
+
+# define MOVEMENT_SPEED 2
 
 //--------------------structs
 
@@ -72,7 +74,6 @@ typedef struct s_game
 	char	**a_map;
 	size_t	map_column_max;
 	size_t	map_line_max;
-	size_t	max;
 	t_rgba	sky_color;
 	t_rgba	floor_color;
 	char	*north_wall;
@@ -91,6 +92,7 @@ typedef struct s_player
 	t_point	pos;
 	t_point st;
 	t_point d_pos;
+	t_point offset;
 	double	fov;
 	float	direction;
 }	t_player;
@@ -99,10 +101,13 @@ typedef struct s_all
 {
 	t_player	per;
 	t_game		map;
+	t_minimap	minimap;
 	mlx_t		*mlx;
 	mlx_image_t	*image_game;
 	mlx_image_t	*image_minimap;
-	t_minimap	*minimap;
+	mlx_image_t	*image_player;
+	int			mode;
+	double		ms;
 }	t_all;
 
 //--------------------Parsing
@@ -120,6 +125,10 @@ void	draw_player(t_all cub);
 
 //--------------------Game
 void	hook_keys(mlx_key_data_t key_data, void *context);
+void	hook_frame(void *context);
+void	player_set_pos(t_player *per, int x, int y);
+void	update_player_pos(t_all *all);
+void	update_minimap(t_all *all, int mode);
 
 //--------------------Colours
 int		get_rgba(int r, int g, int b, int a);
