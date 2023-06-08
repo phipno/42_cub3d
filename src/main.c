@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:15:21 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/08 13:51:40 by jwillert         ###   ########          */
+/*   Updated: 2023/06/08 14:07:59 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,9 @@ int	main(int argc, char *argv[])
 	update_minimap(&all, MODE_FULLSCREEN);
 
 	//	--------------------->	image_player
-	
+
+	all.per.offset_x = 0;
+	all.per.offset_y = 0;
 	all.image_player = NULL;
 	update_player_pos(&all);
 

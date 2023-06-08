@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/08 13:49:04 by jwillert         ###   ########          */
+/*   Updated: 2023/06/08 14:16:50 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 //--------------------macros
 
-// defines where all debugging information is writte to
+// defines where all debugging information is written to
 # define DEBUG_FD STDERR_FILENO
 
 //if defined as 1, will print out all debug_*() output
@@ -64,6 +64,10 @@ typedef struct s_player
 {
 	float	pos_x;
 	float	pos_y;
+	double	x;
+	double	y;
+	double	offset_x;
+	double	offset_y;
 	int		fov;
 	float	direction;
 }	t_player;
