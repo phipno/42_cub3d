@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:48:45 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/07 08:54:15 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/07 10:58:50 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,46 +62,47 @@ void	draw_heaven_and_hell(t_all cub)
 	}
 }
 
-void	draw_troll(t_all cub)
-{
-	int x;
-	int y;
+// void	draw_troll(t_all cub)
+// {
+// 	int x;
+// 	int y;
 
-	y = 80;
-	while (y < HEIGHT - 80)
-	{
-		x = 160;
-		while (x < WIDTH - 160)
-		{
-			mlx_put_pixel(cub.image_game, x, y, 0x0);
-			x++;
-		}
-		y++;
-	}
-	y = 140;
-	while (y < HEIGHT -140)
-	{
-		x = 0;
-		while (x < WIDTH - 160 - 160)
-		{
-			mlx_put_pixel(cub.image_game, x, y, 0x0);
-			x++;
-		}
-		y++;
-	}
-	y = 140;
-	while (y < HEIGHT -140)
-	{
-		x = 320;
-		while (x < WIDTH)
-		{
-			mlx_put_pixel(cub.image_game, x, y, 0x0);
-			x++;
-		}
-		y++;
-	}
-}
+// 	y = 80;
+// 	while (y < HEIGHT - 80)
+// 	{
+// 		x = 160;
+// 		while (x < WIDTH - 160)
+// 		{
+// 			mlx_put_pixel(cub.image_game, x, y, 0x0);
+// 			x++;
+// 		}
+// 		y++;
+// 	}
+// 	y = 140;
+// 	while (y < HEIGHT -140)
+// 	{
+// 		x = 0;
+// 		while (x < WIDTH - 160 - 160)
+// 		{
+// 			mlx_put_pixel(cub.image_game, x, y, 0x0);
+// 			x++;
+// 		}
+// 		y++;
+// 	}
+// 	y = 140;
+// 	while (y < HEIGHT -140)
+// 	{
+// 		x = 320;
+// 		while (x < WIDTH)
+// 		{
+// 			mlx_put_pixel(cub.image_game, x, y, 0x0);
+// 			x++;
+// 		}
+// 		y++;
+// 	}
+// }
 
+//grid
 void	draw_square(int y, int x, t_all cub, int32_t color)
 {
 	for (int i = y * 64; i < y * 64 + 64; i++)
@@ -158,8 +159,9 @@ t_raycaster	draw_rays_verti(t_all cub)
 		ray.x_offset = 64;
 		ray.y_offset = -ray.x_offset * nTan;
 	}
-	if (ray.dir == 0 || ray.dir == PI)
+	if (ray.dir == P2 || ray.dir == P3)
 	{
+		printf("hi\n");
 		ray.x = cub.per.st.x;
 		ray.y = cub.per.st.y;
 		depth_of_field = 8;
@@ -207,6 +209,7 @@ t_raycaster	draw_rays_hori(t_all cub)
 	}
 	if (ray.dir == 0 || ray.dir == PI)
 	{
+		printf("hi\n");
 		ray.x = cub.per.st.x;
 		ray.y = cub.per.st.y;
 		depth_of_field = 8;
