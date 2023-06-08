@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:15:21 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/06 15:17:25 by jwillert         ###   ########          */
+/*   Updated: 2023/06/07 18:15:41 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	cub_exit(int exit_code, int fd, char *message)
 int	main(int argc, char *argv[])
 {
 	t_all		all;
-	t_minimap	minimap;
 	int			status;
 
 	status = EXIT_SUCCESS;
@@ -79,14 +78,38 @@ int	main(int argc, char *argv[])
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_minimap init");
 	}
 
-	all.minimap = &minimap;
-	minimap_init(&minimap, all.map.map_column_max, all.map.map_line_max,
+	minimap_init(&all.minimap, all.map.map_column_max, all.map.map_line_max,
 			MODE_FULLSCREEN);
-	minimap_draw(all.map.a_map, all.image_minimap, &minimap);
+	minimap_draw(all.map.a_map, all.image_minimap, &all.minimap);
+
 	if (mlx_image_to_window(all.mlx, all.image_minimap, 0, 0) == -1)
 	{
 		mlx_terminate(all.mlx);
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_minimap to window");
+	}
+
+	//	--------------------->	image_player
+	
+	all.image_player = mlx_new_image(all.mlx, WIDTH, HEIGHT);
+	if (all.image_player == NULL)
+	{
+		mlx_terminate(all.mlx);
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_player init");
+	}
+
+	// @todo make clean
+	t_point player_pos;
+
+	player_set_pos(&all.per, all.minimap.player_pos.x, all.minimap.player_pos.y);
+	point_set(&player_pos, all.per.pos_x, all.per.pos_y);
+	point_draw_disc(all.image_player, player_pos, all.minimap.element.size_x / 3,
+		all.minimap.colours[GREEN]);
+	debug_print_t_point("player", player_pos);
+
+	if (mlx_image_to_window(all.mlx, all.image_player, 0, 0) == -1)
+	{
+		mlx_terminate(all.mlx);
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_player to window");
 	}
 
 	//	--------------------->	keys and loop

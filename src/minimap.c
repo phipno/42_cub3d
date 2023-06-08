@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:49:37 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/06 15:15:43 by jwillert         ###   ########          */
+/*   Updated: 2023/06/08 13:14:32 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,5 @@ void	minimap_draw(char **map, mlx_image_t *image, t_minimap *minimap)
 		index_x = 0;
 		index_y += 1;
 	}
-	point_draw_disc(image, minimap->player_pos, minimap->element.size_x / 2,
-		minimap->colours[GREEN]);
 	debug_print_t_minimap("minimap", *minimap);
 }

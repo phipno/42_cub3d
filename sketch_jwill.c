@@ -3,8 +3,9 @@
 <feature><minimap>
 
 player pos:
-
-	- hook when moving for minimap
+	- get player_pos on minimap start/change
+	- save the offset from original position to be able to redraw
+	- prob need a formula to scale down
 
 -------------------------------------------------------------------------------
 

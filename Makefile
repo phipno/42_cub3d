@@ -6,7 +6,7 @@
 #    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/08 17:11:30 by pnolte            #+#    #+#              #
-#    Updated: 2023/05/30 15:15:38 by jwillert         ###   ########.fr        #
+#    Updated: 2023/06/07 14:35:29 by jwillert         ###   ########           #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,7 @@ DEBUG_SRC             =
 SRC_DIR               = ./src/
 SRC_FILES             = main.c\
 						minimap.c t_point.c t_minimap.c t_element.c\
-						hooks.c	colours.c utils.c\
+						hooks.c	colours.c utils.c playerpos.c\
 						init.c init_map.c init_wall_color.c valid_map.c\
 						drawing.c
 

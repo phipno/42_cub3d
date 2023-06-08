@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/05 19:30:02 by jwillert         ###   ########          */
+/*   Updated: 2023/06/08 13:20:10 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
 #  define PARSING_TESTER 0
 # endif // PARSING_TESTER
 
-# define WIDTH  640
-# define HEIGHT 480
+# define WIDTH  1920
+# define HEIGHT 1080
 
 //--------------------structs
 
@@ -52,7 +52,6 @@ typedef struct s_game
 	char	**a_map;
 	size_t	map_column_max;
 	size_t	map_line_max;
-	size_t	max;
 	t_rgba	sky_color;
 	t_rgba	floor_color;
 	char	*north_wall;
@@ -73,10 +72,11 @@ typedef struct s_all
 {
 	t_player	per;
 	t_game		map;
+	t_minimap	minimap;
 	mlx_t		*mlx;
 	mlx_image_t	*image_game;
 	mlx_image_t	*image_minimap;
-	t_minimap	*minimap;
+	mlx_image_t	*image_player;
 }	t_all;
 
 //--------------------Parsing
@@ -93,6 +93,7 @@ void	draw_troll(t_all cub);
 
 //--------------------Game
 void	hook_keys(mlx_key_data_t key_data, void *context);
+void	player_set_pos(t_player *per, int x, int y);
 
 //--------------------Colours
 int		get_rgba(int r, int g, int b, int a);

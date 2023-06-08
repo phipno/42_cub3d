@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:45:22 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/06 15:10:47 by jwillert         ###   ########          */
+/*   Updated: 2023/06/08 13:14:06 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 //								includes
 /* -------------------------------------------------------------------------- */
 
-# include "MLX42.h"		// needed for mlx_image_t
-# include <stdlib.h>	// needed for size_t
+# include "MLX42.h"   // needed for mlx_image_t
+# include <stdlib.h>  // needed for size_t
 
 /* -------------------------------------------------------------------------- */
 //								macros
@@ -27,8 +27,8 @@
 // start and end location of minimap (cornered) in pixel
 # define START_X  10
 # define START_Y  10
-# define END_X    130
-# define END_Y    130
+# define END_X    WIDTH / 3
+# define END_Y    HEIGHT / 3
 
 // modes for the minimap
 # define MODE_OFF         0
