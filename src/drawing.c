@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:48:45 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/08 19:21:15 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/09 17:41:55 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,31 @@
 #include "raycasting.h"
 
 #include <math.h>
+
+//void	draw_direction(t_all *all)
+//{
+//	double	length;
+//	double	width;
+//	double	offset;
+//	double	x;
+//	double	y;
+//
+//	length = 10;
+//	width = 2;
+//	offset = all->minimap.element.size_x;
+//	x = all->per.pos.x;
+//	y = all->per.pox.y;
+//	while (y < HEIGHT)
+//	{
+//		while (x < WIDTH)
+//		{
+//			x += 1;
+//		}
+//		x = all->per.pox.x;
+//		y += 1;
+//	}
+//}
+
 
 void DDA(int X0, int Y0, int X1, int Y1, t_all cub)
 {
@@ -162,7 +187,7 @@ t_raycaster	draw_rays_verti(t_all cub)
 	}
 	if (ray.dir == P2 || ray.dir == P3)
 	{
-		printf("hi\n");
+		//printf("hi\n");
 		ray.x = cub.per.st.x;
 		ray.y = cub.per.st.y;
 		depth_of_field = 8;
@@ -210,7 +235,7 @@ t_raycaster	draw_rays_hori(t_all cub)
 	}
 	if (ray.dir == 0 || ray.dir == PI)
 	{
-		printf("hi\n");
+		//printf("hi\n");
 		ray.x = cub.per.st.x;
 		ray.y = cub.per.st.y;
 		depth_of_field = 8;
@@ -239,7 +264,7 @@ void	draw_player(t_all cub)
 {
 	// (void)cub;
 
-	printf("SizeX%f SizeY%f\n", cub.minimap.element.size_x, cub.minimap.element.size_y);
+	//printf("element.size_x [%f] element.size_y [%f]\n", cub.minimap.element.size_x, cub.minimap.element.size_y);
 	// printf("Pos%f Pos%f\n", cub.per.pos.x, cub.per.pos.y);
 	cub.per.st.x = cub.per.pos.x;
 	cub.per.st.y = cub.per.pos.y;
@@ -256,11 +281,13 @@ void	draw_player(t_all cub)
 	// 		cub.per.pos.y * 64 + 20 * sin(cub.per.direction),
 	// 	cub);
 	double	angle_add;
+
+	angle_add = 0;
 	t_raycaster rays[2];
-	printf("Direction%f       Adngle_Add%f\n", cub.per.direction, angle_add);
+	//printf("direction [%f] | angle_add [%f]\n", cub.per.direction, angle_add);
 	cub.per.direction = cub.per.direction - cub.per.fov / 2;
 	angle_add = cub.per.fov / WIDTH;
-	printf("Direction%f       Adngle_Add%f\n", cub.per.direction, angle_add);
+	//printf("direction [%f] | angle_add [%f]\n", cub.per.direction, angle_add);
 	// for (int y = 0; y < WIDTH; y++)
 	// {
 		rays[0] = draw_rays_hori(cub);
@@ -268,12 +295,12 @@ void	draw_player(t_all cub)
 		if (rays[0].distance_per < rays[1].distance_per)
 		{
 
-			printf("stX%f  stY%f    rX%f  rY%f\n", cub.per.st.x, cub.per.st.y, rays[0].x, rays[0].y);
+			//printf("stX [%f]  stY[%f]  rX[%f]  rY[%f]\n", cub.per.st.x, cub.per.st.y, rays[0].x, rays[0].y);
 			DDA(cub.per.st.x, cub.per.st.y, rays[0].x, rays[0].y, cub);
 		}
 		else
 		{
-			printf("stX%f  stY%f    rX%f  rY%f\n", cub.per.st.x, cub.per.st.y, rays[1].x, rays[1].y);
+			//printf("stX [%f] | stY [%f] | rX[%f] | rY[%f]\n", cub.per.st.x, cub.per.st.y, rays[1].x, rays[1].y);
 			DDA(cub.per.st.x, cub.per.st.y, rays[1].x, rays[1].y, cub);
 		}
 		cub.per.direction += angle_add;

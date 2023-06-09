@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 11:40:43 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/07 02:09:25 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/09 17:41:11 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,36 @@ void	point_draw_disc(mlx_image_t *image, t_point a, double diameter,
 		y += 1;
 	}
 }
+//
+//static void	get_smaller_double(double x, double y)
+//{
+//	if (x <= y)
+//		return (x);
+//	else
+//		return (y);
+//}
+//
+//
+//
+//
+//void	point_draw_line(mlx_image_t *image, t_point a, t_point b)
+//{
+//	double	x;
+//	double	y;
+//
+//	x = 0;
+//	y = 0;
+//	while (y < HEIGHT)
+//	{
+//		while (x < WIDTH)
+//		{
+//			if (x == 
+//			x += 1;
+//		}
+//		y += 1;
+//	}
+//}
+
 
 //void	point_draw_circle(mlx_image_t *image, t_point a, double diameter,
 //		int32_t colour)

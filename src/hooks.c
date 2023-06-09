@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:28:07 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/08 19:08:35 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/09 17:46:28 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 #include "cub3d.h"  // needed for t_all
 #include "minimap.h"// needed for macros, t_minimap
 #include <unistd.h> // needed for STDERR_FILENO
-#include <math.h>   // needed for cos
+#include <math.h>   // needed for cos(), sin(), tan()
 #include <stdio.h>  // needed for dprintf()
+
 void	update_minimap(t_all *all, int mode)
 {
 	if (all->image_minimap != NULL)
@@ -106,52 +107,56 @@ static int	hook_movement(t_all *all)
 	y = false;
 	if (mlx_is_key_down(all->mlx, MLX_KEY_W) == true)
 	{
-		all->per.offset.y -= all->ms;
+		all->per.offset.x += cos((all->per.angle_real) / 180 * M_PI) * all->ms;
+		all->per.offset.y += sin((all->per.angle_real) / 180 * M_PI) * all->ms;
 		y = true;
 	}
 	else if (mlx_is_key_down(all->mlx, MLX_KEY_S) == true)
 	{
-		all->per.offset.y += all->ms;;
+		all->per.offset.x += cos((all->per.angle_real - 180) / 180 * M_PI) * all->ms;
+		all->per.offset.y += sin((all->per.angle_real - 180) / 180 * M_PI) * all->ms;
 		y = true;
 	}
 	if (mlx_is_key_down(all->mlx, MLX_KEY_D) == true)
 	{
-		all->per.offset.x += all->ms;;
+		all->per.offset.x += cos((all->per.angle_real + 90) / 180 * M_PI) * all->ms;
+		all->per.offset.y += sin((all->per.angle_real + 90) / 180 * M_PI) * all->ms;
 		x = true;
 	}
 	else if (mlx_is_key_down(all->mlx, MLX_KEY_A) == true)
 	{
-		all->per.offset.x -= all->ms;
+		all->per.offset.x += cos((all->per.angle_real - 90) / 180 * M_PI) * all->ms;
+		all->per.offset.y += sin((all->per.angle_real - 90) / 180 * M_PI) * all->ms;
 		x = true;
 	}
 	if (mlx_is_key_down(all->mlx, MLX_KEY_LEFT) == true)
 	{
-		all->per.direction -= 0.1;
-		if (all->per.direction < 0)
-			all->per.direction += 2 * PI;
+//		all->per.direction -= 0.1;
+//		if (all->per.direction < 0)
+//			all->per.direction += 2 * PI;
+		all->per.angle_real -= 5;
 		x = true;
 	}
 	else if (mlx_is_key_down(all->mlx, MLX_KEY_RIGHT) == true)
 	{
-		all->per.direction += 0.1;
-		if (all->per.direction > 2 * PI)
-			all->per.direction -= 2 * PI;
+//		all->per.direction += 0.1;
+//		if (all->per.direction > 2 * PI)
+//			all->per.direction -= 2 * PI;
+		all->per.angle_real += 5;
 		x = true;
 	}
 	if (x == true || y == true)
 		return (1);
 	return (0);
 }
-
+__
 void	hook_frame(void *context)
 {
 	static int	frame;
-	static long int	fps;
 	t_all		*all;
 
 	all = (t_all *) context;
 	frame += 1;
-	fps += 1;
 	if (frame == 10)
 	{
 		if (all->image_player->enabled == false && all->mode != MODE_OFF)
@@ -169,11 +174,6 @@ void	hook_frame(void *context)
 	if (hook_movement(all) == true)
 	{
 		update_player_pos(all);
-	}
-	if (fps == 60)
-	{
-		fps = 0;
-		// dprintf(DEBUG_FD, "60\n");
 	}
 }
 

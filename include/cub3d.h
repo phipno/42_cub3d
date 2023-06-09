@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/08 17:24:35 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/09 15:06:47 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,9 @@ typedef struct s_game
 	char	*west_wall;
 }	t_game;
 
-
 /**
  * @param player, holds data which is important for player information.
 */
-
 typedef struct s_player
 {
 	t_point	pos;
@@ -94,7 +92,8 @@ typedef struct s_player
 	t_point d_pos;
 	t_point offset;
 	double	fov;
-	float	direction;
+	double	direction;
+	double	angle_real;
 }	t_player;
 
 typedef struct s_all
