@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:28:07 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/09 17:46:28 by jwillert         ###   ########          */
+/*   Updated: 2023/06/09 18:30:06 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,16 +132,16 @@ static int	hook_movement(t_all *all)
 	if (mlx_is_key_down(all->mlx, MLX_KEY_LEFT) == true)
 	{
 //		all->per.direction -= 0.1;
-//		if (all->per.direction < 0)
-//			all->per.direction += 2 * PI;
+		if (all->per.angle_real < 0)
+			all->per.angle_real += 360;
 		all->per.angle_real -= 5;
 		x = true;
 	}
 	else if (mlx_is_key_down(all->mlx, MLX_KEY_RIGHT) == true)
 	{
 //		all->per.direction += 0.1;
-//		if (all->per.direction > 2 * PI)
-//			all->per.direction -= 2 * PI;
+		if (all->per.angle_real > 360)
+			all->per.angle_real = 0;
 		all->per.angle_real += 5;
 		x = true;
 	}
@@ -149,7 +149,7 @@ static int	hook_movement(t_all *all)
 		return (1);
 	return (0);
 }
-__
+
 void	hook_frame(void *context)
 {
 	static int	frame;

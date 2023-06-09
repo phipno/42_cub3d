@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/09 15:06:47 by jwillert         ###   ########          */
+/*   Updated: 2023/06/09 21:28:35 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,6 @@ typedef union u_rgba {
  * s_game, stores data which defines rules and playstyle of the game.
  * @param map The passed data from .cub map files.
 */
-typedef struct s_raycaster
-{
-	double	x;
-	double	y;
-	double	dir;
-	double	x_offset;
-	double	y_offset;
-	double	distance_per;
-}	t_raycaster;
 
 typedef struct s_game
 {

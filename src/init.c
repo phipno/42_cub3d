@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 15:45:01 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/09 14:37:15 by jwillert         ###   ########          */
+/*   Updated: 2023/06/09 18:22:33 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,13 +117,13 @@ void	get_player_start(t_all *cub)
 				if (only_one == true)
 					cub_exit(EXIT_FAILURE, STDERR_FILENO, "to many spawns in map file");
 				if (cub->map.a_map[y][x] == 'N')
-					cub->per.direction = 0;
+					cub->per.direction = 270;
 				if (cub->map.a_map[y][x] == 'E')
-					cub->per.direction = P2;
+					cub->per.direction = 0;
 				if (cub->map.a_map[y][x] == 'S')
-					cub->per.direction = PI;
+					cub->per.direction = 90;
 				if (cub->map.a_map[y][x] == 'W')
-					cub->per.direction = P3;
+					cub->per.direction = 180;
 				cub->per.pos.x = x + 0.5;
 				cub->per.pos.y = y + 0.5;
 				cub->per.d_pos.x = cos(cub->per.direction);
