@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:28:07 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/15 15:11:34 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/15 16:05:22 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	update_game(t_all *all)
 	if (all->image_game != NULL)
 	{
 		all->image_game->enabled = true;
+		printf("ahhhh\n");
 		mlx_delete_image(all->mlx, all->image_game);
 	}
 	all->image_game = mlx_new_image(all->mlx, WIDTH, HEIGHT);
@@ -55,6 +56,7 @@ void	update_game(t_all *all)
 		mlx_terminate(all->mlx);
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_game init");
 	}
+	draw_player(*all);
 	if (mlx_image_to_window(all->mlx, all->image_game, 0, 0) == -1)
 	{
 		mlx_terminate(all->mlx);
@@ -84,8 +86,6 @@ void	update_player_pos(t_all *all)
 		player_pos,
 		all->minimap.element.size_x / 1.3,
 		all->minimap.colours[GREEN]);
-	draw_player(*all);
-	update_game(all);
 	if (mlx_image_to_window(all->mlx, all->image_player, 0, 0) == -1)
 	{
 		mlx_terminate(all->mlx);
@@ -194,6 +194,7 @@ void	hook_frame(void *context)
 	// (mb limit frames that we check)
 	if (hook_movement(all) == true)
 	{
+		update_game(all);
 		update_player_pos(all);
 	}
 }

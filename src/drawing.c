@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:48:45 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/15 15:14:23 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/15 15:43:57 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,15 +268,19 @@ t_raycaster	draw_rays_hori(t_all cub)
 
 void	draw_walls(t_all cub, int x, t_raycaster wall_ray)
 {
-	double	line_h;
+	int	line_h;
+	int line_offset;
 
 	line_h = 64 * HEIGHT / wall_ray.distance_per;
 	if (line_h > HEIGHT)
 		line_h = HEIGHT;
-	while (line_h > 0)
+	line_offset = HEIGHT/2 - line_h / 2;
+	while (line_h >= 0)
 	{
-		mlx_put_pixel(cub.image_game, x, line_h, 0x000000FF);
-		line_h++;
+		// printf("X%d  Y%d\n", x, line_h);
+		if ((x >= 0 && x < WIDTH) && (line_h + line_offset >= 0 && line_h + line_offset < HEIGHT))
+			mlx_put_pixel(cub.image_game, x, line_h + line_offset, 0x000000FF);
+		line_h--;
 	}
 }
 
@@ -302,10 +306,10 @@ void	draw_player(t_all cub)
 	// 	cub);
 	double	angle_add;
 
-	for (int i = 0; i < WIDTH; i++)
-		mlx_put_pixel(cub.image_player, i, 320, 0xFFFFFFF);
-	for (int i = 0; i < HEIGHT; i++)
-		mlx_put_pixel(cub.image_player, 320, i, 0xFFFFFFF);
+	// for (int i = 0; i < WIDTH; i++)
+	// 	mlx_put_pixel(cub.image_player, i, 320, 0xFFFFFFF);
+	// for (int i = 0; i < HEIGHT; i++)
+	// 	mlx_put_pixel(cub.image_player, 320, i, 0xFFFFFFF);
 	angle_add = 0;
 	t_raycaster rays[2];
 	// printf("direction [%f] | angle_add [%f]\n", cub.per.direction, angle_add);
@@ -319,18 +323,18 @@ void	draw_player(t_all cub)
 			cub.per.direction = cub.per.direction + 2 * PI;
 		if (cub.per.direction > 2 * PI)
 			cub.per.direction = cub.per.direction - 2 * PI;
-		printf("Angle.%d %f\n", x, cub.per.direction);
+		// printf("Angle.%d %f\n", x, cub.per.direction);
 		rays[0] = draw_rays_hori(cub);
 		rays[1] = draw_rays_verti(cub);
 		if (rays[0].distance_per < rays[1].distance_per)
 		{
-			printf("Angle [%f]  stX [%f]  stY[%f]  rX[%f]  rY[%f]\n", cub.per.direction, cub.per.st.x, cub.per.st.y, rays[0].x, rays[0].y);
+			// printf("Angle [%f]  stX [%f]  stY[%f]  rX[%f]  rY[%f]\n", cub.per.direction, cub.per.st.x, cub.per.st.y, rays[0].x, rays[0].y);
 			DDA(cub.per.st.x, cub.per.st.y, rays[0].x, rays[0].y, cub, 0xFF0000FF);
 			draw_walls(cub, x, rays[0]);
 		}
 		else
 		{
-			printf("Angle [%f]  stX [%f] | stY [%f] | rX[%f] | rY[%f]\n", cub.per.direction, cub.per.st.x, cub.per.st.y, rays[1].x, rays[1].y);
+			// printf("Angle [%f]  stX [%f] | stY [%f] | rX[%f] | rY[%f]\n", cub.per.direction, cub.per.st.x, cub.per.st.y, rays[1].x, rays[1].y);
 			DDA(cub.per.st.x, cub.per.st.y, rays[1].x, rays[1].y, cub, 0xFF0000FF);
 			draw_walls(cub, x, rays[1]);
 		}

@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:08:24 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/09 21:34:35 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/15 15:51:32 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void	minimap_init_corner(t_minimap *minimap, double max_column,
 		END_X - minimap->offset_x,
 		END_Y - minimap->offset_y);
 	//@note this need to be worked around
-	size_y = 64;
+	size_y = (minimap->content_end.y - minimap->content_start.y) / scale;
 	size_x = size_y;
 	element_set(&minimap->element,
 		size_x,
@@ -90,7 +90,7 @@ static void	minimap_init_fullscreen(t_minimap *minimap, double max_column,
 	minimap->offset_y = 0;
 	scale = (double) get_bigger_sizet(max_column, max_line) + (double) 1;
 	point_set(&mid, WIDTH / 2, HEIGHT / 2);
-	size_y = 64;
+	size_y = (HEIGHT - WIDTH / 100 * 10) / scale;
 	size_x = size_y;
 	element_set(&minimap->element, size_x, size_y);
 	point_set(&minimap->content_start,
