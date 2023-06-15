@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:15:21 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/09 18:16:10 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/15 15:15:32 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,22 +54,22 @@ int	main(int argc, char *argv[])
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "mlx init");
 	}
 
-	//	--------------------->	image_game
+	//	--------------------->	image_background
 
-	all.image_game = mlx_new_image(all.mlx, WIDTH, HEIGHT);
-	if (all.image_game == NULL)
+	all.image_background = mlx_new_image(all.mlx, WIDTH, HEIGHT);
+	if (all.image_background == NULL)
 	{
 		mlx_terminate(all.mlx);
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_game init");
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_background init");
 	}
 
 	draw_heaven_and_hell(all);
 	// draw_troll(all);
 
-	if (mlx_image_to_window(all.mlx, all.image_game, 0, 0) == -1)
+	if (mlx_image_to_window(all.mlx, all.image_background, 0, 0) == -1)
 	{
 		mlx_terminate(all.mlx);
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_game to window");
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_background to window");
 	}
 
 	// //	--------------------->	image_minimap
@@ -84,7 +84,22 @@ int	main(int argc, char *argv[])
 	all.per.offset.y = 0;
 	all.image_player = NULL;
 	update_player_pos(&all);
+
+	//	--------------------->	image_game
+	all.image_game = mlx_new_image(all.mlx, WIDTH, HEIGHT);
+	if (all.image_game == NULL)
+	{
+		mlx_terminate(all.mlx);
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_game init");
+	}
+
 	draw_player(all);
+
+	if (mlx_image_to_window(all.mlx, all.image_game, 0, 0) == -1)
+	{
+		mlx_terminate(all.mlx);
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_game to window");
+	}
 
 	//	--------------------->	keys and loop
 

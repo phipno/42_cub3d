@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/09 21:28:35 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/15 15:09:22 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ typedef struct s_all
 	mlx_image_t	*image_game;
 	mlx_image_t	*image_minimap;
 	mlx_image_t	*image_player;
+	mlx_image_t	*image_background;
 	int			mode;
 	double		ms;
 }	t_all;
