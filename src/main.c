@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:15:21 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/16 15:28:38 by jwillert         ###   ########          */
+/*   Updated: 2023/06/16 15:52:41 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	main(int argc, char *argv[])
 	all.per.offset.x = 0;
 	all.per.offset.y = 0;
 	all.image_player = NULL;
-//	update_player_pos(&all);
+	update_player_pos(&all);
 
 	//	--------------------->	image_game
 	all.image_game = mlx_new_image(all.mlx, WIDTH, HEIGHT);

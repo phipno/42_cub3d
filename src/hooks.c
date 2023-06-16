@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:28:07 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/15 16:05:22 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/16 15:53:28 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,15 @@ void	update_player_pos(t_all *all)
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_player init");
 	}
 	player_set_pos(&all->per,
-		all->minimap.player_pos.x + all->per.offset.x,
-		all->minimap.player_pos.y + all->per.offset.y);
+		all->source.player_pos.x + all->per.offset.x,
+		all->source.player_pos.y + all->per.offset.y);
 	point_set(&player_pos,
 		all->per.pos.x,
 		all->per.pos.y);
 	point_draw_disc(all->image_player,
 		player_pos,
-		all->minimap.element.size_x / 1.3,
-		all->minimap.colours[GREEN]);
+		all->source.element.size_x / 2,
+		all->source.colours[GREEN]);
 	if (mlx_image_to_window(all->mlx, all->image_player, 0, 0) == -1)
 	{
 		mlx_terminate(all->mlx);

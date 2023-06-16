@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:49:37 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/16 15:11:08 by jwillert         ###   ########          */
+/*   Updated: 2023/06/16 15:50:27 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ void	minimap_draw_element(mlx_image_t *image, size_t index_x,
 	point_set(&element_end,
 		element_start.x + minimap->element.size_x,
 		element_start.y + minimap->element.size_y);
-//	if (minimap->flag_player == 1)
-//		point_set_mid(&minimap->player_pos, element_start, element_end);
+	if (minimap->flag_player == 1)
+	{
+		point_set_mid(&minimap->player_pos, element_start, element_end);
+	}
 	while (element.y < element_end.y && element.y < HEIGHT)
 	{
 		while (element.x < element_end.x && element.x < WIDTH)
@@ -85,8 +87,6 @@ void	minimap_draw(char **map, mlx_image_t *image, t_minimap *minimap)
 		{
 			element_set_colour(minimap, map[index_y][index_x]);
 			minimap_draw_element(image, index_x, index_y, minimap);
-			if (minimap->flag_player == 1)
-				minimap->flag_player = 0;
 			index_x += 1;
 		}
 		index_x = 0;

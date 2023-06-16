@@ -6,7 +6,7 @@
 /*   By: jwillert@student.42heilbronn.de            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 14:37:55 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/16 15:31:11 by jwillert         ###   ########          */
+/*   Updated: 2023/06/16 15:51:08 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,10 @@ void	draw_source(t_all *all, t_minimap *source)
 		{
 			element_set_colour(source, map[index_y][index_x]);
 			minimap_draw_element(all->image_source, index_x, index_y, source);
+			if (source->flag_player == 1)
+			{
+				source->flag_player = 0;
+			}
 			index_x += 1;
 		}
 		index_x = 0;
