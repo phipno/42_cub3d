@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:49:37 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/08 17:30:36 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/16 15:11:08 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 #include <stdio.h>
 
-static void	minimap_draw_element(mlx_image_t *image, size_t index_x,
+void	minimap_draw_element(mlx_image_t *image, size_t index_x,
 	size_t index_y, t_minimap *minimap)
 {
 	t_point	element_start;
@@ -32,8 +32,8 @@ static void	minimap_draw_element(mlx_image_t *image, size_t index_x,
 	point_set(&element_end,
 		element_start.x + minimap->element.size_x,
 		element_start.y + minimap->element.size_y);
-	if (minimap->flag_player == 1)
-		point_set_mid(&minimap->player_pos, element_start, element_end);
+//	if (minimap->flag_player == 1)
+//		point_set_mid(&minimap->player_pos, element_start, element_end);
 	while (element.y < element_end.y && element.y < HEIGHT)
 	{
 		while (element.x < element_end.x && element.x < WIDTH)

@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:15:21 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/15 15:15:32 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/16 15:28:38 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	main(int argc, char *argv[])
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_background init");
 	}
 
-	draw_heaven_and_hell(all);
+	//draw_heaven_and_hell(all);
 	// draw_troll(all);
 
 	if (mlx_image_to_window(all.mlx, all.image_background, 0, 0) == -1)
@@ -72,18 +72,22 @@ int	main(int argc, char *argv[])
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_background to window");
 	}
 
-	// //	--------------------->	image_minimap
+	// 	--------------------->	image_source
+	all.image_source = NULL;
+	draw_source(&all, &all.source);
+
+	// 	--------------------->	image_minimap
 
 	all.image_minimap = NULL;
 	all.mode = MODE_FULLSCREEN;
-	update_minimap(&all, MODE_FULLSCREEN);
+//	update_minimap(&all, MODE_FULLSCREEN);
 
 	//	--------------------->	image_player
 	all.per.angle_real = all.per.direction;
 	all.per.offset.x = 0;
 	all.per.offset.y = 0;
 	all.image_player = NULL;
-	update_player_pos(&all);
+//	update_player_pos(&all);
 
 	//	--------------------->	image_game
 	all.image_game = mlx_new_image(all.mlx, WIDTH, HEIGHT);
@@ -93,7 +97,7 @@ int	main(int argc, char *argv[])
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_game init");
 	}
 
-	draw_player(all);
+//	draw_player(all);
 
 	if (mlx_image_to_window(all.mlx, all.image_game, 0, 0) == -1)
 	{
@@ -105,7 +109,7 @@ int	main(int argc, char *argv[])
 
 	all.ms = MOVEMENT_SPEED;
 	mlx_key_hook(all.mlx, &hook_keys, &all);
-	mlx_loop_hook(all.mlx, &hook_frame, &all);
+	//mlx_loop_hook(all.mlx, &hook_frame, &all);
 	mlx_loop(all.mlx);
 
 	// clean up
