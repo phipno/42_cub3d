@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:15:21 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/16 15:52:41 by jwillert         ###   ########          */
+/*   Updated: 2023/06/19 16:14:52 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,6 @@ int	main(int argc, char *argv[])
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Usage: \"./cub3D maps/<pick one>");
 	}
 
-	//	--------------------->	parsing
-
-	cub_map_muncher(&all, argv[1]);
-
-	if (PARSING_TESTER)
-	{
-		return (EXIT_SUCCESS);
-	}
 
 	// mlx init
 	all.mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
@@ -54,6 +46,14 @@ int	main(int argc, char *argv[])
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "mlx init");
 	}
 
+	//	--------------------->	parsing
+
+	cub_map_muncher(&all, argv[1]);
+
+	if (PARSING_TESTER)
+	{
+		return (EXIT_SUCCESS);
+	}
 	//	--------------------->	image_background
 
 	all.image_background = mlx_new_image(all.mlx, WIDTH, HEIGHT);
@@ -80,7 +80,7 @@ int	main(int argc, char *argv[])
 
 	all.image_minimap = NULL;
 	all.mode = MODE_FULLSCREEN;
-//	update_minimap(&all, MODE_FULLSCREEN);
+	update_minimap(&all, MODE_FULLSCREEN);
 
 	//	--------------------->	image_player
 	all.per.angle_real = all.per.direction;
@@ -97,7 +97,8 @@ int	main(int argc, char *argv[])
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_game init");
 	}
 
-//	draw_player(all);
+	draw_player(all);
+	printf("Color 0x%x\n", (uint32_t)all.map.mlx_wall[NORTH]->pixels[5]);
 
 	if (mlx_image_to_window(all.mlx, all.image_game, 0, 0) == -1)
 	{
@@ -109,7 +110,7 @@ int	main(int argc, char *argv[])
 
 	all.ms = MOVEMENT_SPEED;
 	mlx_key_hook(all.mlx, &hook_keys, &all);
-	//mlx_loop_hook(all.mlx, &hook_frame, &all);
+	mlx_loop_hook(all.mlx, &hook_frame, &all);
 	mlx_loop(all.mlx);
 
 	// clean up

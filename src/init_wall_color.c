@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_wall_color.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 14:09:49 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/30 15:16:56 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/19 14:44:00 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,18 @@
 #include "cub3d.h"
 #include "lm_array_str.h"
 
-void	sub_str_walls(char **write_to, const char *str)
+char	*sub_str_walls(const char *str)
 {
 	int		i;
 	int		fd;
+	char	*path_to_wall;
 
 	i = 0;
 	//@note this while condition needs more defining
 	while (str[i] != '.' && str[i] != '\0')
 		i++;
-	*write_to = ft_substr(str, i, ft_strlen(str));
-	fd = open(*write_to, O_RDONLY);
+	path_to_wall = ft_substr(str, i, ft_strlen(str));
+	fd = open(path_to_wall, O_RDONLY);
 	if (fd < 0)
 	{
 		ft_putstr_fd("Open \"", 2);
@@ -38,6 +39,7 @@ void	sub_str_walls(char **write_to, const char *str)
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Wall Texutres!");
 	}
 	close(fd);
+	return (path_to_wall);
 }
 
 static int	color_integrity(t_rgba *color, const char *str)

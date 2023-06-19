@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 15:45:01 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/09 18:22:33 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/19 16:00:16 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,20 +75,28 @@ static void	variable_shall_be_declared (t_game *map, char **content_split)
 {
 	int fail;
 
+
 	fail = 0;
 	while (content_split[fail] != NULL)
 		fail++;
 	if (fail < 9)
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Not enough Information given in .cub file");
-	sub_str_walls(&map->north_wall, content_split[0]);
-	sub_str_walls(&map->east_wall, content_split[1]);
-	sub_str_walls(&map->south_wall, content_split[2]);
-	sub_str_walls(&map->west_wall, content_split[3]);
+	map->walls[0] = sub_str_walls(content_split[0]);
+	map->walls[1] = sub_str_walls(content_split[1]);
+	map->walls[2] = sub_str_walls(content_split[2]);
+	map->walls[3] = sub_str_walls(content_split[3]);
+	map->mlx_wall[0] = mlx_load_png(map->walls[0]);
+	map->mlx_wall[1] = mlx_load_png(map->walls[1]);
+	map->mlx_wall[2] = mlx_load_png(map->walls[2]);
+	map->mlx_wall[3] = mlx_load_png(map->walls[3]);
+	if (map->mlx_wall[0] == NULL || map->mlx_wall[1] == NULL ||
+		map->mlx_wall[2] == NULL || map->mlx_wall[3] == NULL)
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, "MLX load png Error");
 	split_that_color(&map->floor_color, content_split[4]);
 	split_that_color(&map->sky_color, content_split[5]);
 
 	//@note print statement for walls and color
-	printf("%s\n%s\n%s\n%s\n", map->north_wall, map->east_wall, map->south_wall, map->west_wall);
+	printf("%s\n%s\n%s\n%s\n", map->walls[0], map->walls[1], map->walls[2], map->walls[3]);
 	printf("%x %x %x  Alpha:%x\n", map->floor_color.rgba.r, map->floor_color.rgba.b, map->floor_color.rgba.g, map->sky_color.rgba.a);
 	printf("%x %x %x  Alpha:%x\n", map->sky_color.rgba.r, map->sky_color.rgba.b, map->sky_color.rgba.g, map->sky_color.rgba.a);
 	printf("%x\n", map->floor_color.colour);

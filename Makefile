@@ -6,7 +6,7 @@
 #    By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/08 17:11:30 by pnolte            #+#    #+#              #
-#    Updated: 2023/06/16 15:22:25 by jwillert         ###   ########           #
+#    Updated: 2023/06/19 13:11:34 by pnolte           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,7 @@ VPATH                 = $(SRC_DIR):$(DEBUG_DIR)
 DEBUG_VAR             = $(shell echo $$DEBUG_FLAG)
 
 CC                    = cc
-CFLAGS                = -Wall -Werror -Wextra
+CFLAGS                = -Wall -Werror -Wextra -fsanitize=address
 INCLUDES              = -I ./include \
 						-I ./lib/MLX42/include/MLX42/ \
 						$(foreach dir,$(LIBALLME_SUBDIRS), -I$(dir)include)

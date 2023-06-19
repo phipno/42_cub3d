@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:28:07 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/16 15:53:28 by jwillert         ###   ########          */
+/*   Updated: 2023/06/19 08:56:17 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	update_game(t_all *all)
 	if (all->image_game != NULL)
 	{
 		all->image_game->enabled = true;
-		printf("ahhhh\n");
 		mlx_delete_image(all->mlx, all->image_game);
 	}
 	all->image_game = mlx_new_image(all->mlx, WIDTH, HEIGHT);

@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 11:40:43 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/09 17:41:11 by jwillert         ###   ########          */
+/*   Updated: 2023/06/19 13:13:43 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ void	point_draw_disc(mlx_image_t *image, t_point a, double diameter,
 		{
 			if (x * x + y * y < diameter * diameter / 4)
 			{
-				mlx_put_pixel(image, (int)(x + a.x), (int)(y + a.y), colour);
+				if ((x + a.x >= 0 && x + a.x < WIDTH) && (y + a.y >= 0 && y + a.y < HEIGHT))
+					mlx_put_pixel(image, (int)(x + a.x), (int)(y + a.y), colour);
 			}
 			x += 1;
 		}
@@ -101,7 +102,7 @@ void	point_draw_disc(mlx_image_t *image, t_point a, double diameter,
 //	{
 //		while (x < WIDTH)
 //		{
-//			if (x == 
+//			if (x ==
 //			x += 1;
 //		}
 //		y += 1;

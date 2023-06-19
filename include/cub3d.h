@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/16 15:27:07 by jwillert         ###   ########          */
+/*   Updated: 2023/06/19 16:01:11 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,16 @@
 # define WIDTH  1920
 # define HEIGHT 1080
 
-# define PI  3.14159265359
-# define P2  PI / 2
-# define P3  3 * PI / 2
+# define PI  M_PI
+# define P2  M_PI / 2
+# define P3  3 * M_PI / 2
 
 # define MOVEMENT_SPEED 2
+
+# define NORTH 0
+# define EAST 1
+# define SOUTH 2
+# define WEST 3
 
 //--------------------structs
 
@@ -67,10 +72,8 @@ typedef struct s_game
 	size_t	map_line_max;
 	t_rgba	sky_color;
 	t_rgba	floor_color;
-	char	*north_wall;
-	char	*east_wall;
-	char	*south_wall;
-	char	*west_wall;
+	mlx_texture_t	*mlx_wall[4];
+	char			*walls[4];
 }	t_game;
 
 /**
@@ -109,7 +112,7 @@ void	creation_of_map(t_game *map_info, char **da);
 void	parse_map(t_game *map, char **content_split);
 int		map_valid_question_mark(t_game *a);
 void	split_that_color(t_rgba *color, const char *str);
-void	sub_str_walls(char **write_to, const char *str);
+char	*sub_str_walls(const char *str);
 
 //--------------------Drawing
 void	draw_heaven_and_hell(t_all cub);
