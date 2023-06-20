@@ -2,10 +2,12 @@
 *_init
 cub3d
 main_minimap.c
+.DS_Store
 
 raycaster_flat.cpp
 raycaster_textured.cpp
 mlx_example_code.c
+
 # Prerequisites
 *.d
 

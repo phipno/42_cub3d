@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:48:45 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/19 16:36:25 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/20 09:59:43 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,6 +236,10 @@ void	draw_walls(t_all cub, int x, t_raycaster wall_ray)
 	//for the offset we need to know at what pixel of a wall were
 	//looking and where is the wall end. to calculate a factor so we can
 	//increment it in rotational way.
+
+	int	offset;
+	offset = 1;
+
 
 	line_h = 64 * HEIGHT / wall_ray.distance_parralel;
 	if (line_h > HEIGHT)

@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/19 16:01:11 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/20 10:15:35 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 # define CUB3D_H
 
 # include "MLX42.h"		// needed for mlx_t, mlx_image_t, mlx_key_data_t
-# include <stdlib.h>	// needed for size_t
 # include "minimap.h"	// needed for t_minimap
-
-#include <stdio.h>
-
+# include <stdlib.h>	// needed for size_t
+# include <stdbool.h>	// needed for bool
 //--------------------macros
 
 // defines where all debugging information is written to
@@ -76,6 +74,14 @@ typedef struct s_game
 	char			*walls[4];
 }	t_game;
 
+typedef struct s_grid_pos
+{
+	size_t	index_x;
+	size_t	index_y;
+	char	symbol;
+	double	direction;
+}			t_grid_pos;
+
 /**
  * @param player, holds data which is important for player information.
 */
@@ -96,6 +102,7 @@ typedef struct s_all
 	t_game		map;
 	t_minimap	minimap;
 	t_minimap	source;
+	t_grid_pos	player_pos;
 	mlx_t		*mlx;
 	mlx_image_t	*image_game;
 	mlx_image_t	*image_minimap;
@@ -126,12 +133,15 @@ void	hook_frame(void *context);
 void	player_set_pos(t_player *per, int x, int y);
 void	update_player_pos(t_all *all);
 void	update_minimap(t_all *all, int mode);
+void	get_player_pos(char **map, t_all *all);
 
 //--------------------Colours
 int		get_rgba(int r, int g, int b, int a);
 
 //--------------------Utils
 size_t	get_bigger_sizet(size_t x, size_t y);
+double	get_player_direction(char symbol);
+bool	is_player_pos(char symbol);
 
 //--------------------Clean Up
 void	cub_exit(int exit_code, int fd, char *message);

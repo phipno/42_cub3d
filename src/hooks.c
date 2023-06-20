@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:28:07 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/19 08:56:17 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/20 10:43:48 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	update_game(t_all *all)
 		mlx_terminate(all->mlx);
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_game init");
 	}
-	draw_player(*all);
+	//draw_player(*all);
 	if (mlx_image_to_window(all->mlx, all->image_game, 0, 0) == -1)
 	{
 		mlx_terminate(all->mlx);
@@ -177,23 +177,23 @@ void	hook_frame(void *context)
 
 	all = (t_all *) context;
 	frame += 1;
-	if (frame == 10)
-	{
-		if (all->image_player->enabled == false && all->mode != MODE_OFF)
-		{
-			all->image_player->enabled = true;
-		}
-		else
-		{
-			all->image_player->enabled = false;
-		}
-		frame = 0;
-	}
+//	if (frame == 10)
+//	{
+//		if (all->image_player->enabled == false && all->mode != MODE_OFF)
+//		{
+//			all->image_player->enabled = true;
+//		}
+//		else
+//		{
+//			all->image_player->enabled = false;
+//		}
+//		frame = 0;
+//	}
 	// @todo make movement smoother, some random acceleration
 	// (mb limit frames that we check)
 	if (hook_movement(all) == true)
 	{
-		update_game(all);
+		//update_game(all);
 		update_player_pos(all);
 	}
 }
