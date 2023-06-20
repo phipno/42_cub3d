@@ -3,6 +3,7 @@
 cub3d
 main_minimap.c
 .DS_Store
+test.c
 
 raycaster_flat.cpp
 raycaster_textured.cpp
