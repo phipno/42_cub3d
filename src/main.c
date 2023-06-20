@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:15:21 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/20 10:45:46 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/20 14:08:40 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,19 +76,6 @@ int	main(int argc, char *argv[])
 	all.image_source = NULL;
 	// draw_source(&all, &all.source);
 
-	// 	--------------------->	image_minimap
-
-	all.image_minimap = NULL;
-	all.mode = MODE_FULLSCREEN;
-	update_minimap(&all, MODE_FULLSCREEN);
-
-	//	--------------------->	image_player
-	all.per.angle_real = all.per.direction;
-	all.per.offset.x = 0;
-	all.per.offset.y = 0;
-	all.image_player = NULL;
-	update_player_pos(&all);
-
 	//	--------------------->	image_game
 	all.image_game = mlx_new_image(all.mlx, WIDTH, HEIGHT);
 	if (all.image_game == NULL)
@@ -97,6 +84,7 @@ int	main(int argc, char *argv[])
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_game init");
 	}
 
+	all.per.angle_real = all.per.direction;
 	draw_player(all);
 
 	if (mlx_image_to_window(all.mlx, all.image_game, 0, 0) == -1)
@@ -104,6 +92,19 @@ int	main(int argc, char *argv[])
 		mlx_terminate(all.mlx);
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_game to window");
 	}
+
+	// 	--------------------->	image_minimap
+
+	all.image_minimap = NULL;
+	all.mode = MODE_FULLSCREEN;
+	update_minimap(&all, MODE_FULLSCREEN);
+
+	//	--------------------->	image_player
+	all.per.offset.x = 0;
+	all.per.offset.y = 0;
+	all.image_player = NULL;
+	// update_player_pos(&all);
+
 
 	//	--------------------->	keys and loop
 

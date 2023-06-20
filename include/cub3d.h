@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/20 10:33:17 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/20 13:50:21 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 # define P2  M_PI / 2
 # define P3  3 * M_PI / 2
 
-# define MOVEMENT_SPEED 5
+# define MOVEMENT_SPEED 0.075
 
 # define NORTH 0
 # define EAST 1
@@ -49,6 +49,10 @@
 # define WEST 3
 
 # define FOV 90
+
+# define MAP_SCALE 64
+
+# define WALL_HEIGHT 64
 
 //--------------------structs
 
@@ -126,8 +130,9 @@ void	draw_source(t_all *all, t_minimap *source);
 void	hook_keys(mlx_key_data_t key_data, void *context);
 void	hook_frame(void *context);
 void	player_set_pos(t_player *per, int x, int y);
-void	update_player_pos(t_all *all);
 void	update_minimap(t_all *all, int mode);
+
+void	update_player_pos(t_all *all); //this function needs restructering
 
 //--------------------Colours
 int		get_rgba(int r, int g, int b, int a);

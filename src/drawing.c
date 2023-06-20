@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:48:45 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/20 10:45:23 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/20 14:04:20 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ double	pythagoras(float ax, float ay, float bx, float by)
 t_raycaster	draw_rays_verti(t_all cub)
 {
 	t_raycaster ray;
-	int		map_x, map_y, depth_of_field;
+	int depth_of_field;
 
 	ray.dir = cub.per.direction;
 	depth_of_field = 0;
@@ -110,8 +110,8 @@ t_raycaster	draw_rays_verti(t_all cub)
 	{
 		ray.x = (((int)cub.per.d_pos.x >> 6) << 6) - 0.0001;
 		ray.y = (cub.per.d_pos.x - ray.x) * nTan + cub.per.d_pos.y;
-		ray.x_offset = -64;
-		ray.y_offset = -ray.x_offset * nTan;
+		ray.offset.x = -64;
+		ray.offset.y = -ray.offset.x * nTan;
 		ray.color = 0xAAAAAAFF;
 		ray.cardinal_dir = EAST;
 	}
@@ -119,8 +119,8 @@ t_raycaster	draw_rays_verti(t_all cub)
 	{
 		ray.x = (((int)cub.per.d_pos.x >> 6) << 6) + 64;
 		ray.y = (cub.per.d_pos.x - ray.x) * nTan + cub.per.d_pos.y;
-		ray.x_offset = 64;
-		ray.y_offset = -ray.x_offset * nTan;
+		ray.offset.x = 64;
+		ray.offset.y = -ray.offset.x * nTan;
 		ray.color = 0x0000AAFF;
 		ray.cardinal_dir = WEST;
 	}
@@ -133,18 +133,20 @@ t_raycaster	draw_rays_verti(t_all cub)
 		//@note fixing on which side its on
 		ray.cardinal_dir = SOUTH;
 	}
-	// printf("HORI_Ray   Off_X%f Off_Y%f\n", ray.x_offset, ray.y_offset);
+	// printf("HORI_Ray   Off_X%f Off_Y%f\n", ray.x.offset, ray.y.offset);
 	while (depth_of_field < 16)
 	{
-		map_x = (int)(ray.x) >> 6;
-		map_y = (int)(ray.y) >> 6;
-		if (map_y >= 0 && map_y < (int)cub.map.map_line_max && map_x >= 0 && map_x < (int)cub.map.map_column_max &&
-			cub.map.a_map[map_y][map_x] == '1')
+		// ray.map.x = (int)(ray.x) >> 6;
+		// ray.map.y = (int)(ray.y) >> 6;
+		ray.map.x = ray.x / 64;
+		ray.map.y = ray.y / 64;
+		if (ray.map.y >= 0 && ray.map.y < (int)cub.map.map_line_max && ray.map.x >= 0 &&
+		ray.map.x < (int)cub.map.map_column_max && cub.map.a_map[(int)ray.map.y][(int)ray.map.x] == '1')
 			depth_of_field = 16;
 		else
 		{
-			ray.x += ray.x_offset;
-			ray.y += ray.y_offset;
+			ray.x += ray.offset.x;
+			ray.y += ray.offset.y;
 			depth_of_field++;
 		}
 	}
@@ -156,7 +158,7 @@ t_raycaster	draw_rays_verti(t_all cub)
 t_raycaster	draw_rays_hori(t_all cub)
 {
 	t_raycaster ray;
-	int		map_x, map_y, depth_of_field;
+	int depth_of_field;
 
 
 	ray.dir = cub.per.direction;
@@ -167,8 +169,8 @@ t_raycaster	draw_rays_hori(t_all cub)
 		//looking up
 		ray.y = (((int)cub.per.d_pos.y >> 6) << 6) - 0.0001;
 		ray.x = (cub.per.d_pos.y - ray.y) * aTan + cub.per.d_pos.x;
-		ray.y_offset = (int)-64;
-		ray.x_offset = -ray.y_offset * aTan;
+		ray.offset.y = (int)-64;
+		ray.offset.x = -ray.offset.y * aTan;
 		ray.color = 0xAA0000FF;
 		ray.cardinal_dir = SOUTH;
 	}
@@ -177,8 +179,8 @@ t_raycaster	draw_rays_hori(t_all cub)
 		//looking down
 		ray.y =  (((int)cub.per.d_pos.y >> 6) << 6) + 64;
 		ray.x = (cub.per.d_pos.y - ray.y) * aTan + cub.per.d_pos.x;
-		ray.y_offset = 64;
-		ray.x_offset = -ray.y_offset * aTan;
+		ray.offset.y = 64;
+		ray.offset.x = -ray.offset.y * aTan;
 		ray.color = 0x00AA00FF;
 		ray.cardinal_dir = NORTH;
 	}
@@ -192,19 +194,21 @@ t_raycaster	draw_rays_hori(t_all cub)
 		//@note fixing on which side its on
 		ray.cardinal_dir = NORTH;
 	}
-	// printf("HORI_Ray   Off_X%f Off_Y%f\n", ray.x_offset, ray.y_offset);
+	// printf("HORI_Ray   Off_X%f Off_Y%f\n", ray.x.offset, ray.y.offset);
 	while (depth_of_field < 16)
 	{
 		// divided or multi
-		map_x = (int)(ray.x) >> 6;
-		map_y = (int)(ray.y) >> 6;
-		if (map_y >= 0 && map_y < (int)cub.map.map_line_max && map_x >= 0 && map_x < (int)cub.map.map_column_max &&
-			cub.map.a_map[map_y][map_x] == '1')
+		// map_x = (int)(ray.x) >> 6;
+		// map_y = (int)(ray.y) >> 6;
+		ray.map.x = ray.x / 64;
+		ray.map.y = ray.y / 64;
+		if (ray.map.y >= 0 && ray.map.y < (int)cub.map.map_line_max && ray.map.x >= 0
+		&& ray.map.x < (int)cub.map.map_column_max && cub.map.a_map[(int)ray.map.y][(int)ray.map.x] == '1')
 			depth_of_field = 16;
 		else
 		{
-			ray.x += ray.x_offset;
-			ray.y += ray.y_offset;
+			ray.x += ray.offset.x;
+			ray.y += ray.offset.y;
 			depth_of_field++;
 		}
 	}
@@ -220,7 +224,6 @@ void	draw_walls(t_all cub, int x, t_raycaster wall_ray)
 	int		line_offset;
 	double	angle;
 
-	// int		offset;
 
 	// angle fixes the distortion from walls on the same
 	// grid line not being displayed on the same y height
@@ -237,7 +240,12 @@ void	draw_walls(t_all cub, int x, t_raycaster wall_ray)
 	//looking and where is the wall end. to calculate a factor so we can
 	//increment it in rotational way.
 
-	line_h = 64 * HEIGHT / wall_ray.distance_parralel;
+	// double		offset;
+
+
+
+
+	line_h = WALL_HEIGHT * HEIGHT / wall_ray.distance_parralel;
 	if (line_h > HEIGHT)
 		line_h = HEIGHT;
 	line_offset = HEIGHT/2 - line_h / 2;
@@ -258,10 +266,10 @@ void	draw_player(t_all cub)
 	// (void)cub;
 
 	//printf("element.size_x [%f] element.size_y [%f]\n", cub.minimap.element.size_x, cub.minimap.element.size_y);
-	printf("Pos%f Pos%f\n", cub.per.pos.x, cub.per.pos.y);
-	cub.per.d_pos.x = cub.per.pos.x ;
-	cub.per.d_pos.y = cub.per.pos.y ;
-	printf("Pos%f Pos%f\n", cub.per.d_pos.x, cub.per.d_pos.y);
+	cub.per.d_pos.x = cub.per.pos.x * MAP_SCALE;
+	cub.per.d_pos.y = cub.per.pos.y * MAP_SCALE;
+	// printf("Pos%f Pos%f\n", cub.per.pos.x, cub.per.pos.y);
+	// printf("D_Pos%f D_Pos%f\n", cub.per.d_pos.x, cub.per.d_pos.y);
 
 	// draw_map(cub);
 	// for (int y = cub.per.pos.y * 64; y < cub.per.pos.y * 64 + 10; y++)
@@ -271,12 +279,19 @@ void	draw_player(t_all cub)
 	// 		mlx_put_pixel(cub.image_game, x, y, 0xFFFF55FF);
 	// 	}
 	// }
-	double	angle_add;
+
+	float	angle_add;
+
+	angle_add = 0.5;
+
 	t_raycaster rays[2];
+	// printf("FOV%f", fov);
+
+	angle_add = (FOV * (PI / 180)) / WIDTH;
+	cub.per.direction = (cub.per.angle_real * (PI / 180)) - (FOV * (PI / 180)) / 2;
 	// printf("direction [%f] | angle_add [%f]\n", cub.per.direction, angle_add);
-	cub.per.direction = (cub.per.angle_real / 180 * PI) - (FOV / 180 * PI) / 2;
-	angle_add = ((FOV * 180 / PI) / WIDTH);
-	printf("direction [%f] | angle_add [%f]\n", cub.per.direction, angle_add);
+	// printf("FOV %D WITDH %D\n", FOV, WIDTH);
+	// printf("direction [%f] | angle_add [%f]\n", cub.per.direction, angle_add);
 	for (int x = 0; x < WIDTH; x++)
 	{
 		if (cub.per.direction < 0)
@@ -298,7 +313,7 @@ void	draw_player(t_all cub)
 			// DDA(cub.per.d_pos.x, cub.per.d_pos.y, rays[1].x, rays[1].y, cub, 0xFF0000FF);
 			draw_walls(cub, x, rays[1]);
 		}
-		DDA(cub.per.d_pos.x, cub.per.d_pos.y, cub.per.d_pos.x + 30 * cos(cub.per.angle_real / 180 * PI), cub.per.d_pos.y + 30 * sin(cub.per.angle_real / 180 * PI), cub, 0x00FF00FF);
+		// DDA(cub.per.d_pos.x, cub.per.d_pos.y, cub.per.d_pos.x + 30 * cos(cub.per.angle_real / 180 * PI), cub.per.d_pos.y + 30 * sin(cub.per.angle_real / 180 * PI), cub, 0x00FF00FF);
 		cub.per.direction += angle_add;
 	}
 
