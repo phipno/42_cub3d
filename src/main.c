@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:15:21 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/19 16:14:52 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/20 10:45:46 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	main(int argc, char *argv[])
 
 	// 	--------------------->	image_source
 	all.image_source = NULL;
-	draw_source(&all, &all.source);
+	// draw_source(&all, &all.source);
 
 	// 	--------------------->	image_minimap
 
@@ -98,7 +98,6 @@ int	main(int argc, char *argv[])
 	}
 
 	draw_player(all);
-	printf("Color 0x%x\n", (uint32_t)all.map.mlx_wall[NORTH]->pixels[5]);
 
 	if (mlx_image_to_window(all.mlx, all.image_game, 0, 0) == -1)
 	{

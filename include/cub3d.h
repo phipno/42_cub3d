@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/19 16:01:11 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/20 10:33:17 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,14 @@
 # define P2  M_PI / 2
 # define P3  3 * M_PI / 2
 
-# define MOVEMENT_SPEED 2
+# define MOVEMENT_SPEED 5
 
 # define NORTH 0
 # define EAST 1
 # define SOUTH 2
 # define WEST 3
+
+# define FOV 90
 
 //--------------------structs
 
@@ -82,7 +84,7 @@ typedef struct s_game
 typedef struct s_player
 {
 	t_point	pos;
-	t_point st;
+	t_point start_pos;
 	t_point d_pos;
 	t_point offset;
 	double	fov;

@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:48:45 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/19 16:36:25 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/20 10:45:23 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ t_raycaster	draw_rays_verti(t_all cub)
 	float nTan = -tan(ray.dir);
 	if (ray.dir > P2 && ray.dir < P3)
 	{
-		ray.x = (((int)cub.per.st.x >> 6) << 6) - 0.0001;
-		ray.y = (cub.per.st.x - ray.x) * nTan + cub.per.st.y;
+		ray.x = (((int)cub.per.d_pos.x >> 6) << 6) - 0.0001;
+		ray.y = (cub.per.d_pos.x - ray.x) * nTan + cub.per.d_pos.y;
 		ray.x_offset = -64;
 		ray.y_offset = -ray.x_offset * nTan;
 		ray.color = 0xAAAAAAFF;
@@ -117,8 +117,8 @@ t_raycaster	draw_rays_verti(t_all cub)
 	}
 	if (ray.dir < P2 || ray.dir > P3)
 	{
-		ray.x = (((int)cub.per.st.x >> 6) << 6) + 64;
-		ray.y = (cub.per.st.x - ray.x) * nTan + cub.per.st.y;
+		ray.x = (((int)cub.per.d_pos.x >> 6) << 6) + 64;
+		ray.y = (cub.per.d_pos.x - ray.x) * nTan + cub.per.d_pos.y;
 		ray.x_offset = 64;
 		ray.y_offset = -ray.x_offset * nTan;
 		ray.color = 0x0000AAFF;
@@ -126,8 +126,8 @@ t_raycaster	draw_rays_verti(t_all cub)
 	}
 	if (ray.dir == P2 || ray.dir == P3)
 	{
-		ray.x = cub.per.st.x;
-		ray.y = cub.per.st.y;
+		ray.x = cub.per.d_pos.x;
+		ray.y = cub.per.d_pos.y;
 		depth_of_field = 16;
 		ray.color = 0x444444FF;
 		//@note fixing on which side its on
@@ -149,7 +149,7 @@ t_raycaster	draw_rays_verti(t_all cub)
 		}
 	}
 	// printf("MAPX %d   MAPY %d\n", map_x, map_y);
-	ray.distance_raw = pythagoras(cub.per.st.x, cub.per.st.y, ray.x, ray.y);
+	ray.distance_raw = pythagoras(cub.per.d_pos.x, cub.per.d_pos.y, ray.x, ray.y);
 	return (ray);
 }
 
@@ -165,8 +165,8 @@ t_raycaster	draw_rays_hori(t_all cub)
 	if (ray.dir > PI)
 	{
 		//looking up
-		ray.y = (((int)cub.per.st.y >> 6) << 6) - 0.0001;
-		ray.x = (cub.per.st.y - ray.y) * aTan + cub.per.st.x;
+		ray.y = (((int)cub.per.d_pos.y >> 6) << 6) - 0.0001;
+		ray.x = (cub.per.d_pos.y - ray.y) * aTan + cub.per.d_pos.x;
 		ray.y_offset = (int)-64;
 		ray.x_offset = -ray.y_offset * aTan;
 		ray.color = 0xAA0000FF;
@@ -175,8 +175,8 @@ t_raycaster	draw_rays_hori(t_all cub)
 	if (ray.dir < PI)
 	{
 		//looking down
-		ray.y =  (((int)cub.per.st.y >> 6) << 6) + 64;
-		ray.x = (cub.per.st.y - ray.y) * aTan + cub.per.st.x;
+		ray.y =  (((int)cub.per.d_pos.y >> 6) << 6) + 64;
+		ray.x = (cub.per.d_pos.y - ray.y) * aTan + cub.per.d_pos.x;
 		ray.y_offset = 64;
 		ray.x_offset = -ray.y_offset * aTan;
 		ray.color = 0x00AA00FF;
@@ -185,8 +185,8 @@ t_raycaster	draw_rays_hori(t_all cub)
 	if (ray.dir == 0 || ray.dir == PI)
 	{
 		//looking straigt left or right
-		ray.x = cub.per.st.x;
-		ray.y = cub.per.st.y;
+		ray.x = cub.per.d_pos.x;
+		ray.y = cub.per.d_pos.y;
 		depth_of_field = 16;
 		ray.color = 0x444444FF;
 		//@note fixing on which side its on
@@ -209,7 +209,7 @@ t_raycaster	draw_rays_hori(t_all cub)
 		}
 	}
 	// printf("MAPX %d   MAPY %d\n", map_x, map_y);
-	ray.distance_raw = pythagoras(cub.per.st.x, cub.per.st.y, ray.x, ray.y);
+	ray.distance_raw = pythagoras(cub.per.d_pos.x, cub.per.d_pos.y, ray.x, ray.y);
 	// printf("PX%f  PY%f   RX%f  RY%f\n", cub.per.st.x, cub.per.st.y, ray.x, ray.y);
 	return (ray);
 }
@@ -245,10 +245,10 @@ void	draw_walls(t_all cub, int x, t_raycaster wall_ray)
 	{
 		if ((x >= 0 && x < WIDTH) && (line_h + line_offset >= 0 && line_h + line_offset < HEIGHT))
 			mlx_put_pixel(cub.image_game, x, line_h + line_offset, get_rgba(
-			cub.map.mlx_wall[wall_ray.cardinal_dir]->pixels[0 * offset],
-			cub.map.mlx_wall[wall_ray.cardinal_dir]->pixels[1 * offset],
-			cub.map.mlx_wall[wall_ray.cardinal_dir]->pixels[2 * offset],
-			cub.map.mlx_wall[wall_ray.cardinal_dir]->pixels[3 * offset]));
+			cub.map.mlx_wall[wall_ray.cardinal_dir]->pixels[0],
+			cub.map.mlx_wall[wall_ray.cardinal_dir]->pixels[1],
+			cub.map.mlx_wall[wall_ray.cardinal_dir]->pixels[2],
+			cub.map.mlx_wall[wall_ray.cardinal_dir]->pixels[3]));
 		line_h--;
 	}
 }
@@ -258,9 +258,11 @@ void	draw_player(t_all cub)
 	// (void)cub;
 
 	//printf("element.size_x [%f] element.size_y [%f]\n", cub.minimap.element.size_x, cub.minimap.element.size_y);
-	// printf("Pos%f Pos%f\n", cub.per.pos.x, cub.per.pos.y);
-	cub.per.st.x = cub.per.pos.x;
-	cub.per.st.y = cub.per.pos.y;
+	printf("Pos%f Pos%f\n", cub.per.pos.x, cub.per.pos.y);
+	cub.per.d_pos.x = cub.per.pos.x ;
+	cub.per.d_pos.y = cub.per.pos.y ;
+	printf("Pos%f Pos%f\n", cub.per.d_pos.x, cub.per.d_pos.y);
+
 	// draw_map(cub);
 	// for (int y = cub.per.pos.y * 64; y < cub.per.pos.y * 64 + 10; y++)
 	// {
@@ -272,9 +274,9 @@ void	draw_player(t_all cub)
 	double	angle_add;
 	t_raycaster rays[2];
 	// printf("direction [%f] | angle_add [%f]\n", cub.per.direction, angle_add);
-	cub.per.direction = (cub.per.angle_real / 180 * PI) - cub.per.fov / 2;
-	angle_add = (cub.per.fov / WIDTH);
-	//printf("direction [%f] | angle_add [%f]\n", cub.per.direction, angle_add);
+	cub.per.direction = (cub.per.angle_real / 180 * PI) - (FOV / 180 * PI) / 2;
+	angle_add = ((FOV * 180 / PI) / WIDTH);
+	printf("direction [%f] | angle_add [%f]\n", cub.per.direction, angle_add);
 	for (int x = 0; x < WIDTH; x++)
 	{
 		if (cub.per.direction < 0)
@@ -286,17 +288,17 @@ void	draw_player(t_all cub)
 		rays[1] = draw_rays_verti(cub);
 		if (rays[0].distance_raw < rays[1].distance_raw)
 		{
-			// printf("Angle [%f]  stX [%f]  stY[%f]  rX[%f]  rY[%f]\n", cub.per.direction, cub.per.st.x, cub.per.st.y, rays[0].x, rays[0].y);
-			DDA(cub.per.st.x, cub.per.st.y, rays[0].x, rays[0].y, cub, 0xFF0000FF);
+			// printf("Angle [%f]  d_posX [%f]  d_posY[%f]  rX[%f]  rY[%f]\n", cub.per.direction, cub.per.d_pos.x, cub.per.d_pos.y, rays[0].x, rays[0].y);
+			// DDA(cub.per.d_pos.x, cub.per.d_pos.y, rays[0].x, rays[0].y, cub, 0xFF0000FF);
 			draw_walls(cub, x, rays[0]);
 		}
 		else
 		{
-			// printf("Angle [%f]  stX [%f] | stY [%f] | rX[%f] | rY[%f]\n", cub.per.direction, cub.per.st.x, cub.per.st.y, rays[1].x, rays[1].y);
-			DDA(cub.per.st.x, cub.per.st.y, rays[1].x, rays[1].y, cub, 0xFF0000FF);
+			// printf("Angle [%f]  d_posX [%f] | d_posY [%f] | rX[%f] | rY[%f]\n", cub.per.direction, cub.per.d_pos.x, cub.per.d_pos.y, rays[1].x, rays[1].y);
+			// DDA(cub.per.d_pos.x, cub.per.d_pos.y, rays[1].x, rays[1].y, cub, 0xFF0000FF);
 			draw_walls(cub, x, rays[1]);
 		}
-		DDA(cub.per.st.x, cub.per.st.y, cub.per.st.x + 30 * cos(cub.per.angle_real / 180 * PI), cub.per.st.y + 30 * sin(cub.per.angle_real / 180 * PI), cub, 0x00FF00FF);
+		DDA(cub.per.d_pos.x, cub.per.d_pos.y, cub.per.d_pos.x + 30 * cos(cub.per.angle_real / 180 * PI), cub.per.d_pos.y + 30 * sin(cub.per.angle_real / 180 * PI), cub, 0x00FF00FF);
 		cub.per.direction += angle_add;
 	}
 

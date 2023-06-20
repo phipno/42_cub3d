@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:28:07 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/19 08:56:17 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/20 10:43:34 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,10 @@ void	update_player_pos(t_all *all)
 		mlx_terminate(all->mlx);
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_player init");
 	}
-	player_set_pos(&all->per,
-		all->source.player_pos.x + all->per.offset.x,
-		all->source.player_pos.y + all->per.offset.y);
+	//@note i commented that out
+	// player_set_pos(&all->per,
+	// 	all->source.player_pos.x + all->per.offset.x,
+	// 	all->source.player_pos.y + all->per.offset.y);
 	point_set(&player_pos,
 		all->per.pos.x,
 		all->per.pos.y);
@@ -202,8 +203,15 @@ void	hook_keys(mlx_key_data_t key_data, void *context)
 {
 	t_all	*all;
 
-	(void) key_data;
 	all = (t_all *) context;
+	if (key_data.key == MLX_KEY_LEFT_SHIFT && key_data.action == MLX_PRESS)
+	{
+		all->ms += 7;
+	}
+	if (key_data.key == MLX_KEY_LEFT_SHIFT && key_data.action == MLX_RELEASE)
+	{
+		all->ms -= 7;
+	}
 	if (mlx_is_key_down(all->mlx, MLX_KEY_ESCAPE) == true)
 	{
 		mlx_close_window(all->mlx);
@@ -212,6 +220,7 @@ void	hook_keys(mlx_key_data_t key_data, void *context)
 	{
 		toggle_minimap(all);
 	}
+
 	// else if (mlx_is_key_down(all->mlx, MLX_KEY_W) == true)
 	// {
 	// 	all->per.pos.y += all->per.d_pos.y;

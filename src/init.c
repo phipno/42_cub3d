@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 15:45:01 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/19 16:00:16 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/20 10:33:42 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,10 +132,8 @@ void	get_player_start(t_all *cub)
 					cub->per.direction = 90;
 				if (cub->map.a_map[y][x] == 'W')
 					cub->per.direction = 180;
-				cub->per.pos.x = x + 0.5;
-				cub->per.pos.y = y + 0.5;
-				cub->per.d_pos.x = cos(cub->per.direction);
-				cub->per.d_pos.y = sin(cub->per.direction);
+				cub->per.start_pos.x = x + 0.5;
+				cub->per.start_pos.y = y + 0.5;
 				only_one = true;
 			}
 			x++;
@@ -163,7 +161,8 @@ void	cub_map_muncher(t_all *cub, char *file)
 	if (map_valid_question_mark(&cub->map) == EXIT_FAILURE)
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Map didnt pass validation");
 	get_player_start(cub);
-	cub->per.fov = P2;
+	cub->per.pos.x = cub->per.start_pos.x;
+	cub->per.pos.y = cub->per.start_pos.y;
 }
 
 /* ************************************************************************** */
