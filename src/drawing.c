@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:48:45 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/21 12:58:54 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/21 13:45:34 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,11 +252,11 @@ void	draw_walls(t_all cub, int x, t_raycaster ray)
 	x_offset = 0;
 	if (ray.cardinal_dir == NORTH || ray.cardinal_dir == SOUTH)
 	{
-		x_offset = (ray.map.x - (int)ray.map.x) / cub.map.mlx_wall[ray.cardinal_dir]->width * 4;
+		x_offset = (ray.map.x - (int)ray.map.x) / cub.map.mlx_wall[ray.cardinal_dir]->width;
 	}
 	else if (ray.cardinal_dir == EAST || ray.cardinal_dir == WEST)
 	{
-		x_offset = (ray.map.y - (int)ray.map.y) / cub.map.mlx_wall[ray.cardinal_dir]->width * 4;
+		x_offset = (ray.map.y - (int)ray.map.y) / cub.map.mlx_wall[ray.cardinal_dir]->width;
 	}
 	// printf("X%d   MapX%f   MapY%f   X_Offset%d\n",x, ray.map.x, ray.map.y, (int)x_offset);
 	line_h = WALL_HEIGHT * HEIGHT / ray.distance_parralel;
@@ -270,10 +270,10 @@ void	draw_walls(t_all cub, int x, t_raycaster ray)
 			&& 3 + y_step + x_offset < (int)cub.map.mlx_wall[ray.cardinal_dir]->width * (int)cub.map.mlx_wall[ray.cardinal_dir]->height * 4
 			&& y_step + x_offset > -1))
 			mlx_put_pixel(cub.image_game, x, line_h + line_offset, get_rgba(
-			cub.map.mlx_wall[ray.cardinal_dir]->pixels[0 + y_step + x_offset],
-			cub.map.mlx_wall[ray.cardinal_dir]->pixels[1 + y_step + x_offset],
-			cub.map.mlx_wall[ray.cardinal_dir]->pixels[2 + y_step + x_offset],
-			cub.map.mlx_wall[ray.cardinal_dir]->pixels[3 + y_step + x_offset]));
+			cub.map.mlx_wall[ray.cardinal_dir]->pixels[0 + ((y_step + x_offset) * 4)],
+			cub.map.mlx_wall[ray.cardinal_dir]->pixels[1 + ((y_step + x_offset) * 4)],
+			cub.map.mlx_wall[ray.cardinal_dir]->pixels[2 + ((y_step + x_offset) * 4)],
+			cub.map.mlx_wall[ray.cardinal_dir]->pixels[3 + ((y_step + x_offset) * 4)]));
 		y_count = (line_h + line_offset) / cub.map.mlx_wall[ray.cardinal_dir]->width;
 		line_h--;
 	}

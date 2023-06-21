@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 15:45:01 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/21 13:01:29 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/21 13:58:01 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ void	get_player_start(t_all *cub)
 				|| cub->map.a_map[y][x] == 'S' || cub->map.a_map[y][x] == 'W')
 			{
 				if (only_one == true)
-					cub_exit(EXIT_FAILURE, STDERR_FILENO, "too many spawns in map file");
+					cub_exit(EXIT_FAILURE, STDERR_FILENO, "Map: Too many spawns in map file");
 				if (cub->map.a_map[y][x] == 'N')
 					cub->per.direction = 270;
 				if (cub->map.a_map[y][x] == 'E')
@@ -139,6 +139,9 @@ void	get_player_start(t_all *cub)
 		}
 		y++;
 	}
+	if (only_one == false)
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Map: No spawning point found");
+
 	printf("PosX_Y: [%f] | [%f]\nDir: [%f]\n", cub->per.pos.x, cub->per.pos.y, cub->per.direction);
 	printf("PoDX_Y: [%f] | [%f]\nDir: [%f]\n", cub->per.d_pos.x, cub->per.d_pos.y, cub->per.direction);
 }
@@ -150,18 +153,18 @@ void	cub_map_muncher(t_all *cub, char *file)
 	if (lm_str_check_viable_end(file, ".cub") != 1)
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "map: wrong file extension");
 	content_split = get_file_content_split(determine_file_size(file), file);
-	//@note content_split print statement here
-	// for (int i = 0; content_split[i] != NULL; i++) {
-	// 	printf("%d. %s\n", i, content_split[i]);
-	// }
+	// @note content_split print statement here
+	for (int i = 0; content_split[i] != NULL; i++) {
+		printf("%d. %s\n", i, content_split[i]);
+	}
 	variable_shall_be_declared(&cub->map, content_split);
 	creation_of_map(&cub->map, content_split);
 	parse_map(&cub->map, content_split);
-	if (map_valid_question_mark(&cub->map) == EXIT_FAILURE)
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Map didnt pass validation");
 	get_player_start(cub);
 	cub->per.pos.x = cub->per.start_pos.x;
 	cub->per.pos.y = cub->per.start_pos.y;
+	if (map_valid_question_mark(cub) == EXIT_FAILURE)
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Map didnt pass validation");
 }
 
 /* ************************************************************************** */

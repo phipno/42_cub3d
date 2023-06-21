@@ -6,7 +6,7 @@
 #    By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/08 17:11:30 by pnolte            #+#    #+#              #
-#    Updated: 2023/06/21 10:04:48 by jwillert         ###   ########           #
+#    Updated: 2023/06/21 13:32:38 by pnolte           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,7 @@ SRC_FILES             = main.c\
 						minimap.c t_point.c t_minimap.c t_element.c\
 						hooks.c	colours.c utils.c playerpos.c\
 						init.c init_map.c init_wall_color.c valid_map.c\
-						drawing.c 
+						drawing.c
 
 OBJ_DIR               = ./obj/
 OBJ_FILES             = $(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(SRC_FILES)))
@@ -74,7 +74,7 @@ VPATH                 = $(SRC_DIR):$(DEBUG_DIR)
 DEBUG_VAR             = $(shell echo $$DEBUG_FLAG)
 
 CC                    = cc
-CFLAGS                = -Wall -Werror -Wextra
+CFLAGS                = -Wall -Werror -Wextra 
 INCLUDES              = -I ./include \
 						-I ./lib/MLX42/include/MLX42/ \
 						$(foreach dir,$(LIBALLME_SUBDIRS), -I$(dir)include)
