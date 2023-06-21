@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:28:07 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/21 10:51:27 by jwillert         ###   ########          */
+/*   Updated: 2023/06/21 10:52:56 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,6 @@ void	hook_frame(void *context)
 	if (hook_movement(all) == true)
 	{
 		update_game(all);
-		//@todo doesnt update every frame
 		update_minimap(all, all->mode);
 	}
 }
