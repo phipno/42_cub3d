@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/20 13:50:21 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/20 16:59:00 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@
 # define MAP_SCALE 64
 
 # define WALL_HEIGHT 64
+
+# define DEPTH_OF_FIELD 128
 
 //--------------------structs
 

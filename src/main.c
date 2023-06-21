@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:15:21 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/20 14:08:40 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/20 17:30:08 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	main(int argc, char *argv[])
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_background init");
 	}
 
-	//draw_heaven_and_hell(all);
+	draw_heaven_and_hell(all);
 	// draw_troll(all);
 
 	if (mlx_image_to_window(all.mlx, all.image_background, 0, 0) == -1)

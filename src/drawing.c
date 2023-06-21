@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:48:45 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/20 14:04:20 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/21 12:52:04 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,13 +128,13 @@ t_raycaster	draw_rays_verti(t_all cub)
 	{
 		ray.x = cub.per.d_pos.x;
 		ray.y = cub.per.d_pos.y;
-		depth_of_field = 16;
+		depth_of_field = DEPTH_OF_FIELD;
 		ray.color = 0x444444FF;
 		//@note fixing on which side its on
 		ray.cardinal_dir = SOUTH;
 	}
 	// printf("HORI_Ray   Off_X%f Off_Y%f\n", ray.x.offset, ray.y.offset);
-	while (depth_of_field < 16)
+	while (depth_of_field < DEPTH_OF_FIELD)
 	{
 		// ray.map.x = (int)(ray.x) >> 6;
 		// ray.map.y = (int)(ray.y) >> 6;
@@ -142,7 +142,7 @@ t_raycaster	draw_rays_verti(t_all cub)
 		ray.map.y = ray.y / 64;
 		if (ray.map.y >= 0 && ray.map.y < (int)cub.map.map_line_max && ray.map.x >= 0 &&
 		ray.map.x < (int)cub.map.map_column_max && cub.map.a_map[(int)ray.map.y][(int)ray.map.x] == '1')
-			depth_of_field = 16;
+			depth_of_field = DEPTH_OF_FIELD;
 		else
 		{
 			ray.x += ray.offset.x;
@@ -189,13 +189,13 @@ t_raycaster	draw_rays_hori(t_all cub)
 		//looking straigt left or right
 		ray.x = cub.per.d_pos.x;
 		ray.y = cub.per.d_pos.y;
-		depth_of_field = 16;
+		depth_of_field = DEPTH_OF_FIELD;
 		ray.color = 0x444444FF;
 		//@note fixing on which side its on
 		ray.cardinal_dir = NORTH;
 	}
 	// printf("HORI_Ray   Off_X%f Off_Y%f\n", ray.x.offset, ray.y.offset);
-	while (depth_of_field < 16)
+	while (depth_of_field < DEPTH_OF_FIELD)
 	{
 		// divided or multi
 		// map_x = (int)(ray.x) >> 6;
@@ -204,7 +204,7 @@ t_raycaster	draw_rays_hori(t_all cub)
 		ray.map.y = ray.y / 64;
 		if (ray.map.y >= 0 && ray.map.y < (int)cub.map.map_line_max && ray.map.x >= 0
 		&& ray.map.x < (int)cub.map.map_column_max && cub.map.a_map[(int)ray.map.y][(int)ray.map.x] == '1')
-			depth_of_field = 16;
+			depth_of_field = DEPTH_OF_FIELD;
 		else
 		{
 			ray.x += ray.offset.x;
@@ -218,7 +218,7 @@ t_raycaster	draw_rays_hori(t_all cub)
 	return (ray);
 }
 
-void	draw_walls(t_all cub, int x, t_raycaster wall_ray)
+void	draw_walls(t_all cub, int x, t_raycaster ray)
 {
 	int		line_h;
 	int		line_offset;
@@ -233,32 +233,48 @@ void	draw_walls(t_all cub, int x, t_raycaster wall_ray)
 		angle = angle + 2 * PI;
 	if (angle > 2 * PI)
 		angle = angle - 2 * PI;
-	wall_ray.distance_parralel = cos(angle) * wall_ray.distance_raw;
+	ray.distance_parralel = cos(angle) * ray.distance_raw;
 
 
 	//for the offset we need to know at what pixel of a wall were
 	//looking and where is the wall end. to calculate a factor so we can
 	//increment it in rotational way.
 
-	// double		offset;
+	int			x_offset;
+	int			y_step;
+	double		y_count;
 
 
-
-
-	line_h = WALL_HEIGHT * HEIGHT / wall_ray.distance_parralel;
+	y_count = 0;
+	x_offset = 0;
+	if (ray.cardinal_dir == NORTH || ray.cardinal_dir == SOUTH)
+	{
+		x_offset = (ray.map.x - (int)ray.map.x) / cub.map.mlx_wall[ray.cardinal_dir]->width * 4;
+	}
+	else if (ray.cardinal_dir == EAST || ray.cardinal_dir == WEST)
+	{
+		x_offset = (ray.map.y - (int)ray.map.y) / cub.map.mlx_wall[ray.cardinal_dir]->width * 4;
+	}
+	printf("X%d   MapX%f   MapY%f   X_Offset%d\n",x, ray.map.x, ray.map.y, (int)x_offset);
+	line_h = WALL_HEIGHT * HEIGHT / ray.distance_parralel;
 	if (line_h > HEIGHT)
 		line_h = HEIGHT;
 	line_offset = HEIGHT/2 - line_h / 2;
 	while (line_h >= 0)
 	{
-		if ((x >= 0 && x < WIDTH) && (line_h + line_offset >= 0 && line_h + line_offset < HEIGHT))
+		y_step = cub.map.mlx_wall[ray.cardinal_dir]->width * y_count;
+		if ((x >= 0 && x < WIDTH) && (line_h + line_offset >= 0 && line_h + line_offset < HEIGHT
+			&& 3 + y_step + x_offset < (int)cub.map.mlx_wall[ray.cardinal_dir]->width * (int)cub.map.mlx_wall[ray.cardinal_dir]->height * 4
+			&& y_step + x_offset > -1))
 			mlx_put_pixel(cub.image_game, x, line_h + line_offset, get_rgba(
-			cub.map.mlx_wall[wall_ray.cardinal_dir]->pixels[0],
-			cub.map.mlx_wall[wall_ray.cardinal_dir]->pixels[1],
-			cub.map.mlx_wall[wall_ray.cardinal_dir]->pixels[2],
-			cub.map.mlx_wall[wall_ray.cardinal_dir]->pixels[3]));
+			cub.map.mlx_wall[ray.cardinal_dir]->pixels[0 + y_step + x_offset],
+			cub.map.mlx_wall[ray.cardinal_dir]->pixels[1 + y_step + x_offset],
+			cub.map.mlx_wall[ray.cardinal_dir]->pixels[2 + y_step + x_offset],
+			cub.map.mlx_wall[ray.cardinal_dir]->pixels[3 + y_step + x_offset]));
+		y_count = (line_h + line_offset) / cub.map.mlx_wall[ray.cardinal_dir]->width;
 		line_h--;
 	}
+	// printf("Ystep %d\n", y_count);
 }
 
 void	draw_player(t_all cub)
