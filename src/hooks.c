@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:28:07 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/21 17:39:57 by jwillert         ###   ########          */
+/*   Updated: 2023/06/21 17:49:46 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ static void	toggle_minimap(t_all *all)
 	static size_t	i;
 
 	i += 1;
-	printf("%zu\n", i);
 	if (i == 1)
 	{
 		all->mode = MODE_FULLSCREEN;
