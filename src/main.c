@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:15:21 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/21 10:12:17 by jwillert         ###   ########          */
+/*   Updated: 2023/06/21 10:43:36 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ int	main(int argc, char *argv[])
 
 	// 	--------------------->	image_minimap
 
-	all.mode = MODE_FULLSCREEN;
-	update_minimap(&all, MODE_FULLSCREEN);
+	all.mode = MODE_OFF;
+	update_minimap(&all, all.mode);
 
 	all.per.offset.x = 0;
 	all.per.offset.y = 0;
