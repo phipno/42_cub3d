@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:48:45 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/21 12:58:54 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/21 16:53:21 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,7 +226,6 @@ void	draw_walls(t_all cub, int x, t_raycaster ray)
 	int		line_h;
 	int		line_offset;
 	double	angle;
-
 
 	// angle fixes the distortion from walls on the same
 	// grid line not being displayed on the same y height
