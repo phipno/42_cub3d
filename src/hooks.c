@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:28:07 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/21 10:08:49 by jwillert         ###   ########          */
+/*   Updated: 2023/06/21 10:20:10 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	update_game(t_all *all)
 		mlx_terminate(all->mlx);
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_game init");
 	}
-	//draw_player(*all);
+	draw_player(*all);
 	if (mlx_image_to_window(all->mlx, all->image_game, 0, 0) == -1)
 	{
 		mlx_terminate(all->mlx);
@@ -101,6 +101,7 @@ static void	toggle_minimap(t_all *all)
 	update_game(all);
 	update_minimap(all, all->mode);
 }
+
 static int	hook_movement(t_all *all)
 {
 	bool	x;
