@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 16:10:22 by pnolte            #+#    #+#             */
-/*   Updated: 2023/05/24 19:03:14 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/21 13:04:14 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,15 @@ int	map_valid_question_mark(t_game *a)
 	while (a->a_map[line] != NULL)
 	{
 		if (nono_wrong_characters(a->a_map[line]) == true)
+		{
+			printf("hello\n");
 			return (EXIT_FAILURE);
+		}
 		if (im_the_logicchecker(a, line) == true)
+		{
+			printf("hi\n");
 			return (EXIT_FAILURE);
+		}
 		line++;
 	}
 	return(EXIT_SUCCESS);

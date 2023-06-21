@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/20 16:59:00 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/21 12:56:50 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 # define CUB3D_H
 
 # include "MLX42.h"		// needed for mlx_t, mlx_image_t, mlx_key_data_t
-# include <stdlib.h>	// needed for size_t
 # include "minimap.h"	// needed for t_minimap
-
-#include <stdio.h>
-
+# include <stdlib.h>	// needed for size_t
+# include <stdbool.h>	// needed for bool
 //--------------------macros
 
 // defines where all debugging information is written to
@@ -75,11 +73,11 @@ typedef union u_rgba {
 
 typedef struct s_game
 {
-	char	**a_map;
-	size_t	map_column_max;
-	size_t	map_line_max;
-	t_rgba	sky_color;
-	t_rgba	floor_color;
+	char			**a_map;
+	size_t			map_column_max;
+	size_t			map_line_max;
+	t_rgba			sky_color;
+	t_rgba			floor_color;
 	mlx_texture_t	*mlx_wall[4];
 	char			*walls[4];
 }	t_game;
@@ -87,6 +85,7 @@ typedef struct s_game
 /**
  * @param player, holds data which is important for player information.
 */
+
 typedef struct s_player
 {
 	t_point	pos;
@@ -103,13 +102,10 @@ typedef struct s_all
 	t_player	per;
 	t_game		map;
 	t_minimap	minimap;
-	t_minimap	source;
 	mlx_t		*mlx;
 	mlx_image_t	*image_game;
-	mlx_image_t	*image_minimap;
-	mlx_image_t	*image_player;
 	mlx_image_t	*image_background;
-	mlx_image_t	*image_source;
+	mlx_image_t *image_player;
 	int			mode;
 	double		ms;
 }	t_all;
@@ -126,21 +122,23 @@ char	*sub_str_walls(const char *str);
 void	draw_heaven_and_hell(t_all cub);
 void	draw_troll(t_all cub);
 void	draw_player(t_all cub);
-void	draw_source(t_all *all, t_minimap *source);
 
 //--------------------Game
 void	hook_keys(mlx_key_data_t key_data, void *context);
 void	hook_frame(void *context);
 void	player_set_pos(t_player *per, int x, int y);
 void	update_minimap(t_all *all, int mode);
-
-void	update_player_pos(t_all *all); //this function needs restructering
+void	get_player_pos(char **map, t_all *all);
+// @todo function needs restructuring
+void	update_player_pos(t_all *all);
 
 //--------------------Colours
 int		get_rgba(int r, int g, int b, int a);
 
 //--------------------Utils
 size_t	get_bigger_sizet(size_t x, size_t y);
+double	get_player_direction(char symbol);
+bool	is_player_pos(char symbol);
 
 //--------------------Clean Up
 void	cub_exit(int exit_code, int fd, char *message);

@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:48:45 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/21 12:52:04 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/21 12:58:54 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include "raycasting.h"
 
 #include <math.h>
+
+#include <stdio.h> //for debugging
 
 void DDA(int X0, int Y0, int X1, int Y1, t_all cub, int32_t color)
 {
@@ -41,7 +43,6 @@ void DDA(int X0, int Y0, int X1, int Y1, t_all cub, int32_t color)
     }
 }
 
-
 void	draw_heaven_and_hell(t_all cub)
 {
 	int	x;
@@ -54,9 +55,11 @@ void	draw_heaven_and_hell(t_all cub)
 		while (x < WIDTH)
 		{
 			if (y < HEIGHT / 2)
-				mlx_put_pixel(cub.image_background, x, y, cub.map.sky_color.colour);
+				mlx_put_pixel(cub.image_background, x, y,
+					cub.map.sky_color.colour);
 			else
-				mlx_put_pixel(cub.image_background, x, y, cub.map.floor_color.colour);
+				mlx_put_pixel(cub.image_background, x, y,
+					cub.map.floor_color.colour);
 			x++;
 		}
 		y++;
@@ -255,7 +258,7 @@ void	draw_walls(t_all cub, int x, t_raycaster ray)
 	{
 		x_offset = (ray.map.y - (int)ray.map.y) / cub.map.mlx_wall[ray.cardinal_dir]->width * 4;
 	}
-	printf("X%d   MapX%f   MapY%f   X_Offset%d\n",x, ray.map.x, ray.map.y, (int)x_offset);
+	// printf("X%d   MapX%f   MapY%f   X_Offset%d\n",x, ray.map.x, ray.map.y, (int)x_offset);
 	line_h = WALL_HEIGHT * HEIGHT / ray.distance_parralel;
 	if (line_h > HEIGHT)
 		line_h = HEIGHT;
