@@ -6,17 +6,14 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:49:37 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/16 15:50:27 by jwillert         ###   ########          */
+/*   Updated: 2023/06/21 10:00:53 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42.h"			// needed for mlx_*()
 #include "minimap.h"		// needed for t_point
 #include "cub3d.h"			// needed for t_all and t_player
-#include "ft_printf.h"		// needed for ft_printf()
 #include <unistd.h>			// needed for STDERR_FILENO
-
-#include <stdio.h>
 
 void	minimap_draw_element(mlx_image_t *image, size_t index_x,
 	size_t index_y, t_minimap *minimap)
@@ -32,10 +29,11 @@ void	minimap_draw_element(mlx_image_t *image, size_t index_x,
 	point_set(&element_end,
 		element_start.x + minimap->element.size_x,
 		element_start.y + minimap->element.size_y);
-	if (minimap->flag_player == 1)
-	{
-		point_set_mid(&minimap->player_pos, element_start, element_end);
-	}
+	//@note this shit bad
+	// if (minimap->flag_player == 1)
+	// {
+	// 	point_set_mid(&minimap->player_pos, element_start, element_end);
+	// }
 	while (element.y < element_end.y && element.y < HEIGHT)
 	{
 		while (element.x < element_end.x && element.x < WIDTH)

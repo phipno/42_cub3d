@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/20 10:15:35 by jwillert         ###   ########          */
+/*   Updated: 2023/06/21 10:06:27 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,18 @@
 # define P2  M_PI / 2
 # define P3  3 * M_PI / 2
 
-# define MOVEMENT_SPEED 2
+# define MOVEMENT_SPEED 0.075
 
 # define NORTH 0
 # define EAST 1
 # define SOUTH 2
 # define WEST 3
+
+# define FOV 90
+
+# define MAP_SCALE 64
+
+# define WALL_HEIGHT 64
 
 //--------------------structs
 
@@ -65,30 +71,23 @@ typedef union u_rgba {
 
 typedef struct s_game
 {
-	char	**a_map;
-	size_t	map_column_max;
-	size_t	map_line_max;
-	t_rgba	sky_color;
-	t_rgba	floor_color;
+	char			**a_map;
+	size_t			map_column_max;
+	size_t			map_line_max;
+	t_rgba			sky_color;
+	t_rgba			floor_color;
 	mlx_texture_t	*mlx_wall[4];
 	char			*walls[4];
 }	t_game;
 
-typedef struct s_grid_pos
-{
-	size_t	index_x;
-	size_t	index_y;
-	char	symbol;
-	double	direction;
-}			t_grid_pos;
-
 /**
  * @param player, holds data which is important for player information.
 */
+
 typedef struct s_player
 {
 	t_point	pos;
-	t_point st;
+	t_point start_pos;
 	t_point d_pos;
 	t_point offset;
 	double	fov;
@@ -101,14 +100,10 @@ typedef struct s_all
 	t_player	per;
 	t_game		map;
 	t_minimap	minimap;
-	t_minimap	source;
-	t_grid_pos	player_pos;
 	mlx_t		*mlx;
 	mlx_image_t	*image_game;
-	mlx_image_t	*image_minimap;
-	mlx_image_t	*image_player;
 	mlx_image_t	*image_background;
-	mlx_image_t	*image_source;
+	mlx_image_t *image_player;
 	int			mode;
 	double		ms;
 }	t_all;
@@ -125,15 +120,15 @@ char	*sub_str_walls(const char *str);
 void	draw_heaven_and_hell(t_all cub);
 void	draw_troll(t_all cub);
 void	draw_player(t_all cub);
-void	draw_source(t_all *all, t_minimap *source);
 
 //--------------------Game
 void	hook_keys(mlx_key_data_t key_data, void *context);
 void	hook_frame(void *context);
 void	player_set_pos(t_player *per, int x, int y);
-void	update_player_pos(t_all *all);
 void	update_minimap(t_all *all, int mode);
 void	get_player_pos(char **map, t_all *all);
+// @todo function needs restructuring
+void	update_player_pos(t_all *all);
 
 //--------------------Colours
 int		get_rgba(int r, int g, int b, int a);

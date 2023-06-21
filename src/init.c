@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 15:45:01 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/19 16:00:16 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/21 09:30:55 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ static void	variable_shall_be_declared (t_game *map, char **content_split)
 	printf("%x %x %x  Alpha:%x\n", map->sky_color.rgba.r, map->sky_color.rgba.b, map->sky_color.rgba.g, map->sky_color.rgba.a);
 	printf("%x\n", map->floor_color.colour);
 	printf("%x\n", map->sky_color.colour);
-
 }
 
 
@@ -123,7 +122,7 @@ void	get_player_start(t_all *cub)
 				|| cub->map.a_map[y][x] == 'S' || cub->map.a_map[y][x] == 'W')
 			{
 				if (only_one == true)
-					cub_exit(EXIT_FAILURE, STDERR_FILENO, "to many spawns in map file");
+					cub_exit(EXIT_FAILURE, STDERR_FILENO, "too many spawns in map file");
 				if (cub->map.a_map[y][x] == 'N')
 					cub->per.direction = 270;
 				if (cub->map.a_map[y][x] == 'E')
@@ -132,10 +131,8 @@ void	get_player_start(t_all *cub)
 					cub->per.direction = 90;
 				if (cub->map.a_map[y][x] == 'W')
 					cub->per.direction = 180;
-				cub->per.pos.x = x + 0.5;
-				cub->per.pos.y = y + 0.5;
-				cub->per.d_pos.x = cos(cub->per.direction);
-				cub->per.d_pos.y = sin(cub->per.direction);
+				cub->per.start_pos.x = x + 0.5;
+				cub->per.start_pos.y = y + 0.5;
 				only_one = true;
 			}
 			x++;
@@ -163,7 +160,8 @@ void	cub_map_muncher(t_all *cub, char *file)
 	if (map_valid_question_mark(&cub->map) == EXIT_FAILURE)
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Map didnt pass validation");
 	get_player_start(cub);
-	cub->per.fov = P2;
+	cub->per.pos.x = cub->per.start_pos.x;
+	cub->per.pos.y = cub->per.start_pos.y;
 }
 
 /* ************************************************************************** */

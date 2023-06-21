@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:28:07 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/20 10:43:48 by jwillert         ###   ########          */
+/*   Updated: 2023/06/21 10:08:49 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,13 @@
 
 void	update_minimap(t_all *all, int mode)
 {
-	if (all->image_minimap != NULL)
-	{
-		all->image_minimap->enabled = true;
-		mlx_delete_image(all->mlx, all->image_minimap);
-	}
-	all->image_minimap = mlx_new_image(all->mlx, WIDTH, HEIGHT);
-	if (all->image_minimap == NULL)
-	{
-		mlx_terminate(all->mlx);
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_minimap init");
-	}
+	if (mode == MODE_OFF)
+		return ;
 	minimap_init(&all->minimap,
 		all->map.map_column_max,
 		all->map.map_line_max,
 		mode);
-	minimap_draw(all->map.a_map, all->image_minimap, &all->minimap);
-	if (mlx_image_to_window(all->mlx, all->image_minimap, 0, 0) == -1)
-	{
-		mlx_terminate(all->mlx);
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_minimap to window");
-	}
+	minimap_draw(all->map.a_map, all->image_game, &all->minimap);
 }
 
 void	update_game(t_all *all)
@@ -63,35 +49,36 @@ void	update_game(t_all *all)
 	}
 }
 
-void	update_player_pos(t_all *all)
-{
-	t_point	player_pos;
+//@note this function needs restructering
+// void	update_player_pos(t_all *all)
+// {
+// 	t_point	player_pos;
 
-	if (all->image_player != NULL)
-		mlx_delete_image(all->mlx, all->image_player);
-	all->image_player = mlx_new_image(all->mlx, WIDTH, HEIGHT);
-	if (all->image_player == NULL)
-	{
-		mlx_terminate(all->mlx);
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_player init");
-	}
-	player_set_pos(&all->per,
-		all->source.player_pos.x + all->per.offset.x,
-		all->source.player_pos.y + all->per.offset.y);
-	point_set(&player_pos,
-		all->per.pos.x,
-		all->per.pos.y);
-	point_draw_disc(all->image_player,
-		player_pos,
-		all->source.element.size_x / 2,
-		all->source.colours[GREEN]);
-	if (mlx_image_to_window(all->mlx, all->image_player, 0, 0) == -1)
-	{
-		mlx_terminate(all->mlx);
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_player to window");
-	}
-	debug_print_t_point("player pos", player_pos);
-}
+// 	if (all->image_player != NULL)
+// 		mlx_delete_image(all->mlx, all->image_player);
+// 	all->image_player = mlx_new_image(all->mlx, WIDTH, HEIGHT);
+// 	if (all->image_player == NULL)
+// 	{
+// 		mlx_terminate(all->mlx);
+// 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_player init");
+// 	}
+// 	player_set_pos(&all->per,
+// 		all->source.player_pos.x + all->per.offset.x,
+// 		all->source.player_pos.y + all->per.offset.y);
+// 	point_set(&player_pos,
+// 		all->per.pos.x,
+// 		all->per.pos.y);
+// 	point_draw_disc(all->image_player,
+// 		player_pos,
+// 		all->source.element.size_x / 2,
+// 		all->source.colours[GREEN]);
+// 	if (mlx_image_to_window(all->mlx, all->image_player, 0, 0) == -1)
+// 	{
+// 		mlx_terminate(all->mlx);
+// 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_player to window");
+// 	}
+// 	debug_print_t_point("player pos", player_pos);
+// }
 
 static void	toggle_minimap(t_all *all)
 {
@@ -101,22 +88,18 @@ static void	toggle_minimap(t_all *all)
 	if (i == 1)
 	{
 		all->mode = MODE_CORNER;
-		update_minimap(all, all->mode);
-		update_player_pos(all);
 	}
 	else if (i == 2)
 	{
 		all->mode = MODE_OFF;
-		all->image_minimap->enabled = false;
-		all->image_player->enabled = false;
 	}
 	else if (i == 3)
 	{
 		i = 0;
 		all->mode = MODE_FULLSCREEN;
-		update_minimap(all, all->mode);
-		update_player_pos(all);
 	}
+	update_game(all);
+	update_minimap(all, all->mode);
 }
 static int	hook_movement(t_all *all)
 {
@@ -127,26 +110,26 @@ static int	hook_movement(t_all *all)
 	y = false;
 	if (mlx_is_key_down(all->mlx, MLX_KEY_W) == true)
 	{
-		all->per.offset.x += cos((all->per.angle_real) / 180 * M_PI) * all->ms;
-		all->per.offset.y += sin((all->per.angle_real) / 180 * M_PI) * all->ms;
+		all->per.pos.x += cos((all->per.angle_real) / 180 * M_PI) * all->ms;
+		all->per.pos.y += sin((all->per.angle_real) / 180 * M_PI) * all->ms;
 		y = true;
 	}
 	else if (mlx_is_key_down(all->mlx, MLX_KEY_S) == true)
 	{
-		all->per.offset.x += cos((all->per.angle_real - 180) / 180 * M_PI) * all->ms;
-		all->per.offset.y += sin((all->per.angle_real - 180) / 180 * M_PI) * all->ms;
+		all->per.pos.x += cos((all->per.angle_real - 180) / 180 * M_PI) * all->ms;
+		all->per.pos.y += sin((all->per.angle_real - 180) / 180 * M_PI) * all->ms;
 		y = true;
 	}
 	if (mlx_is_key_down(all->mlx, MLX_KEY_D) == true)
 	{
-		all->per.offset.x += cos((all->per.angle_real + 90) / 180 * M_PI) * all->ms;
-		all->per.offset.y += sin((all->per.angle_real + 90) / 180 * M_PI) * all->ms;
+		all->per.pos.x += cos((all->per.angle_real + 90) / 180 * M_PI) * all->ms;
+		all->per.pos.y += sin((all->per.angle_real + 90) / 180 * M_PI) * all->ms;
 		x = true;
 	}
 	else if (mlx_is_key_down(all->mlx, MLX_KEY_A) == true)
 	{
-		all->per.offset.x += cos((all->per.angle_real - 90) / 180 * M_PI) * all->ms;
-		all->per.offset.y += sin((all->per.angle_real - 90) / 180 * M_PI) * all->ms;
+		all->per.pos.x += cos((all->per.angle_real - 90) / 180 * M_PI) * all->ms;
+		all->per.pos.y += sin((all->per.angle_real - 90) / 180 * M_PI) * all->ms;
 		x = true;
 	}
 	if (mlx_is_key_down(all->mlx, MLX_KEY_LEFT) == true)
@@ -177,24 +160,26 @@ void	hook_frame(void *context)
 
 	all = (t_all *) context;
 	frame += 1;
-//	if (frame == 10)
-//	{
-//		if (all->image_player->enabled == false && all->mode != MODE_OFF)
-//		{
-//			all->image_player->enabled = true;
-//		}
-//		else
-//		{
-//			all->image_player->enabled = false;
-//		}
-//		frame = 0;
-//	}
+	//@note commented out // blinking player position
+	// if (frame == 10)
+	// {
+	// 	if (all->image_player->enabled == false && all->mode != MODE_OFF)
+	// 	{
+	// 		all->image_player->enabled = true;
+	// 	}
+	// 	else
+	// 	{
+	// 		all->image_player->enabled = false;
+	// 	}
+	// 	frame = 0;
+	// }
 	// @todo make movement smoother, some random acceleration
 	// (mb limit frames that we check)
 	if (hook_movement(all) == true)
 	{
-		//update_game(all);
-		update_player_pos(all);
+		update_game(all);
+		//@todo doesnt update every frame
+		update_minimap(all, all->mode);
 	}
 }
 
@@ -202,8 +187,15 @@ void	hook_keys(mlx_key_data_t key_data, void *context)
 {
 	t_all	*all;
 
-	(void) key_data;
 	all = (t_all *) context;
+	if (key_data.key == MLX_KEY_LEFT_SHIFT && key_data.action == MLX_PRESS)
+	{
+		all->ms += 0.05;
+	}
+	if (key_data.key == MLX_KEY_LEFT_SHIFT && key_data.action == MLX_RELEASE)
+	{
+		all->ms -= 0.05;
+	}
 	if (mlx_is_key_down(all->mlx, MLX_KEY_ESCAPE) == true)
 	{
 		mlx_close_window(all->mlx);
@@ -212,45 +204,4 @@ void	hook_keys(mlx_key_data_t key_data, void *context)
 	{
 		toggle_minimap(all);
 	}
-	// else if (mlx_is_key_down(all->mlx, MLX_KEY_W) == true)
-	// {
-	// 	all->per.pos.y += all->per.d_pos.y;
-	// 	all->per.pos.x += all->per.d_pos.x;
-	// }
-	// else if (mlx_is_key_down(all->mlx, MLX_KEY_S) == true)
-	// {
-	// 	all->per.pos.y -= all->per.d_pos.y;
-	// 	all->per.pos.x -= all->per.d_pos.x;
-	// }
-	// else if (mlx_is_key_down(all->mlx, MLX_KEY_A) == true)
-	// {
-	// 	all->per.direction -= 0.1;
-	// 	if (all->per.direction < 0)
-	// 		all->per.direction += 2 * PI;
-	// 	all->per.d_pos.x = cos(all->per.direction);
-	// 	all->per.d_pos.y = sin(all->per.direction);
-	// }
-	// else if (mlx_is_key_down(all->mlx, MLX_KEY_D) == true)
-	// {
-	// 	all->per.direction += 0.1;
-	// 	if (all->per.direction > 2 * PI)
-	// 		all->per.direction -= 2 * PI;
-	// 	all->per.d_pos.x = cos(all->per.direction);
-	// 	all->per.d_pos.y = sin(all->per.direction);
-	// }
-	// mlx_delete_image(all->mlx, all->image_game);
-	// all->image_game = mlx_new_image(all->mlx, WIDTH, HEIGHT);
-	// if (all->image_game == NULL)
-	// {
-	// 	// @todo handle error
-	// 	mlx_terminate(all->mlx);
-	// 	cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_game init");
-	// }
-	// draw_heaven_and_hell(*all);
-	// draw_player(*all);
-	// if (mlx_image_to_window(all->mlx, all->image_game, 0, 0) == -1)
-	// {
-	// 	mlx_terminate(all->mlx);
-	// 	cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_game to window");
-	// }
 }
