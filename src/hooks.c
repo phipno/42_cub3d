@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:28:07 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/21 10:52:56 by jwillert         ###   ########          */
+/*   Updated: 2023/06/21 14:07:11 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,7 @@ void	hook_frame(void *context)
 	// }
 	// @todo make movement smoother, some random acceleration
 	// (mb limit frames that we check)
-	
+
 	if (hook_movement(all) == true)
 	{
 		update_game(all);

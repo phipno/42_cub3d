@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 15:45:01 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/21 13:58:01 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/21 14:11:12 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ static char	**get_file_content_split(int size, char *file)
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, strerror(1));
 	if (read(fd, content, size) == -1)
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, strerror(1));
+	content[size - 1] = '\0';
 	content_split = ft_split(content, '\n');
 	close(fd);
 	free(content);

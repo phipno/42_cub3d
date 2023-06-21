@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/21 13:13:00 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/21 17:44:24 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@
 
 # define WALL_HEIGHT 64
 
-# define DEPTH_OF_FIELD 128
+# define DEPTH_OF_FIELD 1000
 
 //--------------------structs
 

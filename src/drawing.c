@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:48:45 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/21 13:45:34 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/21 17:58:53 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,12 +231,17 @@ void	draw_walls(t_all cub, int x, t_raycaster ray)
 	// angle fixes the distortion from walls on the same
 	// grid line not being displayed on the same y height
 	// in short fixes fish eye
-	angle = (cub.per.angle_real / 180 * PI) - cub.per.direction;
+
+
+
+	angle = cub.per.angle_real * (PI / 180) - cub.per.direction;
 	if (angle < 0)
 		angle = angle + 2 * PI;
 	if (angle > 2 * PI)
 		angle = angle - 2 * PI;
-	ray.distance_parralel = cos(angle) * ray.distance_raw;
+	printf("X:%d Angle%f Real%f Dir%f\n", x, angle, cub.per.angle_real * (PI / 180), cub.per.direction);
+	ray.distance_parralel = ray.distance_raw * cos(angle);
+	// ray.distance_parralel = sin(angle + 0.5) * ray.distance_raw;
 
 
 	//for the offset we need to know at what pixel of a wall were
@@ -244,37 +249,35 @@ void	draw_walls(t_all cub, int x, t_raycaster ray)
 	//increment it in rotational way.
 
 	int			x_offset;
-	int			y_step;
-	double		y_count;
+	// int			y_step = 0;
 
 
-	y_count = 0;
 	x_offset = 0;
 	if (ray.cardinal_dir == NORTH || ray.cardinal_dir == SOUTH)
 	{
-		x_offset = (ray.map.x - (int)ray.map.x) / cub.map.mlx_wall[ray.cardinal_dir]->width;
+		x_offset = (ray.map.x + ray.distance_parralel * ray.dir - (int)ray.map.x) * cub.map.mlx_wall[ray.cardinal_dir]->width * 4;
 	}
 	else if (ray.cardinal_dir == EAST || ray.cardinal_dir == WEST)
 	{
-		x_offset = (ray.map.y - (int)ray.map.y) / cub.map.mlx_wall[ray.cardinal_dir]->width;
+		x_offset = (ray.map.y + ray.distance_parralel * ray.dir - (int)ray.map.y) * cub.map.mlx_wall[ray.cardinal_dir]->width * 4;
 	}
+	x_offset = cub.map.mlx_wall[ray.cardinal_dir]->width - x_offset - 1;
 	// printf("X%d   MapX%f   MapY%f   X_Offset%d\n",x, ray.map.x, ray.map.y, (int)x_offset);
 	line_h = WALL_HEIGHT * HEIGHT / ray.distance_parralel;
 	if (line_h > HEIGHT)
 		line_h = HEIGHT;
 	line_offset = HEIGHT/2 - line_h / 2;
+
 	while (line_h >= 0)
 	{
-		y_step = cub.map.mlx_wall[ray.cardinal_dir]->width * y_count;
-		if ((x >= 0 && x < WIDTH) && (line_h + line_offset >= 0 && line_h + line_offset < HEIGHT
-			&& 3 + y_step + x_offset < (int)cub.map.mlx_wall[ray.cardinal_dir]->width * (int)cub.map.mlx_wall[ray.cardinal_dir]->height * 4
-			&& y_step + x_offset > -1))
+		if ((x >= 0 && x < WIDTH) && (line_h + line_offset >= 0 && line_h + line_offset < HEIGHT))
+			// && 3 + y_step + x_offset < (int)cub.map.mlx_wall[ray.cardinal_dir]->width * (int)cub.map.mlx_wall[ray.cardinal_dir]->height * 4
+			// && y_step + x_offset > -1))
 			mlx_put_pixel(cub.image_game, x, line_h + line_offset, get_rgba(
-			cub.map.mlx_wall[ray.cardinal_dir]->pixels[0 + ((y_step + x_offset) * 4)],
-			cub.map.mlx_wall[ray.cardinal_dir]->pixels[1 + ((y_step + x_offset) * 4)],
-			cub.map.mlx_wall[ray.cardinal_dir]->pixels[2 + ((y_step + x_offset) * 4)],
-			cub.map.mlx_wall[ray.cardinal_dir]->pixels[3 + ((y_step + x_offset) * 4)]));
-		y_count = (line_h + line_offset) / cub.map.mlx_wall[ray.cardinal_dir]->width;
+			cub.map.mlx_wall[ray.cardinal_dir]->pixels[0/* + ((y_step + x_offset))*/],
+			cub.map.mlx_wall[ray.cardinal_dir]->pixels[1/* + ((y_step + x_offset))*/],
+			cub.map.mlx_wall[ray.cardinal_dir]->pixels[2/* + ((y_step + x_offset))*/],
+			cub.map.mlx_wall[ray.cardinal_dir]->pixels[3/* + ((y_step + x_offset))*/]));
 		line_h--;
 	}
 	// printf("Ystep %d\n", y_count);
@@ -299,7 +302,7 @@ void	draw_player(t_all cub)
 	// 	}
 	// }
 
-	float	angle_add;
+	double	angle_add;
 
 	angle_add = 0.5;
 
