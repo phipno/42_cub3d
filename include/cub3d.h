@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/20 13:50:21 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/21 09:48:07 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ typedef union u_rgba {
 
 typedef struct s_game
 {
-	char	**a_map;
-	size_t	map_column_max;
-	size_t	map_line_max;
-	t_rgba	sky_color;
-	t_rgba	floor_color;
+	char			**a_map;
+	size_t			map_column_max;
+	size_t			map_line_max;
+	t_rgba			sky_color;
+	t_rgba			floor_color;
 	mlx_texture_t	*mlx_wall[4];
 	char			*walls[4];
 }	t_game;
@@ -85,6 +85,7 @@ typedef struct s_game
 /**
  * @param player, holds data which is important for player information.
 */
+
 typedef struct s_player
 {
 	t_point	pos;
@@ -101,13 +102,10 @@ typedef struct s_all
 	t_player	per;
 	t_game		map;
 	t_minimap	minimap;
-	t_minimap	source;
 	mlx_t		*mlx;
 	mlx_image_t	*image_game;
-	mlx_image_t	*image_minimap;
-	mlx_image_t	*image_player;
 	mlx_image_t	*image_background;
-	mlx_image_t	*image_source;
+	mlx_image_t *image_player;
 	int			mode;
 	double		ms;
 }	t_all;
@@ -124,7 +122,6 @@ char	*sub_str_walls(const char *str);
 void	draw_heaven_and_hell(t_all cub);
 void	draw_troll(t_all cub);
 void	draw_player(t_all cub);
-void	draw_source(t_all *all, t_minimap *source);
 
 //--------------------Game
 void	hook_keys(mlx_key_data_t key_data, void *context);

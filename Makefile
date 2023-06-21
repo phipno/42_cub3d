@@ -6,7 +6,7 @@
 #    By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/08 17:11:30 by pnolte            #+#    #+#              #
-#    Updated: 2023/06/19 13:11:34 by pnolte           ###   ########.fr        #
+#    Updated: 2023/06/21 09:37:38 by jwillert         ###   ########           #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,7 @@ SRC_FILES             = main.c\
 						minimap.c t_point.c t_minimap.c t_element.c\
 						hooks.c	colours.c utils.c playerpos.c\
 						init.c init_map.c init_wall_color.c valid_map.c\
-						drawing.c source.c
+						drawing.c 
 
 OBJ_DIR               = ./obj/
 OBJ_FILES             = $(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(SRC_FILES)))

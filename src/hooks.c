@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:28:07 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/20 13:42:50 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/21 10:01:13 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,13 @@
 
 void	update_minimap(t_all *all, int mode)
 {
-	if (all->image_minimap != NULL)
-	{
-		all->image_minimap->enabled = true;
-		mlx_delete_image(all->mlx, all->image_minimap);
-	}
-	all->image_minimap = mlx_new_image(all->mlx, WIDTH, HEIGHT);
-	if (all->image_minimap == NULL)
-	{
-		mlx_terminate(all->mlx);
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_minimap init");
-	}
+	if (mode == MODE_OFF)
+		return ;
 	minimap_init(&all->minimap,
 		all->map.map_column_max,
 		all->map.map_line_max,
 		mode);
-	minimap_draw(all->map.a_map, all->image_minimap, &all->minimap);
-	if (mlx_image_to_window(all->mlx, all->image_minimap, 0, 0) == -1)
-	{
-		mlx_terminate(all->mlx);
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_minimap to window");
-	}
+	minimap_draw(all->map.a_map, all->image_game, &all->minimap);
 }
 
 void	update_game(t_all *all)
@@ -102,22 +88,18 @@ static void	toggle_minimap(t_all *all)
 	if (i == 1)
 	{
 		all->mode = MODE_CORNER;
-		update_minimap(all, all->mode);
-		// update_player_pos(all);
 	}
 	else if (i == 2)
 	{
 		all->mode = MODE_OFF;
-		all->image_minimap->enabled = false;
-		// all->image_player->enabled = false;
 	}
 	else if (i == 3)
 	{
 		i = 0;
 		all->mode = MODE_FULLSCREEN;
-		update_minimap(all, all->mode);
-		// update_player_pos(all);
 	}
+	update_game(all);
+	update_minimap(all, all->mode);
 }
 static int	hook_movement(t_all *all)
 {
@@ -178,7 +160,7 @@ void	hook_frame(void *context)
 
 	all = (t_all *) context;
 	frame += 1;
-	//@note commented out
+	//@note commented out // blinking player position
 	// if (frame == 10)
 	// {
 	// 	if (all->image_player->enabled == false && all->mode != MODE_OFF)
@@ -196,7 +178,8 @@ void	hook_frame(void *context)
 	if (hook_movement(all) == true)
 	{
 		update_game(all);
-		// update_player_pos(all);
+		//@todo doesnt update every frame
+		update_minimap(all, all->mode);
 	}
 }
 

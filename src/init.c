@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 15:45:01 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/20 14:09:35 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/21 09:30:55 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ static void	variable_shall_be_declared (t_game *map, char **content_split)
 	printf("%x %x %x  Alpha:%x\n", map->sky_color.rgba.r, map->sky_color.rgba.b, map->sky_color.rgba.g, map->sky_color.rgba.a);
 	printf("%x\n", map->floor_color.colour);
 	printf("%x\n", map->sky_color.colour);
-
 }
 
 
@@ -123,7 +122,7 @@ void	get_player_start(t_all *cub)
 				|| cub->map.a_map[y][x] == 'S' || cub->map.a_map[y][x] == 'W')
 			{
 				if (only_one == true)
-					cub_exit(EXIT_FAILURE, STDERR_FILENO, "to many spawns in map file");
+					cub_exit(EXIT_FAILURE, STDERR_FILENO, "too many spawns in map file");
 				if (cub->map.a_map[y][x] == 'N')
 					cub->per.direction = 270;
 				if (cub->map.a_map[y][x] == 'E')

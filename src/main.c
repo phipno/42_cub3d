@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:15:21 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/20 14:08:40 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/21 09:45:47 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	main(int argc, char *argv[])
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Usage: \"./cub3D maps/<pick one>");
 	}
 
-
 	// mlx init
 	all.mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
 	if (all.mlx == NULL)
@@ -54,6 +53,7 @@ int	main(int argc, char *argv[])
 	{
 		return (EXIT_SUCCESS);
 	}
+
 	//	--------------------->	image_background
 
 	all.image_background = mlx_new_image(all.mlx, WIDTH, HEIGHT);
@@ -63,18 +63,13 @@ int	main(int argc, char *argv[])
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_background init");
 	}
 
-	//draw_heaven_and_hell(all);
-	// draw_troll(all);
+	draw_heaven_and_hell(all);
 
 	if (mlx_image_to_window(all.mlx, all.image_background, 0, 0) == -1)
 	{
 		mlx_terminate(all.mlx);
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_background to window");
 	}
-
-	// 	--------------------->	image_source
-	all.image_source = NULL;
-	// draw_source(&all, &all.source);
 
 	//	--------------------->	image_game
 	all.image_game = mlx_new_image(all.mlx, WIDTH, HEIGHT);
@@ -95,15 +90,11 @@ int	main(int argc, char *argv[])
 
 	// 	--------------------->	image_minimap
 
-	all.image_minimap = NULL;
 	all.mode = MODE_FULLSCREEN;
 	update_minimap(&all, MODE_FULLSCREEN);
 
-	//	--------------------->	image_player
 	all.per.offset.x = 0;
 	all.per.offset.y = 0;
-	all.image_player = NULL;
-	// update_player_pos(&all);
 
 
 	//	--------------------->	keys and loop

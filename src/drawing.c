@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:48:45 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/20 14:04:20 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/21 09:22:06 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void DDA(int X0, int Y0, int X1, int Y1, t_all cub, int32_t color)
     }
 }
 
-
 void	draw_heaven_and_hell(t_all cub)
 {
 	int	x;
@@ -54,9 +53,11 @@ void	draw_heaven_and_hell(t_all cub)
 		while (x < WIDTH)
 		{
 			if (y < HEIGHT / 2)
-				mlx_put_pixel(cub.image_background, x, y, cub.map.sky_color.colour);
+				mlx_put_pixel(cub.image_background, x, y, 
+					cub.map.sky_color.colour);
 			else
-				mlx_put_pixel(cub.image_background, x, y, cub.map.floor_color.colour);
+				mlx_put_pixel(cub.image_background, x, y, 
+					cub.map.floor_color.colour);
 			x++;
 		}
 		y++;
