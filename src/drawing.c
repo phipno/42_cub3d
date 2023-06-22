@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:48:45 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/22 18:07:26 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/22 18:08:54 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ double	pythagoras(float ax, float ay, float bx, float by)
 	return (sqrt((bx - ax) * (bx - ax) + (by - ay) * (by - ay)));
 }
 
-static	void	init_some_var(t_all *cub, int *angle_add)
+static	void	init_some_var(t_all *cub, double *angle_add)
 {
 	cub->per.d_pos.x = cub->per.pos.x * MAP_SCALE;
 	cub->per.d_pos.y = cub->per.pos.y * MAP_SCALE;
