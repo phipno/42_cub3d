@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 15:45:01 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/21 13:31:27 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/22 17:41:26 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@
 
 size_t	find_column_max(char **da)
 {
-	int max_column;
-	int current;
-	int line;
+	int	max_column;
+	int	current;
+	int	line;
 
 	line = 6;
 	max_column = 0;
@@ -41,26 +41,24 @@ size_t	find_column_max(char **da)
 
 size_t	find_line_max(char **da)
 {
-	int max_line;
+	int	max_line;
 
 	max_line = 0;
 	while (da[max_line] != NULL)
 		max_line++;
-	//the - 6 because a valid map in the char **da should begin at line 6
-	//some hard code :D
 	return (max_line - 6);
 }
 
 void	creation_of_map(t_game *map, char **content_split)
 {
+	size_t	line;
+
+	line = 0;
 	map->map_column_max = find_column_max(content_split);
 	map->map_line_max = find_line_max(content_split);
-	//@note print statement for **map sizes
-	printf("Collum_Max: %zu\nLine_Max: %zu\n", map->map_column_max + 1, map->map_line_max);
 	map->a_map = ft_calloc(map->map_line_max + 1, sizeof(char *));
 	if (map->a_map == NULL)
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, strerror(1));
-	size_t line = 0;
 	while (line < map->map_line_max)
 	{
 		map->a_map[line] = ft_calloc(map->map_column_max + 1, sizeof(char));
@@ -91,10 +89,6 @@ void	parse_map(t_game *map, char **content_split)
 		line++;
 	}
 	map->a_map[line] = NULL;
-	// @note print statement for the **map
-	for (int i = 0; map->a_map[i] != NULL; i++) {
-		printf("%s\n", map->a_map[i]);
-	}
 }
 
 /* ************************************************************************** */

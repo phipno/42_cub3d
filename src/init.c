@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 15:45:01 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/22 15:15:46 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/22 17:42:44 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ static int	determine_file_size(char *file)
 			cub_exit(EXIT_FAILURE, STDERR_FILENO, strerror(1));
 		size += bytes_read;
 	}
-	//@note print statement here
-	printf("Size:%d\n", size);
 	free(buff);
 	close(fd);
 	return (size);
@@ -73,16 +71,16 @@ static char	**get_file_content_split(int size, char *file)
 	return (content_split);
 }
 
-static void	variable_shall_be_declared (t_game *map, char **content_split)
+static void	variable_shall_be_declared(t_game *map, char **content_split)
 {
-	int fail;
-
+	int	fail;
 
 	fail = 0;
 	while (content_split[fail] != NULL)
 		fail++;
 	if (fail < 9)
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Not enough Information given in .cub file");
+		cub_exit(EXIT_FAILURE, STDERR_FILENO,
+			"Not enough Information given in .cub file");
 	map->walls[0] = sub_str_walls(content_split[0]);
 	map->walls[1] = sub_str_walls(content_split[1]);
 	map->walls[2] = sub_str_walls(content_split[2]);
@@ -91,23 +89,12 @@ static void	variable_shall_be_declared (t_game *map, char **content_split)
 	map->mlx_wall[1] = mlx_load_png(map->walls[1]);
 	map->mlx_wall[2] = mlx_load_png(map->walls[2]);
 	map->mlx_wall[3] = mlx_load_png(map->walls[3]);
-	if (map->mlx_wall[0] == NULL || map->mlx_wall[1] == NULL ||
-		map->mlx_wall[2] == NULL || map->mlx_wall[3] == NULL)
+	if (map->mlx_wall[0] == NULL || map->mlx_wall[1] == NULL
+		|| map->mlx_wall[2] == NULL || map->mlx_wall[3] == NULL)
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "MLX load png Error");
 	split_that_color(&map->floor_color, content_split[4]);
 	split_that_color(&map->sky_color, content_split[5]);
-
-	//@note print statement for walls and color
-	printf("%s\n%s\n%s\n%s\n", map->walls[0], map->walls[1], map->walls[2], map->walls[3]);
-	printf("%x %x %x  Alpha:%x\n", map->floor_color.rgba.r, map->floor_color.rgba.b, map->floor_color.rgba.g, map->sky_color.rgba.a);
-	printf("%x %x %x  Alpha:%x\n", map->sky_color.rgba.r, map->sky_color.rgba.b, map->sky_color.rgba.g, map->sky_color.rgba.a);
-	printf("%x\n", map->floor_color.colour);
-	printf("%x\n", map->sky_color.colour);
 }
-
-
-//@note this function defenitly needs cutting
-
 
 void	cub_map_muncher(t_all *cub, char *file)
 {

@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:48:45 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/22 15:23:11 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/22 18:07:26 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,30 @@
 
 #include <stdio.h> //for debugging
 
-void DDA(t_point_int fir, t_point_int sec, t_all cub, int32_t color)
+void	ft_dda(t_point_int fir, t_point_int sec, t_all cub, int32_t color)
 {
-	t_dda dda;
+	int		i;
+	t_dda	dda;
 
+	i = 0;
 	dda.delta.x = sec.x - fir.x;
 	dda.delta.y = sec.y - fir.y;
-	dda.steps = abs(dda.delta.x) > abs(dda.delta.y) ? abs(dda.delta.x) : abs(dda.delta.y);
+	if (abs(dda.delta.x) > abs(dda.delta.y))
+		dda.steps = abs(dda.delta.x);
+	else
+		dda.steps = abs(dda.delta.y);
 	dda.inc.x = dda.delta.x / (float)dda.steps;
 	dda.inc.y = fir.y / (float)dda.steps;
 	dda.scr.x = fir.x;
 	dda.scr.y = fir.y;
-	for (int i = 0; i <= dda.steps; i++) {
-		if ((dda.scr.x >= 0 && dda.scr.x < WIDTH) && (dda.scr.y >= 0 && dda.scr.y < HEIGHT))
+	while (i <= dda.steps)
+	{
+		if ((dda.scr.x >= 0 && dda.scr.x < WIDTH)
+			&& (dda.scr.y >= 0 && dda.scr.y < HEIGHT))
 			mlx_put_pixel(cub.image_player, dda.scr.x, dda.scr.y, color);
 		dda.scr.x += dda.inc.x;
 		dda.scr.y += dda.inc.y;
+		i++;
 	}
 }
 
@@ -63,41 +71,43 @@ void	draw_heaven_and_hell(t_all cub)
 
 double	pythagoras(float ax, float ay, float bx, float by)
 {
-	return (sqrt(( bx - ax ) * ( bx - ax ) + (by - ay) * (by - ay)));
+	return (sqrt((bx - ax) * (bx - ax) + (by - ay) * (by - ay)));
 }
 
-int	get_rgba(int r, int g, int b, int a)
+static	void	init_some_var(t_all *cub, int *angle_add)
 {
-	return (r << 24 | g << 16 | b << 8 | a);
+	cub->per.d_pos.x = cub->per.pos.x * MAP_SCALE;
+	cub->per.d_pos.y = cub->per.pos.y * MAP_SCALE;
+	cub->per.dir = (cub->per.mid_dir * (PI / 180)) - (FOV * (PI / 180)) / 2;
+	*angle_add = (FOV * (PI / 180)) / WIDTH * 1.0;
 }
-
-
-// angle fixes the distortion from walls on the same
-// grid line not being displayed on the same y height
-// in short fixes fish eye
 
 void	draw_player(t_all cub)
 {
-	double	angle_add;
-	t_raycaster rays[2];
+	t_raycaster	rays[2];
+	double		angle_add;
+	int			x;
 
-	cub.per.d_pos.x = cub.per.pos.x * MAP_SCALE;
-	cub.per.d_pos.y = cub.per.pos.y * MAP_SCALE;
-	angle_add = (FOV * (PI / 180)) / WIDTH * 1.0;
-	cub.per.direction = (cub.per.angle_real * (PI / 180)) - (FOV * (PI / 180)) / 2;
-	for (int x = 0; x < WIDTH; x++)
+	x = 0;
+	init_some_var(&cub, &angle_add);
+	while (x < WIDTH)
 	{
-		if (cub.per.direction < 0)
-			cub.per.direction = cub.per.direction + 2 * PI;
-		if (cub.per.direction > 2 * PI)
-			cub.per.direction = cub.per.direction - 2 * PI;
+		if (cub.per.dir < 0)
+			cub.per.dir = cub.per.dir + 2 * PI;
+		if (cub.per.dir > 2 * PI)
+			cub.per.dir = cub.per.dir - 2 * PI;
 		draw_rays_hori(cub, &rays[0]);
 		draw_rays_verti(cub, &rays[1]);
+		rays[0].distance_raw = pythagoras(cub.per.d_pos.x, cub.per.d_pos.y,
+				rays[0].x, rays[0].y);
+		rays[1].distance_raw = pythagoras(cub.per.d_pos.x, cub.per.d_pos.y,
+				rays[1].x, rays[1].y);
 		if (rays[0].distance_raw < rays[1].distance_raw)
 			draw_walls(cub, x, rays[0]);
 		else
 			draw_walls(cub, x, rays[1]);
-		cub.per.direction += angle_add;
+		cub.per.dir += angle_add;
+		x++;
 	}
 }
 

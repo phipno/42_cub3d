@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 13:37:46 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/22 13:55:02 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/22 18:00:43 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	fish_eye(t_all cub, t_raycaster *ray)
 {
 	double	angle;
 
-	angle = cub.per.angle_real * (PI / 180) - cub.per.direction;
+	angle = cub.per.mid_dir * (PI / 180) - cub.per.dir;
 	if (angle < 0)
 		angle = angle + 2 * PI;
 	if (angle > 2 * PI)
@@ -27,24 +27,23 @@ static void	fish_eye(t_all cub, t_raycaster *ray)
 	ray->distance_parralel = ray->distance_raw * cos(angle);
 }
 
-static void texture_mapping(t_all cub, t_raycaster ray)
+static void	texture_mapping(t_all cub, t_raycaster ray)
 {
 	int			x_offset;
-	// int			y_step = 0;
-
 
 	x_offset = 0;
-	if (ray.cardinal_dir == NORTH || ray.cardinal_dir == SOUTH)
+	if (ray.c_d == NORTH || ray.c_d == SOUTH)
 	{
-		x_offset = (ray.map.x + ray.distance_parralel * ray.dir - (int)ray.map.x) * cub.map.mlx_wall[ray.cardinal_dir]->width * 4;
+		x_offset = (ray.map.x + ray.distance_parralel * ray.dir
+				- (int)ray.map.x) * cub.map.mlx_wall[ray.c_d]->width * 4;
 	}
-	else if (ray.cardinal_dir == EAST || ray.cardinal_dir == WEST)
+	else if (ray.c_d == EAST || ray.c_d == WEST)
 	{
-		x_offset = (ray.map.y + ray.distance_parralel * ray.dir - (int)ray.map.y) * cub.map.mlx_wall[ray.cardinal_dir]->width * 4;
+		x_offset = (ray.map.y + ray.distance_parralel * ray.dir
+				- (int)ray.map.y) * cub.map.mlx_wall[ray.c_d]->width * 4;
 	}
-	x_offset = cub.map.mlx_wall[ray.cardinal_dir]->width - x_offset - 1;
+	x_offset = cub.map.mlx_wall[ray.c_d]->width - x_offset - 1;
 }
-
 
 void	draw_walls(t_all cub, int x, t_raycaster ray)
 {
@@ -56,17 +55,16 @@ void	draw_walls(t_all cub, int x, t_raycaster ray)
 	line_h = WALL_HEIGHT * HEIGHT / ray.distance_parralel;
 	if (line_h > HEIGHT)
 		line_h = HEIGHT;
-	line_offset = HEIGHT/2 - line_h / 2;
+	line_offset = HEIGHT / 2 - line_h / 2;
 	while (line_h >= 0)
 	{
-		if ((x >= 0 && x < WIDTH) && (line_h + line_offset >= 0 && line_h + line_offset < HEIGHT))
-			// && 3 + y_step + x_offset < (int)cub.map.mlx_wall[ray.cardinal_dir]->width * (int)cub.map.mlx_wall[ray.cardinal_dir]->height * 4
-			// && y_step + x_offset > -1))
+		if ((x >= 0 && x < WIDTH) && (line_h + line_offset >= 0
+				&& line_h + line_offset < HEIGHT))
 			mlx_put_pixel(cub.image_game, x, line_h + line_offset, get_rgba(
-			cub.map.mlx_wall[ray.cardinal_dir]->pixels[0/* + ((y_step + x_offset))*/],
-			cub.map.mlx_wall[ray.cardinal_dir]->pixels[1/* + ((y_step + x_offset))*/],
-			cub.map.mlx_wall[ray.cardinal_dir]->pixels[2/* + ((y_step + x_offset))*/],
-			cub.map.mlx_wall[ray.cardinal_dir]->pixels[3/* + ((y_step + x_offset))*/]));
+					cub.map.mlx_wall[ray.c_d]->pixels[0],
+					cub.map.mlx_wall[ray.c_d]->pixels[1],
+					cub.map.mlx_wall[ray.c_d]->pixels[2],
+					cub.map.mlx_wall[ray.c_d]->pixels[3]));
 		line_h--;
 	}
 }

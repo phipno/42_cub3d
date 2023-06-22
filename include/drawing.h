@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 20:50:39 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/22 14:54:52 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/22 18:05:00 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct s_raycaster
 	t_point	map;
 	t_point	offset;
 	double	dir;
-	int		cardinal_dir;
+	int		c_d;
 	double	distance_raw;
 	double	distance_parralel;
 	int32_t	color;
@@ -53,9 +53,8 @@ void	draw_rays_hori(t_all cub, t_raycaster *ray);
 void	draw_walls(t_all cub, int x, t_raycaster ray);
 
 //--------------------Utils
-void	DDA(t_point_int fir, t_point_int sec, t_all cub, int32_t color);
+void	ft_dda(t_point_int fir, t_point_int sec, t_all cub, int32_t color);
 double	pythagoras(float ax, float ay, float bx, float by);
-int		get_rgba(int r, int g, int b, int a);
 
 #endif
 

@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 13:37:46 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/22 13:41:08 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/22 18:00:34 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 #include <math.h>
 
-static void looking_right_verti(t_all cub, t_raycaster *ray)
+static void	looking_right_verti(t_all cub, t_raycaster *ray)
 {
-	double ntan;
+	double	ntan;
 
 	ntan = -tan(ray->dir);
 	ray->x = (((int)cub.per.d_pos.x >> 6) << 6) - 0.0001;
@@ -25,12 +25,12 @@ static void looking_right_verti(t_all cub, t_raycaster *ray)
 	ray->offset.x = -64;
 	ray->offset.y = -ray->offset.x * ntan;
 	ray->color = 0xAAAAAAFF;
-	ray->cardinal_dir = EAST;
+	ray->c_d = EAST;
 }
 
-static void looking_left_verti(t_all cub, t_raycaster *ray)
+static void	looking_left_verti(t_all cub, t_raycaster *ray)
 {
-	double ntan;
+	double	ntan;
 
 	ntan = -tan(ray->dir);
 	ray->x = (((int)cub.per.d_pos.x >> 6) << 6) + 64;
@@ -38,25 +38,24 @@ static void looking_left_verti(t_all cub, t_raycaster *ray)
 	ray->offset.x = 64;
 	ray->offset.y = -ray->offset.x * -tan(ray->dir);
 	ray->color = 0x0000AAFF;
-	ray->cardinal_dir = WEST;
+	ray->c_d = WEST;
 }
 
-static void looking_straight_verti(t_all cub, t_raycaster *ray, int *dof)
+static void	looking_straight_verti(t_all cub, t_raycaster *ray, int *dof)
 {
 	ray->x = cub.per.d_pos.x;
 	ray->y = cub.per.d_pos.y;
 	*dof = DEPTH_OF_FIELD;
 	ray->color = 0x444444FF;
-	//@note fixing on which side its on
-	ray->cardinal_dir = SOUTH;
+	ray->c_d = SOUTH;
 }
 
 void	draw_rays_verti(t_all cub, t_raycaster *ray)
 {
-	int dof;
+	int	dof;
 
 	dof = 0;
-	ray->dir = cub.per.direction;
+	ray->dir = cub.per.dir;
 	if (ray->dir > P2 && ray->dir < P3)
 		looking_right_verti(cub, ray);
 	if (ray->dir < P2 || ray->dir > P3)
@@ -67,8 +66,9 @@ void	draw_rays_verti(t_all cub, t_raycaster *ray)
 	{
 		ray->map.x = (int)(ray->x) >> 6;
 		ray->map.y = (int)(ray->y) >> 6;
-		if (ray->map.y >= 0 && ray->map.y < (int)cub.map.map_line_max && ray->map.x >= 0 &&
-		ray->map.x < (int)cub.map.map_column_max && cub.map.a_map[(int)ray->map.y][(int)ray->map.x] == '1')
+		if (ray->map.y >= 0 && ray->map.y < (int)cub.map.map_line_max
+			&& ray->map.x >= 0 && ray->map.x < (int)cub.map.map_column_max
+			&& cub.map.a_map[(int)ray->map.y][(int)ray->map.x] == '1')
 			dof = DEPTH_OF_FIELD;
 		else
 		{
@@ -77,5 +77,4 @@ void	draw_rays_verti(t_all cub, t_raycaster *ray)
 			dof++;
 		}
 	}
-	ray->distance_raw = pythagoras(cub.per.d_pos.x, cub.per.d_pos.y, ray->x, ray->y);
 }

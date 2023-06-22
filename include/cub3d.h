@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/22 15:19:45 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/22 18:05:07 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ typedef struct s_player
 	t_point d_pos;
 	t_point offset;
 	double	fov;
-	double	direction;
-	double	angle_real;
+	double	dir;
+	double	mid_dir;
 }	t_player;
 
 typedef struct s_all
@@ -135,6 +135,7 @@ int		get_rgba(int r, int g, int b, int a);
 size_t	get_bigger_sizet(size_t x, size_t y);
 double	get_player_direction(char symbol);
 bool	is_player_pos(char symbol);
+int		get_rgba(int r, int g, int b, int a);
 
 //--------------------Clean Up
 void	cub_exit(int exit_code, int fd, char *message);

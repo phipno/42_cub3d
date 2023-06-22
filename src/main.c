@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:15:21 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/22 15:26:27 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/22 17:38:28 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ void	cub_exit(int exit_code, int fd, char *message)
 	exit(exit_code);
 }
 
-void	image_init(t_all *cub, mlx_image_t *image)
+void	image_init(t_all *cub, mlx_image_t **image)
 {
-	image = mlx_new_image(cub->mlx, WIDTH, HEIGHT);
-	if (image == NULL)
+	*image = mlx_new_image(cub->mlx, WIDTH, HEIGHT);
+	if (*image == NULL)
 	{
 		mlx_terminate(cub->mlx);
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_background init");
@@ -54,8 +54,13 @@ void	init_shit(t_all *all, char *argv[])
 	if (all->mlx == NULL)
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "mlx init");
 	cub_map_muncher(all, argv[1]);
-	image_init(all, all->image_background);
-	image_init(all, all->image_game);
+	image_init(all, &all->image_background);
+	image_init(all, &all->image_game);
+	all->mode = MODE_OFF;
+	all->per.offset.x = 0;
+	all->per.offset.y = 0;
+	update_minimap(all, all->mode);
+	all->ms = MOVEMENT_SPEED;
 }
 
 int	main(int argc, char *argv[])
@@ -65,28 +70,16 @@ int	main(int argc, char *argv[])
 
 	status = EXIT_SUCCESS;
 	if (argc != 2)
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Usage: \"./cub3D maps/<pick one>");
+		cub_exit(EXIT_FAILURE, STDERR_FILENO,
+			"Usage: \"./cub3D maps/<pick one>");
 	init_shit(&all, argv);
 	draw_heaven_and_hell(all);
 	image_window(&all, all.image_background);
 	draw_player(all);
 	image_window(&all, all.image_game);
-	// 	--------------------->	image_minimap
-
-	all.mode = MODE_OFF;
-	update_minimap(&all, all.mode);
-
-	all.per.offset.x = 0;
-	all.per.offset.y = 0;
-
-	//	--------------------->	keys and loop
-
-	all.ms = MOVEMENT_SPEED;
 	mlx_key_hook(all.mlx, &hook_keys, &all);
 	mlx_loop_hook(all.mlx, &hook_frame, &all);
 	mlx_loop(all.mlx);
-
-	// clean up
 	mlx_terminate(all.mlx);
 	ft_printf(STDERR_FILENO, "Exited with status: %d\n", status);
 	return (status);
