@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:48:45 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/21 17:58:53 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/22 12:34:29 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,7 +239,7 @@ void	draw_walls(t_all cub, int x, t_raycaster ray)
 		angle = angle + 2 * PI;
 	if (angle > 2 * PI)
 		angle = angle - 2 * PI;
-	printf("X:%d Angle%f Real%f Dir%f\n", x, angle, cub.per.angle_real * (PI / 180), cub.per.direction);
+	// printf("X:%d Angle%f Real%f Dir%f\n", x, angle, cub.per.angle_real * (PI / 180), cub.per.direction);
 	ray.distance_parralel = ray.distance_raw * cos(angle);
 	// ray.distance_parralel = sin(angle + 0.5) * ray.distance_raw;
 
