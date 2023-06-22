@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycasting.h                                       :+:      :+:    :+:   */
+/*   drawing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 20:50:39 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/21 16:56:15 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/22 14:54:52 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RAYCASTING_H
 # define RAYCASTING_H
 
-#include "minimap.h" //for t_point
+#include "cub3d.h"		// needed for t_all
+#include "minimap.h"	// needed for t_point
 
 typedef struct s_raycaster
 {
@@ -28,6 +29,33 @@ typedef struct s_raycaster
 	int32_t	color;
 }	t_raycaster;
 
+typedef struct s_point_int
+{
+	int	x;
+	int	y;
+}	t_point_int;
+
+typedef struct s_dda
+{
+	t_point_int	delta;
+	t_point		inc;
+	t_point		scr;
+	int			steps;
+}	t_dda;
+
+//--------------------Drawing
+void	draw_heaven_and_hell(t_all cub);
+void	draw_player(t_all cub);
+void	draw_rays_verti(t_all cub, t_raycaster *ray);
+void	draw_rays_hori(t_all cub, t_raycaster *ray);
+
+//--------------------Walls
+void	draw_walls(t_all cub, int x, t_raycaster ray);
+
+//--------------------Utils
+void	DDA(t_point_int fir, t_point_int sec, t_all cub, int32_t color);
+double	pythagoras(float ax, float ay, float bx, float by);
+int		get_rgba(int r, int g, int b, int a);
 
 #endif
 

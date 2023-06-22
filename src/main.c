@@ -6,18 +6,20 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:15:21 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/21 12:57:11 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/22 15:26:27 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>		// needed for MACROS
-#include "MLX42.h"		// needed for MACROS, mlx_*
-#include "libft.h"		// needed for ft_putstr_fd(), ft_putendl_fd()
 #include "cub3d.h"		// needed for t_all
 #include "minimap.h"	// needed for t_minimap
+#include "drawing.h"
+
+#include "MLX42.h"		// needed for MACROS, mlx_*
+#include "libft.h"		// needed for ft_putstr_fd(), ft_putendl_fd()
 #include "ft_printf.h"	// needed for ft_printf()
 
-#include "stdio.h"
+#include <stdio.h>
+#include <unistd.h>		// needed for MACROS
 #include <math.h>
 
 void	cub_exit(int exit_code, int fd, char *message)
@@ -27,6 +29,35 @@ void	cub_exit(int exit_code, int fd, char *message)
 	exit(exit_code);
 }
 
+void	image_init(t_all *cub, mlx_image_t *image)
+{
+	image = mlx_new_image(cub->mlx, WIDTH, HEIGHT);
+	if (image == NULL)
+	{
+		mlx_terminate(cub->mlx);
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_background init");
+	}
+}
+
+void	image_window(t_all *cub, mlx_image_t *image)
+{
+	if (mlx_image_to_window(cub->mlx, image, 0, 0) == -1)
+	{
+		mlx_terminate(cub->mlx);
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_game to window");
+	}
+}
+
+void	init_shit(t_all *all, char *argv[])
+{
+	all->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
+	if (all->mlx == NULL)
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, "mlx init");
+	cub_map_muncher(all, argv[1]);
+	image_init(all, all->image_background);
+	image_init(all, all->image_game);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_all		all;
@@ -34,61 +65,12 @@ int	main(int argc, char *argv[])
 
 	status = EXIT_SUCCESS;
 	if (argc != 2)
-	{
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Usage: \"./cub3D maps/<pick one>");
-	}
-
-	// mlx init
-	all.mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
-	if (all.mlx == NULL)
-	{
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "mlx init");
-	}
-
-	//	--------------------->	parsing
-
-	cub_map_muncher(&all, argv[1]);
-
-	if (PARSING_TESTER)
-	{
-		return (EXIT_SUCCESS);
-	}
-
-	//	--------------------->	image_background
-
-	all.image_background = mlx_new_image(all.mlx, WIDTH, HEIGHT);
-	if (all.image_background == NULL)
-	{
-		mlx_terminate(all.mlx);
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_background init");
-	}
-
+	init_shit(&all, argv);
 	draw_heaven_and_hell(all);
-
-	if (mlx_image_to_window(all.mlx, all.image_background, 0, 0) == -1)
-	{
-		mlx_terminate(all.mlx);
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_background to window");
-	}
-
-	//	--------------------->	image_game
-
-	all.image_game = mlx_new_image(all.mlx, WIDTH, HEIGHT);
-	if (all.image_game == NULL)
-	{
-		mlx_terminate(all.mlx);
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_game init");
-	}
-
-	all.per.angle_real = all.per.direction;
+	image_window(&all, all.image_background);
 	draw_player(all);
-
-	if (mlx_image_to_window(all.mlx, all.image_game, 0, 0) == -1)
-	{
-		mlx_terminate(all.mlx);
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_game to window");
-	}
-
+	image_window(&all, all.image_game);
 	// 	--------------------->	image_minimap
 
 	all.mode = MODE_OFF;

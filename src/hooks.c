@@ -6,13 +6,16 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:28:07 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/21 14:07:11 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/22 15:27:00 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42.h"  // needed for MACROS, mlx_*(), mlx_key_data_t
+
 #include "cub3d.h"  // needed for t_all
 #include "minimap.h"// needed for macros, t_minimap
+#include "drawing.h"
+
 #include <unistd.h> // needed for STDERR_FILENO
 #include <math.h>   // needed for cos(), sin(), tan()
 #include <stdio.h>  // needed for dprintf()

@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 11:40:43 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/19 13:13:43 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/22 14:50:21 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,6 @@ void	point_set_mid(t_point *mid, t_point a, t_point b)
 	point_set(mid, size_x, size_y);
 }
 
-// void	point_draw_direction(mlx_image_t *image, t_point a, double diameter,
-// 			int32_t colour)
-// {
-
-// }
-
 void	point_draw_disc(mlx_image_t *image, t_point a, double diameter,
 			int32_t colour)
 {
@@ -70,8 +64,10 @@ void	point_draw_disc(mlx_image_t *image, t_point a, double diameter,
 		{
 			if (x * x + y * y < diameter * diameter / 4)
 			{
-				if ((x + a.x >= 0 && x + a.x < WIDTH) && (y + a.y >= 0 && y + a.y < HEIGHT))
-					mlx_put_pixel(image, (int)(x + a.x), (int)(y + a.y), colour);
+				if ((x + a.x >= 0 && x + a.x < WIDTH)
+					&& (y + a.y >= 0 && y + a.y < HEIGHT))
+					mlx_put_pixel(image, (int)(x + a.x),
+						(int)(y + a.y), colour);
 			}
 			x += 1;
 		}
@@ -79,6 +75,7 @@ void	point_draw_disc(mlx_image_t *image, t_point a, double diameter,
 		y += 1;
 	}
 }
+
 //
 //static void	get_smaller_double(double x, double y)
 //{
@@ -108,7 +105,6 @@ void	point_draw_disc(mlx_image_t *image, t_point a, double diameter,
 //		y += 1;
 //	}
 //}
-
 
 //void	point_draw_circle(mlx_image_t *image, t_point a, double diameter,
 //		int32_t colour)

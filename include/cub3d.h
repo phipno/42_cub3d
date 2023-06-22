@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/22 12:26:54 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/22 15:19:45 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@
 
 # define WALL_HEIGHT 64
 
-# define DEPTH_OF_FIELD 1000
+# define DEPTH_OF_FIELD 32
 
 //--------------------structs
 
@@ -117,11 +117,7 @@ void	parse_map(t_game *map, char **content_split);
 int		map_valid_question_mark(t_all *cub);
 void	split_that_color(t_rgba *color, const char *str);
 char	*sub_str_walls(const char *str);
-
-//--------------------Drawing
-void	draw_heaven_and_hell(t_all cub);
-void	draw_troll(t_all cub);
-void	draw_player(t_all cub);
+void	get_player_start(t_all *cub);
 
 //--------------------Game
 void	hook_keys(mlx_key_data_t key_data, void *context);

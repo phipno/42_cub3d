@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 15:45:01 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/21 14:11:12 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/22 15:15:46 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <string.h>
-#include <math.h>    //needed for cos
+#include <math.h>
 
 #include "cub3d.h"
+#include "drawing.h"
 #include "libft.h"
 #include "MLX42.h"
 #include "lm_str.h"
@@ -106,46 +107,7 @@ static void	variable_shall_be_declared (t_game *map, char **content_split)
 
 
 //@note this function defenitly needs cutting
-void	get_player_start(t_all *cub)
-{
-	int		x;
-	int		y;
-	bool	only_one;
 
-	y = 0;
-	only_one = false;
-	while (cub->map.a_map[y] != NULL)
-	{
-		x = 0;
-		while (cub->map.a_map[y][x] != '\0')
-		{
-			if (cub->map.a_map[y][x] == 'N' || cub->map.a_map[y][x] == 'E'
-				|| cub->map.a_map[y][x] == 'S' || cub->map.a_map[y][x] == 'W')
-			{
-				if (only_one == true)
-					cub_exit(EXIT_FAILURE, STDERR_FILENO, "Map: Too many spawns in map file");
-				if (cub->map.a_map[y][x] == 'N')
-					cub->per.direction = 270;
-				if (cub->map.a_map[y][x] == 'E')
-					cub->per.direction = 0;
-				if (cub->map.a_map[y][x] == 'S')
-					cub->per.direction = 90;
-				if (cub->map.a_map[y][x] == 'W')
-					cub->per.direction = 180;
-				cub->per.start_pos.x = x + 0.5;
-				cub->per.start_pos.y = y + 0.5;
-				only_one = true;
-			}
-			x++;
-		}
-		y++;
-	}
-	if (only_one == false)
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Map: No spawning point found");
-
-	printf("PosX_Y: [%f] | [%f]\nDir: [%f]\n", cub->per.pos.x, cub->per.pos.y, cub->per.direction);
-	printf("PoDX_Y: [%f] | [%f]\nDir: [%f]\n", cub->per.d_pos.x, cub->per.d_pos.y, cub->per.direction);
-}
 
 void	cub_map_muncher(t_all *cub, char *file)
 {
@@ -154,16 +116,13 @@ void	cub_map_muncher(t_all *cub, char *file)
 	if (lm_str_check_viable_end(file, ".cub") != 1)
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "map: wrong file extension");
 	content_split = get_file_content_split(determine_file_size(file), file);
-	// @note content_split print statement here
-	for (int i = 0; content_split[i] != NULL; i++) {
-		printf("%d. %s\n", i, content_split[i]);
-	}
 	variable_shall_be_declared(&cub->map, content_split);
 	creation_of_map(&cub->map, content_split);
 	parse_map(&cub->map, content_split);
 	get_player_start(cub);
 	cub->per.pos.x = cub->per.start_pos.x;
 	cub->per.pos.y = cub->per.start_pos.y;
+	cub->per.angle_real = cub->per.direction;
 	if (map_valid_question_mark(cub) == EXIT_FAILURE)
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Map didnt pass validation");
 }

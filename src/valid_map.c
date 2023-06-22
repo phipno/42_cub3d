@@ -6,10 +6,9 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 16:10:22 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/21 14:11:26 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/22 14:49:11 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -17,7 +16,7 @@
 
 int	im_the_logicchecker(t_game *a, size_t line)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (a->a_map[line][i] != '\0')
@@ -30,8 +29,8 @@ int	im_the_logicchecker(t_game *a, size_t line)
 				return (true);
 			if (i == 0 || i == a->map_column_max)
 				return (true);
-			if (a->a_map[line][i - 1] == ' ' ||  a->a_map[line][i + 1] == ' '
-				|| a->a_map[line + 1][i] == ' ' || a->a_map[line - 1][i]== ' ')
+			if (a->a_map[line][i - 1] == ' ' || a->a_map[line][i + 1] == ' '
+				|| a->a_map[line + 1][i] == ' ' || a->a_map[line - 1][i] == ' ')
 				return (true);
 		}
 		i++;
@@ -50,7 +49,7 @@ int	nono_wrong_characters(char *map_line)
 			&& map_line[i] != '1' && map_line[i] != '0'
 			&& map_line[i] != 'N' && map_line[i] != 'E'
 			&& map_line[i] != 'S' && map_line[i] != 'W')
-			return(true);
+			return (true);
 		i++;
 	}
 	return (false);
@@ -73,8 +72,7 @@ int	map_valid_question_mark(t_all *cub)
 		}
 		line++;
 	}
-	return(EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
-
 
 /* ************************************************************************** */
