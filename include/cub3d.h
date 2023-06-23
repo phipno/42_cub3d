@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/23 10:46:14 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/23 17:11:43 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@
 # endif // PARSING_TESTER
 
 // defines screen width and screen height
-# define WIDTH  1920
-# define HEIGHT 1080
+# define WIDTH  480
+# define HEIGHT 480
 
 // defines the movement_speed of the player, normal value 0.075
 # define MOVEMENT_SPEED 0.075
