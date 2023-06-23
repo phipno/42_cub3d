@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:15:21 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/22 17:38:28 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/23 09:40:31 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "MLX42.h"		// needed for MACROS, mlx_*
 #include "libft.h"		// needed for ft_putstr_fd(), ft_putendl_fd()
 #include "ft_printf.h"	// needed for ft_printf()
+#include "lm_str.h"
 
 #include <stdio.h>
 #include <unistd.h>		// needed for MACROS
@@ -63,6 +64,15 @@ void	init_shit(t_all *all, char *argv[])
 	all->ms = MOVEMENT_SPEED;
 }
 
+void	freeee(t_all *cub)
+{
+	lm_array_str_free(cub->map.a_map);
+	mlx_delete_texture(cub->map.mlx_wall[NORTH]);
+	mlx_delete_texture(cub->map.mlx_wall[EAST]);
+	mlx_delete_texture(cub->map.mlx_wall[SOUTH]);
+	mlx_delete_texture(cub->map.mlx_wall[WEST]);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_all		all;
@@ -81,6 +91,7 @@ int	main(int argc, char *argv[])
 	mlx_loop_hook(all.mlx, &hook_frame, &all);
 	mlx_loop(all.mlx);
 	mlx_terminate(all.mlx);
+	freeee(&all);
 	ft_printf(STDERR_FILENO, "Exited with status: %d\n", status);
 	return (status);
 }

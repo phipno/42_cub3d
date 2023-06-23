@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 15:45:01 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/23 09:22:16 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/23 09:38:58 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,14 @@ static char	**get_file_content_split(int size, char *file)
 	return (content_split);
 }
 
+static void	freeee_walls(char **walls)
+{
+	free(walls[0]);
+	free(walls[1]);
+	free(walls[2]);
+	free(walls[3]);
+}
+
 static void	variable_shall_be_declared(t_game *map, char **content_split)
 {
 	int	fail;
@@ -89,6 +97,7 @@ static void	variable_shall_be_declared(t_game *map, char **content_split)
 	map->mlx_wall[1] = mlx_load_png(map->walls[1]);
 	map->mlx_wall[2] = mlx_load_png(map->walls[2]);
 	map->mlx_wall[3] = mlx_load_png(map->walls[3]);
+	freeee_walls(&map->walls);
 	if (map->mlx_wall[0] == NULL || map->mlx_wall[1] == NULL
 		|| map->mlx_wall[2] == NULL || map->mlx_wall[3] == NULL)
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "MLX load png Error");
