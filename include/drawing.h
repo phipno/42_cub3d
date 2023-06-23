@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 20:50:39 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/22 18:05:00 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/23 10:43:51 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,14 @@
 
 #include "cub3d.h"		// needed for t_all
 #include "minimap.h"	// needed for t_point
+
+#include <math.h>
+
+// math defines for PI
+# define PI  M_PI
+# define P2  M_PI / 2
+# define P3  3 * M_PI / 2
+
 
 typedef struct s_raycaster
 {

@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 15:45:01 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/23 09:52:33 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/23 10:25:21 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ static void	freeee_walls(char **walls)
 
 static void	variable_shall_be_declared(t_game *map, char **content_split)
 {
-	int	fail;
+	int		fail;
+	char	*walls[4];
 
 	fail = 0;
 	while (content_split[fail] != NULL)
@@ -90,15 +91,15 @@ static void	variable_shall_be_declared(t_game *map, char **content_split)
 	if (fail < 9)
 		cub_exit(EXIT_FAILURE, STDERR_FILENO,
 			"Not enough Information given in .cub file");
-	map->walls[0] = sub_str_walls(content_split[0]);
-	map->walls[1] = sub_str_walls(content_split[1]);
-	map->walls[2] = sub_str_walls(content_split[2]);
-	map->walls[3] = sub_str_walls(content_split[3]);
-	map->mlx_wall[0] = mlx_load_png(map->walls[0]);
-	map->mlx_wall[1] = mlx_load_png(map->walls[1]);
-	map->mlx_wall[2] = mlx_load_png(map->walls[2]);
-	map->mlx_wall[3] = mlx_load_png(map->walls[3]);
-	freeee_walls(map->walls);
+	walls[0] = sub_str_walls(content_split[0]);
+	walls[1] = sub_str_walls(content_split[1]);
+	walls[2] = sub_str_walls(content_split[2]);
+	walls[3] = sub_str_walls(content_split[3]);
+	map->mlx_wall[0] = mlx_load_png(walls[0]);
+	map->mlx_wall[1] = mlx_load_png(walls[1]);
+	map->mlx_wall[2] = mlx_load_png(walls[2]);
+	map->mlx_wall[3] = mlx_load_png(walls[3]);
+	freeee_walls(walls);
 	if (map->mlx_wall[0] == NULL || map->mlx_wall[1] == NULL
 		|| map->mlx_wall[2] == NULL || map->mlx_wall[3] == NULL)
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "MLX load png Error");

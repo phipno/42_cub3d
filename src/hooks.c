@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:28:07 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/23 09:29:00 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/23 10:47:28 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,37 +115,37 @@ static int	hook_movement(t_all *all)
 	if (mlx_is_key_down(all->mlx, MLX_KEY_W) == true)
 	{
 
-		if (all->map.a_map[(int)(all->per.pos.y + sin((all->per.mid_dir) / 180 * M_PI) * all->ms)][(int)(all->per.pos.x + cos((all->per.mid_dir) / 180 * M_PI) * all->ms)] != '1')
+		if (all->map.a_map[(int)(all->per.pos.y + sin((all->per.mid_dir) / 180 * M_PI) * all->per.ms)][(int)(all->per.pos.x + cos((all->per.mid_dir) / 180 * M_PI) * all->per.ms)] != '1')
 		{
-			all->per.pos.x += cos((all->per.mid_dir) / 180 * M_PI) * all->ms;
-			all->per.pos.y += sin((all->per.mid_dir) / 180 * M_PI) * all->ms;
+			all->per.pos.x += cos((all->per.mid_dir) / 180 * M_PI) * all->per.ms;
+			all->per.pos.y += sin((all->per.mid_dir) / 180 * M_PI) * all->per.ms;
 		}
 		y = true;
 	}
 	else if (mlx_is_key_down(all->mlx, MLX_KEY_S) == true)
 	{
-		if (all->map.a_map[(int)(all->per.pos.y + sin((all->per.mid_dir - 180) / 180 * M_PI) * all->ms)][(int)(all->per.pos.x + cos((all->per.mid_dir - 180) / 180 * M_PI) * all->ms)] != '1')
+		if (all->map.a_map[(int)(all->per.pos.y + sin((all->per.mid_dir - 180) / 180 * M_PI) * all->per.ms)][(int)(all->per.pos.x + cos((all->per.mid_dir - 180) / 180 * M_PI) * all->per.ms)] != '1')
 		{
-			all->per.pos.x += cos((all->per.mid_dir - 180) / 180 * M_PI) * all->ms;
-			all->per.pos.y += sin((all->per.mid_dir - 180) / 180 * M_PI) * all->ms;
+			all->per.pos.x += cos((all->per.mid_dir - 180) / 180 * M_PI) * all->per.ms;
+			all->per.pos.y += sin((all->per.mid_dir - 180) / 180 * M_PI) * all->per.ms;
 		}
 		y = true;
 	}
 	if (mlx_is_key_down(all->mlx, MLX_KEY_D) == true)
 	{
-		if (all->map.a_map[(int)(all->per.pos.y + sin((all->per.mid_dir + 90) / 180 * M_PI) * all->ms)][(int)(all->per.pos.x + cos((all->per.mid_dir + 90) / 180 * M_PI) * all->ms)] != '1')
+		if (all->map.a_map[(int)(all->per.pos.y + sin((all->per.mid_dir + 90) / 180 * M_PI) * all->per.ms)][(int)(all->per.pos.x + cos((all->per.mid_dir + 90) / 180 * M_PI) * all->per.ms)] != '1')
 		{
-			all->per.pos.x += cos((all->per.mid_dir + 90) / 180 * M_PI) * all->ms;
-			all->per.pos.y += sin((all->per.mid_dir + 90) / 180 * M_PI) * all->ms;
+			all->per.pos.x += cos((all->per.mid_dir + 90) / 180 * M_PI) * all->per.ms;
+			all->per.pos.y += sin((all->per.mid_dir + 90) / 180 * M_PI) * all->per.ms;
 		}
 		x = true;
 	}
 	else if (mlx_is_key_down(all->mlx, MLX_KEY_A) == true)
 	{
-		if (all->map.a_map[(int)(all->per.pos.y + sin((all->per.mid_dir - 90) / 180 * M_PI) * all->ms)][(int)(all->per.pos.x + cos((all->per.mid_dir - 90) / 180 * M_PI) * all->ms)] != '1')
+		if (all->map.a_map[(int)(all->per.pos.y + sin((all->per.mid_dir - 90) / 180 * M_PI) * all->per.ms)][(int)(all->per.pos.x + cos((all->per.mid_dir - 90) / 180 * M_PI) * all->per.ms)] != '1')
 		{
-			all->per.pos.x += cos((all->per.mid_dir - 90) / 180 * M_PI) * all->ms;
-			all->per.pos.y += sin((all->per.mid_dir - 90) / 180 * M_PI) * all->ms;
+			all->per.pos.x += cos((all->per.mid_dir - 90) / 180 * M_PI) * all->per.ms;
+			all->per.pos.y += sin((all->per.mid_dir - 90) / 180 * M_PI) * all->per.ms;
 		}
 		x = true;
 	}
@@ -207,11 +207,11 @@ void	hook_keys(mlx_key_data_t key_data, void *context)
 	all = (t_all *) context;
 	if (key_data.key == MLX_KEY_LEFT_SHIFT && key_data.action == MLX_PRESS)
 	{
-		all->ms += 0.05;
+		all->per.ms += 0.05;
 	}
 	if (key_data.key == MLX_KEY_LEFT_SHIFT && key_data.action == MLX_RELEASE)
 	{
-		all->ms -= 0.05;
+		all->per.ms -= 0.05;
 	}
 	if (mlx_is_key_down(all->mlx, MLX_KEY_ESCAPE) == true)
 	{

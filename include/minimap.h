@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:45:22 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/16 15:48:08 by jwillert         ###   ########          */
+/*   Updated: 2023/06/23 10:23:02 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@
 //								structs
 /* -------------------------------------------------------------------------- */
 
-/// @param double x
-/// @param double y
+/// @param double x coord
+/// @param double y coord
 typedef struct s_point
 {
 	double	x;

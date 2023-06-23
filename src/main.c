@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:15:21 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/23 09:46:54 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/23 10:17:36 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,56 +23,6 @@
 #include <unistd.h>		// needed for MACROS
 #include <math.h>
 
-void	cub_exit(int exit_code, int fd, char *message)
-{
-	ft_putstr_fd("Error: ", fd);
-	ft_putendl_fd(message, fd);
-	exit(exit_code);
-}
-
-void	image_init(t_all *cub, mlx_image_t **image)
-{
-	*image = mlx_new_image(cub->mlx, WIDTH, HEIGHT);
-	if (*image == NULL)
-	{
-		mlx_terminate(cub->mlx);
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_background init");
-	}
-}
-
-void	image_window(t_all *cub, mlx_image_t *image)
-{
-	if (mlx_image_to_window(cub->mlx, image, 0, 0) == -1)
-	{
-		mlx_terminate(cub->mlx);
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_game to window");
-	}
-}
-
-void	init_shit(t_all *all, char *argv[])
-{
-	all->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
-	if (all->mlx == NULL)
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "mlx init");
-	cub_map_muncher(all, argv[1]);
-	image_init(all, &all->image_background);
-	image_init(all, &all->image_game);
-	all->mode = MODE_OFF;
-	all->per.offset.x = 0;
-	all->per.offset.y = 0;
-	update_minimap(all, all->mode);
-	all->ms = MOVEMENT_SPEED;
-}
-
-void	freeee(t_all *cub)
-{
-	lm_array_str_free(cub->map.a_map);
-	mlx_delete_texture(cub->map.mlx_wall[NORTH]);
-	mlx_delete_texture(cub->map.mlx_wall[EAST]);
-	mlx_delete_texture(cub->map.mlx_wall[SOUTH]);
-	mlx_delete_texture(cub->map.mlx_wall[WEST]);
-}
-
 int	main(int argc, char *argv[])
 {
 	t_all		all;
@@ -82,7 +32,7 @@ int	main(int argc, char *argv[])
 	if (argc != 2)
 		cub_exit(EXIT_FAILURE, STDERR_FILENO,
 			"Usage: \"./cub3D maps/<pick one>");
-	init_shit(&all, argv);
+	init_mlx(&all, argv);
 	draw_heaven_and_hell(all);
 	image_window(&all, all.image_background);
 	draw_player(all);

@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/23 09:23:39 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/23 10:46:14 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,30 +32,32 @@
 #  define PARSING_TESTER 0
 # endif // PARSING_TESTER
 
+// defines screen width and screen height
 # define WIDTH  1920
 # define HEIGHT 1080
 
-# define PI  M_PI
-# define P2  M_PI / 2
-# define P3  3 * M_PI / 2
-
+// defines the movement_speed of the player, normal value 0.075
 # define MOVEMENT_SPEED 0.075
 
+// defines for the wall_textures for more easier understanding
 # define NORTH 0
 # define EAST 1
 # define SOUTH 2
 # define WEST 3
 
+// define field of view, normal value 60
 # define FOV 60
 
-# define MAP_SCALE 64
-
+// define how tall the walls should be normal value 64
 # define WALL_HEIGHT 64
 
+// define how deep the raycasting algorithm should look, normal value 32
 # define DEPTH_OF_FIELD 32
 
 //--------------------structs
-
+/// @param t_rgba a union struct that can store a colour in hex-format
+/// @param colour the combined colour channel
+/// @param s_rgba rgba all the single channels
 typedef union u_rgba {
 	int32_t	colour;
 	struct s_rgba {
@@ -66,11 +68,14 @@ typedef union u_rgba {
 	} rgba;
 }	t_rgba;
 
-/**
- * s_game, stores data which defines rules and playstyle of the game.
- * @param map The passed data from .cub map files.
-*/
 
+/// @param t_game a struct for the map
+/// @param a_map a double char array that saves a map
+/// @param map_collumn_max  map_collum_max * map_line_max make up the size from a_map
+/// @param map_line_max map_collum_max * map_line_max make up the size from a_map
+/// @param sky_color color of the sky/ceiling of the map
+/// @param floor_color color of the floor of the map
+/// @param mlx_wall a texture array that has the loaded textures from textures/
 typedef struct s_game
 {
 	char			**a_map;
@@ -79,13 +84,17 @@ typedef struct s_game
 	t_rgba			sky_color;
 	t_rgba			floor_color;
 	mlx_texture_t	*mlx_wall[4];
-	char			*walls[4];
 }	t_game;
 
-/**
- * @param player, holds data which is important for player information.
-*/
-
+/// @param s_player a struct for plyer informations
+/// @param pos Positions saves the current position on a_map array scale
+/// @param start_pos Saves the start position on a_map array scale
+/// @param d_pos is the position scaled by 64
+/// @param offset dunno
+/// @param fov Field of View
+/// @param dir Direction that is update while running goes. Goes over field of view
+/// @param mid_dir The Direction of the middest direction from north
+/// @param ms Movement Speed of the player
 typedef struct s_player
 {
 	t_point	pos;
@@ -95,8 +104,19 @@ typedef struct s_player
 	double	fov;
 	double	dir;
 	double	mid_dir;
+	double	ms;
 }	t_player;
 
+/// @param s_all a struct for everything
+/// @param per a struct for plyer informations
+/// @param map a struct for the map
+/// @param minimap a struct for the minimap
+/// @param mlx the variable for our graphic lib
+/// @param mlx_image_t images that will be send to our window
+/// @param image_game image of the walls, gets drawn every frame change
+/// @param image_background image of the two background colors, gets drawn once
+/// @param image_player image of the player where he is on the minimap
+/// @param mode the current mode of the minimap
 typedef struct s_all
 {
 	t_player	per;
@@ -107,7 +127,6 @@ typedef struct s_all
 	mlx_image_t	*image_background;
 	mlx_image_t *image_player;
 	int			mode;
-	double		ms;
 }	t_all;
 
 //--------------------Parsing
@@ -128,8 +147,10 @@ void	get_player_pos(char **map, t_all *all);
 // @todo function needs restructuring
 void	update_player_pos(t_all *all);
 
-//--------------------Colours
-int		get_rgba(int r, int g, int b, int a);
+//--------------------MLX42
+void	image_init(t_all *cub, mlx_image_t **image);
+void	image_window(t_all *cub, mlx_image_t *image);
+void	init_mlx(t_all *all, char *argv[]);
 
 //--------------------Utils
 size_t	get_bigger_sizet(size_t x, size_t y);
@@ -139,5 +160,6 @@ int		get_rgba(int r, int g, int b, int a);
 
 //--------------------Clean Up
 void	cub_exit(int exit_code, int fd, char *message);
+void	freeee(t_all *cub);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:48:45 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/23 09:26:43 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/23 10:34:12 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ double	pythagoras(float ax, float ay, float bx, float by)
 
 static	void	init_some_var(t_all *cub, double *angle_add)
 {
-	cub->per.d_pos.x = cub->per.pos.x * MAP_SCALE;
-	cub->per.d_pos.y = cub->per.pos.y * MAP_SCALE;
+	cub->per.d_pos.x = cub->per.pos.x * 64;
+	cub->per.d_pos.y = cub->per.pos.y * 64;
 	cub->per.dir = (cub->per.mid_dir * (PI / 180)) - (FOV * (PI / 180)) / 2;
 	*angle_add = (FOV * (PI / 180)) / WIDTH * 1.0;
 }

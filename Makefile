@@ -6,7 +6,7 @@
 #    By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/08 17:11:30 by pnolte            #+#    #+#              #
-#    Updated: 2023/06/23 09:49:11 by pnolte           ###   ########.fr        #
+#    Updated: 2023/06/23 10:18:16 by pnolte           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,11 +58,11 @@ DEBUG_DIR             = ./debug/
 DEBUG_SRC             =
 
 SRC_DIR               = ./src/
-SRC_FILES             = main.c\
+SRC_FILES             = main.c clean_up.c\
 						minimap.c t_point.c t_minimap.c t_element.c\
 						hooks.c	utils.c playerpos.c\
-						init.c init_map.c init_variables.c valid_map.c\
-						drawing.c drawing_hori.c drawing_verti.c drawing_walls.c
+						init.c init_map.c init_variables.c valid_map.c mlx.c\
+						drawing.c drawing_hori.c drawing_verti.c drawing_walls.c \
 
 OBJ_DIR               = ./obj/
 OBJ_FILES             = $(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(SRC_FILES)))
