@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/22 18:05:07 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/23 09:23:39 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 # define SOUTH 2
 # define WEST 3
 
-# define FOV 90
+# define FOV 60
 
 # define MAP_SCALE 64
 

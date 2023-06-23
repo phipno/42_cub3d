@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 15:45:01 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/22 17:42:44 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/23 09:22:16 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,17 +99,21 @@ static void	variable_shall_be_declared(t_game *map, char **content_split)
 void	cub_map_muncher(t_all *cub, char *file)
 {
 	char	**content_split;
+	int		content_size;
 
 	if (lm_str_check_viable_end(file, ".cub") != 1)
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "map: wrong file extension");
-	content_split = get_file_content_split(determine_file_size(file), file);
+	content_size = determine_file_size(file);
+	if (content_size == 0)
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Map: File seems empty");
+	content_split = get_file_content_split(content_size, file);
 	variable_shall_be_declared(&cub->map, content_split);
 	creation_of_map(&cub->map, content_split);
 	parse_map(&cub->map, content_split);
 	get_player_start(cub);
 	cub->per.pos.x = cub->per.start_pos.x;
 	cub->per.pos.y = cub->per.start_pos.y;
-	cub->per.angle_real = cub->per.direction;
+	cub->per.mid_dir = cub->per.dir;
 	if (map_valid_question_mark(cub) == EXIT_FAILURE)
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Map didnt pass validation");
 }

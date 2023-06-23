@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:28:07 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/22 15:27:00 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/23 09:18:49 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,42 +115,42 @@ static int	hook_movement(t_all *all)
 	y = false;
 	if (mlx_is_key_down(all->mlx, MLX_KEY_W) == true)
 	{
-		all->per.pos.x += cos((all->per.angle_real) / 180 * M_PI) * all->ms;
-		all->per.pos.y += sin((all->per.angle_real) / 180 * M_PI) * all->ms;
+		all->per.pos.x += cos((all->per.mid_dir) / 180 * M_PI) * all->ms;
+		all->per.pos.y += sin((all->per.mid_dir) / 180 * M_PI) * all->ms;
 		y = true;
 	}
 	else if (mlx_is_key_down(all->mlx, MLX_KEY_S) == true)
 	{
-		all->per.pos.x += cos((all->per.angle_real - 180) / 180 * M_PI) * all->ms;
-		all->per.pos.y += sin((all->per.angle_real - 180) / 180 * M_PI) * all->ms;
+		all->per.pos.x += cos((all->per.mid_dir - 180) / 180 * M_PI) * all->ms;
+		all->per.pos.y += sin((all->per.mid_dir - 180) / 180 * M_PI) * all->ms;
 		y = true;
 	}
 	if (mlx_is_key_down(all->mlx, MLX_KEY_D) == true)
 	{
-		all->per.pos.x += cos((all->per.angle_real + 90) / 180 * M_PI) * all->ms;
-		all->per.pos.y += sin((all->per.angle_real + 90) / 180 * M_PI) * all->ms;
+		all->per.pos.x += cos((all->per.mid_dir + 90) / 180 * M_PI) * all->ms;
+		all->per.pos.y += sin((all->per.mid_dir + 90) / 180 * M_PI) * all->ms;
 		x = true;
 	}
 	else if (mlx_is_key_down(all->mlx, MLX_KEY_A) == true)
 	{
-		all->per.pos.x += cos((all->per.angle_real - 90) / 180 * M_PI) * all->ms;
-		all->per.pos.y += sin((all->per.angle_real - 90) / 180 * M_PI) * all->ms;
+		all->per.pos.x += cos((all->per.mid_dir - 90) / 180 * M_PI) * all->ms;
+		all->per.pos.y += sin((all->per.mid_dir - 90) / 180 * M_PI) * all->ms;
 		x = true;
 	}
 	if (mlx_is_key_down(all->mlx, MLX_KEY_LEFT) == true)
 	{
 //		all->per.direction -= 0.1;
-		if (all->per.angle_real < 0)
-			all->per.angle_real += 360;
-		all->per.angle_real -= 5;
+		if (all->per.mid_dir < 0)
+			all->per.mid_dir += 360;
+		all->per.mid_dir -= 5;
 		x = true;
 	}
 	else if (mlx_is_key_down(all->mlx, MLX_KEY_RIGHT) == true)
 	{
 //		all->per.direction += 0.1;
-		if (all->per.angle_real > 360)
-			all->per.angle_real = 0;
-		all->per.angle_real += 5;
+		if (all->per.mid_dir > 360)
+			all->per.mid_dir = 0;
+		all->per.mid_dir += 5;
 		x = true;
 	}
 	if (x == true || y == true)

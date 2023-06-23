@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 14:09:49 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/22 17:39:55 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/23 09:19:27 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,13 @@ static void	player_if_if(t_all *cub, int x, int y, bool *only_one)
 		cub_exit(EXIT_FAILURE, STDERR_FILENO,
 			"Map: Too many spawns in map file");
 	if (cub->map.a_map[y][x] == 'N')
-		cub->per.direction = 270;
+		cub->per.dir = 270;
 	if (cub->map.a_map[y][x] == 'E')
-		cub->per.direction = 0;
+		cub->per.dir = 0;
 	if (cub->map.a_map[y][x] == 'S')
-		cub->per.direction = 90;
+		cub->per.dir = 90;
 	if (cub->map.a_map[y][x] == 'W')
-		cub->per.direction = 180;
+		cub->per.dir = 180;
 	cub->per.start_pos.x = x + 0.5;
 	cub->per.start_pos.y = y + 0.5;
 	*only_one = true;
