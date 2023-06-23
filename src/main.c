@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:15:21 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/23 09:40:31 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/23 09:46:54 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "MLX42.h"		// needed for MACROS, mlx_*
 #include "libft.h"		// needed for ft_putstr_fd(), ft_putendl_fd()
 #include "ft_printf.h"	// needed for ft_printf()
-#include "lm_str.h"
+#include "lm_array_str.h"
 
 #include <stdio.h>
 #include <unistd.h>		// needed for MACROS
@@ -92,6 +92,7 @@ int	main(int argc, char *argv[])
 	mlx_loop(all.mlx);
 	mlx_terminate(all.mlx);
 	freeee(&all);
+	system("leaks cub3d");
 	ft_printf(STDERR_FILENO, "Exited with status: %d\n", status);
 	return (status);
 }

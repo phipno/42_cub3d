@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 15:45:01 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/23 09:38:58 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/23 09:52:33 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include "libft.h"
 #include "MLX42.h"
 #include "lm_str.h"
+#include "lm_array_str.h"
 
 static int	determine_file_size(char *file)
 {
@@ -97,7 +98,7 @@ static void	variable_shall_be_declared(t_game *map, char **content_split)
 	map->mlx_wall[1] = mlx_load_png(map->walls[1]);
 	map->mlx_wall[2] = mlx_load_png(map->walls[2]);
 	map->mlx_wall[3] = mlx_load_png(map->walls[3]);
-	freeee_walls(&map->walls);
+	freeee_walls(map->walls);
 	if (map->mlx_wall[0] == NULL || map->mlx_wall[1] == NULL
 		|| map->mlx_wall[2] == NULL || map->mlx_wall[3] == NULL)
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "MLX load png Error");
@@ -119,6 +120,7 @@ void	cub_map_muncher(t_all *cub, char *file)
 	variable_shall_be_declared(&cub->map, content_split);
 	creation_of_map(&cub->map, content_split);
 	parse_map(&cub->map, content_split);
+	lm_array_str_free(content_split);
 	get_player_start(cub);
 	cub->per.pos.x = cub->per.start_pos.x;
 	cub->per.pos.y = cub->per.start_pos.y;

@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 14:09:49 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/23 09:19:27 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/23 09:53:13 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	split_that_color(t_rgba *color, const char *str)
 		i++;
 	sub = ft_substr(str, i, ft_strlen(str));
 	split = ft_split(sub, ',');
+	free(sub);
 	i = 0;
 	while (split[i] != NULL)
 		i++;
