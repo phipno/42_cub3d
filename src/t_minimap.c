@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   t_minimap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:08:24 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/16 14:48:07 by jwillert         ###   ########          */
+/*   Updated: 2023/06/26 19:29:57 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ static void	minimap_init_corner(t_minimap *minimap, double max_column,
 	point_set(&minimap->content_end,
 		END_X - minimap->offset_x,
 		END_Y - minimap->offset_y);
-	//@note this need to be worked around
 	size_y = (minimap->content_end.y - minimap->content_start.y) / scale;
 	size_x = size_y;
 	element_set(&minimap->element,

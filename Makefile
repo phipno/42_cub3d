@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+         #
+#    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/08 17:11:30 by pnolte            #+#    #+#              #
-#    Updated: 2023/06/26 16:21:05 by pnolte           ###   ########.fr        #
+#    Updated: 2023/06/26 21:16:15 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,7 @@ DEBUG_SRC             =
 SRC_DIR               = ./src/
 SRC_FILES             = main.c clean_up.c\
 						minimap.c t_point.c t_minimap.c t_element.c\
-						hooks.c	utils.c playerpos.c\
+						hook_keys.c	hook_frame.c utils.c playerpos.c\
 						init.c init_map.c init_variables.c valid_map.c mlx.c\
 						drawing.c drawing_hori.c drawing_verti.c drawing_walls.c \
 

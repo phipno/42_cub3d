@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/26 16:22:03 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/26 19:27:21 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,10 +142,13 @@ void	get_player_start(t_all *cub);
 void	hook_keys(mlx_key_data_t key_data, void *context);
 void	hook_frame(void *context);
 void	player_set_pos(t_player *per, int x, int y);
-void	update_minimap(t_all *all, int mode);
-void	get_player_pos(char **map, t_all *all);
-// @todo function needs restructuring
-void	update_player_pos(t_all *all);
+
+void	game_update(t_all *all);
+
+//--------------------Minimap
+void	minimap_update(t_all *all, int mode);
+void	minimap_toggle(t_all *all);
+
 
 //--------------------MLX42
 void	image_init(t_all *cub, mlx_image_t **image);
@@ -154,8 +157,6 @@ void	init_mlx(t_all *all, char *argv[]);
 
 //--------------------Utils
 size_t	get_bigger_sizet(size_t x, size_t y);
-double	get_player_direction(char symbol);
-bool	is_player_pos(char symbol);
 int		get_rgba(int r, int g, int b, int a);
 
 //--------------------Clean Up

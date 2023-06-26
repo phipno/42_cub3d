@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 16:10:22 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/26 14:39:04 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/26 19:32:18 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ int	im_the_logicchecker(t_game *a, size_t line)
 				return (true);
 			if (a->a_map[line][i - 1] == ' ' || a->a_map[line][i + 1] == ' '
 				|| a->a_map[line + 1][i] == ' ' || a->a_map[line - 1][i] == ' '
-				|| a->a_map[line + 1][i + 1] == ' ' || a->a_map[line - 1][i + 1] == ' '
-				|| a->a_map[line + 1][i - 1] == ' ' || a->a_map[line - 1][i - 1] == ' ')
+				|| a->a_map[line + 1][i + 1] == ' '
+				|| a->a_map[line - 1][i + 1] == ' '
+				|| a->a_map[line + 1][i - 1] == ' '
+				|| a->a_map[line - 1][i - 1] == ' ')
 				return (true);
 		}
 		i++;

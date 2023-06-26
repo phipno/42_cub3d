@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   drawing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 20:50:39 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/26 16:51:02 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/26 19:29:03 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RAYCASTING_H
-# define RAYCASTING_H
+#ifndef DRAWING_H
+# define DRAWING_H
 
 #include "cub3d.h"		// needed for t_all
 #include "minimap.h"	// needed for t_point
