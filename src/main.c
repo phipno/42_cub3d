@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:15:21 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/23 10:17:36 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/26 13:05:19 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	main(int argc, char *argv[])
 	mlx_loop(all.mlx);
 	mlx_terminate(all.mlx);
 	freeee(&all);
-	system("leaks cub3d");
+	// system("leaks cub3d");
 	ft_printf(STDERR_FILENO, "Exited with status: %d\n", status);
 	return (status);
 }

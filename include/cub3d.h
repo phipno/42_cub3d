@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/23 17:11:43 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/26 16:22:03 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@
 # endif // PARSING_TESTER
 
 // defines screen width and screen height
-# define WIDTH  480
-# define HEIGHT 480
+# define WIDTH  2560
+# define HEIGHT 1440
 
 // defines the movement_speed of the player, normal value 0.075
 # define MOVEMENT_SPEED 0.075
@@ -45,11 +45,11 @@
 # define SOUTH 2
 # define WEST 3
 
-// define field of view, normal value 60
-# define FOV 60
+// define field of view, normal value 70
+# define FOV 90
 
 // define how tall the walls should be normal value 64
-# define WALL_HEIGHT 64
+# define WALL_HEIGHT 70
 
 // define how deep the raycasting algorithm should look, normal value 32
 # define DEPTH_OF_FIELD 32

@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 13:38:48 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/23 16:17:12 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/26 13:35:53 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static void	looking_up_hori(t_all cub, t_raycaster *ray)
 		* (-1 / tan(ray->dir)) + cub.per.d_pos.x;
 	ray->offset.y = (int)-64;
 	ray->offset.x = -ray->offset.y * (-1 / tan(ray->dir));
-	ray->color = 0xAA0000FF;
 	ray->c_d = SOUTH;
 }
 
@@ -39,7 +38,6 @@ static void	looking_down_hori(t_all cub, t_raycaster *ray)
 		* (-1 / tan(ray->dir)) + cub.per.d_pos.x;
 	ray->offset.y = 64;
 	ray->offset.x = -ray->offset.y * (-1 / tan(ray->dir));
-	ray->color = 0x00AA00FF;
 	ray->c_d = NORTH;
 }
 
@@ -48,7 +46,6 @@ static void	looking_straight_hori(t_all cub, t_raycaster *ray, int *dof)
 	ray->x = cub.per.d_pos.x;
 	ray->y = cub.per.d_pos.y;
 	*dof = DEPTH_OF_FIELD;
-	ray->color = 0x444444FF;
 	ray->c_d = NORTH;
 }
 

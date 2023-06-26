@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 13:37:46 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/26 12:45:43 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/26 16:54:49 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include "drawing.h"
 
 #include <math.h>	// needed cos and floor
-
-#include <stdio.h>
 
 static void	fish_eye(t_all cub, t_raycaster *ray)
 {
@@ -45,39 +43,39 @@ static int	calc_tex(t_all cub, t_raycaster ray)
 	return (ret);
 }
 
+static void	initilize_shits(t_walls *wal, t_all cub, t_raycaster ray)
+{
+	wal->t_height = cub.map.mlx_wall[ray.c_d]->height;
+	wal->texture_size = cub.map.mlx_wall[ray.c_d]->width * wal->t_height * 4;
+	wal->line_h = WALL_HEIGHT * HEIGHT / ray.distance_parralel;
+	wal->line_offset = HEIGHT / 2 - wal->line_h / 2;
+	wal->line_at = wal->line_h;
+	wal->y_step = ((double)wal->t_height / wal->line_h);
+}
+
 void draw_walls(t_all cub, int x, t_raycaster ray)
 {
-	int line_h;
-	int line_offset;
-	int y;
-	double y_step;
-	int y_off;
-	int x_off;
-	int height;
+	t_walls	wal;
+	int		y;
 
 	fish_eye(cub, &ray);
-	height = cub.map.mlx_wall[ray.c_d]->height;
-	line_h = WALL_HEIGHT * HEIGHT / ray.distance_parralel;
-	line_offset = HEIGHT / 2 - line_h / 2;
-	y = line_h; // Start from the topmost pixel and decrement
-	x_off = calc_tex(cub, ray);
-	y_step = ((double)height / line_h);
-	// printf("X:%d  Y_STEP:%f  X_OFF:%d\n", x, y_step, x_off);
-	while (y >= 0)
+	wal.x_off = calc_tex(cub, ray);
+	initilize_shits(&wal, cub, ray);
+	y = wal.line_offset;
+	while (y < wal.line_offset + wal.line_h)
 	{
-		y_off = (int)(y_step * (line_h - y));
-		if ((x >= 0 && x < WIDTH) && (y + line_offset >= 0 && y + line_offset < HEIGHT))
+		wal.y_off = (int)(wal.y_step * (wal.line_h - wal.line_at));
+		if ((x >= 0 && x < WIDTH) && (y >= 0 && y < HEIGHT))
 		{
-			// int tex_x = (int)(x_off / 4) % cub.map.mlx_wall[ray.c_d]->width; // Texture x-coordinate
-			// int tex_y = (int)(y_off / 4) % cub.map.mlx_wall[ray.c_d]->height; // Texture y-coordinate
-			int tex_index = (y_off * cub.map.mlx_wall[ray.c_d]->width + x_off) * 4; // Texture index
-			if (tex_index + 3 < (int)cub.map.mlx_wall[ray.c_d]->width * height * 4)
-				mlx_put_pixel(cub.image_game, x, y + line_offset, get_rgba(
-					cub.map.mlx_wall[ray.c_d]->pixels[tex_index],
-					cub.map.mlx_wall[ray.c_d]->pixels[tex_index + 1],
-					cub.map.mlx_wall[ray.c_d]->pixels[tex_index + 2],
-					cub.map.mlx_wall[ray.c_d]->pixels[tex_index + 3]));
+			wal.tex_index = ((wal.y_off * wal.t_height + wal.x_off) * 4);
+			if (wal.tex_index + 3 < wal.texture_size  && wal.tex_index >= 0)
+				mlx_put_pixel(cub.image_game, x, y, get_rgba(
+					cub.map.mlx_wall[ray.c_d]->pixels[wal.tex_index],
+					cub.map.mlx_wall[ray.c_d]->pixels[wal.tex_index + 1],
+					cub.map.mlx_wall[ray.c_d]->pixels[wal.tex_index + 2],
+					cub.map.mlx_wall[ray.c_d]->pixels[wal.tex_index + 3]));
 		}
-		y--;
+		wal.line_at--;
+		y++;
 	}
 }

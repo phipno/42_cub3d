@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 20:50:39 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/23 10:43:51 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/26 16:51:02 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,20 @@ typedef struct s_raycaster
 	int		c_d;
 	double	distance_raw;
 	double	distance_parralel;
-	int32_t	color;
 }	t_raycaster;
+
+typedef struct s_walls
+{
+	int		line_h;
+	int		line_at;
+	int		line_offset;
+	double	y_step;
+	int		y_off;
+	int		x_off;
+	int		t_height;
+	int		tex_index;
+	int		texture_size;
+}	t_walls;
 
 typedef struct s_point_int
 {
