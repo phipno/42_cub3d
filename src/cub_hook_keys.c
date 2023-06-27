@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:28:07 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/27 08:58:59 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 09:18:12 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static void	toggle_minimap(t_all *all)
 	cub_update_game(all);
 	cub_update_minimap(all, all->mode);
 }
-
 
 void	cub_hook_keys(mlx_key_data_t key_data, void *context)
 {

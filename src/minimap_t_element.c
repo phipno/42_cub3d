@@ -6,13 +6,12 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:08:24 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/27 09:06:04 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 09:20:22 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minimap.h"		// needed for t_minimap_element
-#include "cub3d.h"			// needed for DEBUG
-#include <stdlib.h>			// needed for size_t
+#include "minimap.h"		// needed for t_minimap, t_minimap_element, MACROS
+#include "cub3d.h"			// needed for MACROS
 #include <unistd.h>			// needed for STDERR_FILENO
 #include <stdio.h>			// needed for dprintf()
 
