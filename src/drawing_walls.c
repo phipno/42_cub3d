@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing_walls.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 13:37:46 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/27 08:30:02 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 10:30:55 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ static void	fish_eye(t_all cub, t_raycaster *ray)
 {
 	double	angle;
 
-	angle = cub.per.mid_dir * (PI / 180) - cub.per.dir;
+	angle = cub.per.mid_dir * (M_PI / 180) - cub.per.dir;
 	if (angle < 0)
-		angle = angle + 2 * PI;
-	if (angle > 2 * PI)
-		angle = angle - 2 * PI;
+		angle = angle + 2 * M_PI;
+	if (angle > 2 * M_PI)
+		angle = angle - 2 * M_PI;
 	ray->distance_parralel = ray->distance_raw * cos(angle);
 }
 

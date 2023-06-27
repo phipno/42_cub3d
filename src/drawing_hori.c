@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 13:38:48 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/26 13:35:53 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/27 10:30:44 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@ void	draw_rays_hori(t_all cub, t_raycaster *ray)
 
 	dof = 0;
 	ray->dir = cub.per.dir;
-	if (ray->dir > PI)
+	if (ray->dir > M_PI)
 		looking_up_hori(cub, ray);
-	if (ray->dir < PI)
+	if (ray->dir < M_PI)
 		looking_down_hori(cub, ray);
-	if (ray->dir == 0 || ray->dir == PI)
+	if (ray->dir == 0 || ray->dir == M_PI)
 		looking_straight_hori(cub, ray, &dof);
 	while (dof < DEPTH_OF_FIELD)
 	{
