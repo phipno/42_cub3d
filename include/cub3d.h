@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/27 08:57:53 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 09:17:41 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,25 +138,23 @@ void	split_that_color(t_rgba *color, const char *str);
 char	*sub_str_walls(const char *str);
 void	get_player_start(t_all *cub);
 
-//--------------------Game
-void	cub_hook_keys(mlx_key_data_t key_data, void *context);
-void	cub_hook_frame(void *context);
-void	cub_update_game(t_all *all);
-
-//--------------------Minimap
-void	cub_update_minimap(t_all *all, int mode);
-
 //--------------------MLX42
 void	cub_image_init(t_all *cub, mlx_image_t **image);
 void	cub_image_to_window(t_all *cub, mlx_image_t *image);
 void	cub_init_mlx(t_all *all, char *argv[]);
 
-//--------------------Utils
-size_t	cub_get_bigger_sizet(size_t x, size_t y);
-int		cub_get_rgba(int r, int g, int b, int a);
+//--------------------Game Loop
+void	cub_hook_keys(mlx_key_data_t key_data, void *context);
+void	cub_hook_frame(void *context);
+void	cub_update_game(t_all *all);
+void	cub_update_minimap(t_all *all, int mode);
 
 //--------------------Clean Up
 void	cub_exit(int exit_code, int fd, char *message);
 void	cub_freeee(t_all *cub);
+
+//--------------------Utils
+size_t	cub_get_bigger_sizet(size_t x, size_t y);
+int		cub_get_rgba(int r, int g, int b, int a);
 
 #endif
