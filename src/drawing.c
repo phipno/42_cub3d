@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:48:45 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/27 10:19:01 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/27 10:31:22 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ static	void	init_some_var(t_all *cub, t_raycaster *ray, double *angle_add)
 {
 	cub->per.d_pos.x = cub->per.pos.x * 64;
 	cub->per.d_pos.y = cub->per.pos.y * 64;
-	cub->per.dir = (cub->per.mid_dir * (PI / 180)) - (FOV * (PI / 180)) / 2;
-	*angle_add = (FOV * (PI / 180)) / WIDTH * 1.0;
+	cub->per.dir = (cub->per.mid_dir * (M_PI / 180)) - (FOV * (M_PI / 180)) / 2;
+	*angle_add = (FOV * (M_PI / 180)) / WIDTH * 1.0;
 	ray->pi_half = M_PI / 2;
 	ray->pi_three_half = 3 * M_PI / 2;
 }
@@ -95,9 +95,9 @@ void	draw_player(t_all cub)
 	while (x < WIDTH)
 	{
 		if (cub.per.dir < 0)
-			cub.per.dir = cub.per.dir + 2 * PI;
-		if (cub.per.dir > 2 * PI)
-			cub.per.dir = cub.per.dir - 2 * PI;
+			cub.per.dir = cub.per.dir + 2 * M_PI;
+		if (cub.per.dir > 2 * M_PI)
+			cub.per.dir = cub.per.dir - 2 * M_PI;
 		draw_rays_hori(cub, &rays[0]);
 		draw_rays_verti(cub, &rays[1]);
 		rays[0].distance_raw = pythagoras(cub.per.d_pos.x, cub.per.d_pos.y,
