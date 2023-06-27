@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:49:37 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/26 20:26:58 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 08:09:27 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,33 +49,32 @@ void	minimap_toggle(t_all *all)
 }
 
 void	minimap_draw_element(mlx_image_t *image, size_t index_x,
-	size_t index_y, t_minimap *minimap)
+	size_t index_y, t_minimap *mmap)
 {
-	t_point	element_start;
-	t_point	element_end;
-	t_point	element;
+	t_point	el_start;
+	t_point	el_end;
+	t_point	el;
 
-	point_set(&element_start, minimap->content_start.x + (double) index_x
-		* minimap->element.size_x, minimap->content_start.y
-		+ (double) index_y * minimap->element.size_y);
-	point_set(&element, element_start.x, element_start.y);
-	point_set(&element_end, element_start.x + minimap->element.size_x,
-		element_start.y + minimap->element.size_y);
-	while (element.y < element_end.y && element.y < HEIGHT)
+	point_set(&el_start,
+		mmap->content_start.x + (double) index_x * mmap->element.size_x,
+		mmap->content_start.y + (double) index_y * mmap->element.size_y);
+	point_set(&el, el_start.x, el_start.y);
+	point_set(&el_end, el_start.x + mmap->element.size_x,
+		el_start.y + mmap->element.size_y);
+	while (el.y < el_end.y && el.y < HEIGHT)
 	{
-		while (element.x < element_end.x && element.x < WIDTH)
+		while (el.x < el_end.x && el.x < WIDTH)
 		{
-			if (element.x == element_start.x || element.x == element_end.x
-				|| element.y == element_start.y || element.y == element_end.y)
-				mlx_put_pixel(image,
-					(int) element.x, (int) element.y, minimap->colours[2]);
+			if (el.x == el_start.x || el.x == el_end.x
+				|| el.y == el_start.y || el.y == el_end.y)
+				mlx_put_pixel(image, (int) el.x, (int) el.y, mmap->colours[2]);
 			else
-				mlx_put_pixel(image,
-					(int) element.x, (int) element.y, minimap->element.colour);
-			element.x += 1;
+				mlx_put_pixel(image, (int) el.x,
+					(int) el.y, mmap->element.colour);
+			el.x += 1;
 		}
-		element.x = element_start.x;
-		element.y += 1;
+		el.x = el_start.x;
+		el.y += 1;
 	}
 }
 
