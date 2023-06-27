@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 13:37:46 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/27 13:31:36 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/27 15:31:53 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,18 @@
 
 static void	looking_right_verti(t_all cub, t_raycaster *ray)
 {
-	double	ntan;
-
-	ntan = -tan(ray->dir);
 	ray->x = (((int)cub.per.d_pos.x >> 6) << 6) - 0.0001;
-	ray->y = (cub.per.d_pos.x - ray->x) * ntan + cub.per.d_pos.y;
+	ray->y = (cub.per.d_pos.x - ray->x) * -tan(ray->dir) + cub.per.d_pos.y;
 	ray->offset.x = -64;
-	ray->offset.y = -ray->offset.x * ntan;
+	ray->offset.y = -ray->offset.x * -tan(ray->dir);
 	ray->c_d = EAST;
 }
 
 static void	looking_left_verti(t_all cub, t_raycaster *ray)
 {
-	double	ntan;
-
-	ntan = -tan(ray->dir);
 	ray->x = (((int)cub.per.d_pos.x >> 6) << 6) + 64;
-	ray->y = (cub.per.d_pos.x - ray->x) * -tan(ray->dir) + cub.per.d_pos.y;
+	ray->y = (cub.per.d_pos.x - ray->x)
+		* -tan(ray->dir) + cub.per.d_pos.y;
 	ray->offset.x = 64;
 	ray->offset.y = -ray->offset.x * -tan(ray->dir);
 	ray->c_d = WEST;

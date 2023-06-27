@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 13:38:48 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/27 13:31:41 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/27 15:30:30 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@
 
 static void	looking_up_hori(t_all cub, t_raycaster *ray)
 {
-	double	atan;
-
-	atan = -1 / tan(ray->dir);
 	ray->y = (((int)cub.per.d_pos.y >> 6) << 6) - 0.0001;
 	ray->x = (cub.per.d_pos.y - ray->y)
 		* (-1 / tan(ray->dir)) + cub.per.d_pos.x;
@@ -30,9 +27,6 @@ static void	looking_up_hori(t_all cub, t_raycaster *ray)
 
 static void	looking_down_hori(t_all cub, t_raycaster *ray)
 {
-	double	atan;
-
-	atan = -1 / tan(ray->dir);
 	ray->y = (((int)cub.per.d_pos.y >> 6) << 6) + 64;
 	ray->x = (cub.per.d_pos.y - ray->y)
 		* (-1 / tan(ray->dir)) + cub.per.d_pos.x;

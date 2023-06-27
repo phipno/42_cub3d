@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 11:40:43 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/27 13:32:07 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/27 15:32:13 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,7 @@ void	point_draw_disc(mlx_image_t *image, t_point a, double diameter,
 {
 	double	x;
 	double	y;
-	double	r;
 
-	r = diameter / 2;
 	x = diameter * -1;
 	y = diameter * -1;
 	while (y < diameter)
