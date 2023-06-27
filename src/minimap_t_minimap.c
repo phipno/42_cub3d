@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:08:24 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/27 09:05:57 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 10:20:49 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,14 @@ static void	minimap_init_corner(t_minimap *minimap, double max_column,
 	double	scale;
 
 	scale = (double) cub_get_bigger_sizet(max_column, max_line);
-	minimap->offset_x = (END_X - START_X) / 100 * 2;
-	minimap->offset_y = (END_Y - START_Y) / 100 * 2;
+	minimap->offset_x = (WIDTH / 3 - START_X) / 100 * 2;
+	minimap->offset_y = (HEIGHT / 3 - START_Y) / 100 * 2;
 	point_set(&minimap->content_start,
 		START_X + minimap->offset_x,
 		START_Y + minimap->offset_y);
 	point_set(&minimap->content_end,
-		END_X - minimap->offset_x,
-		END_Y - minimap->offset_y);
+		WIDTH / 3 - minimap->offset_x,
+		HEIGHT / 3 - minimap->offset_y);
 	size_y = (minimap->content_end.y - minimap->content_start.y) / scale;
 	size_x = size_y;
 	element_set(&minimap->element,
