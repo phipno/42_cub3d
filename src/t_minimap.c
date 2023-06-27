@@ -6,12 +6,12 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:08:24 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/26 19:29:57 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 08:28:56 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minimap.h"		// needed for t_minimap, debug_*()
-#include "cub3d.h"			// needed for get_rgba()
+#include "cub3d.h"			// needed for cub_get_rgba()
 #include <unistd.h>			// needed for STDERR_FILENO
 #include <stdio.h>			// needed for dprintf()
 
@@ -41,11 +41,11 @@ void	debug_print_t_minimap(char *name, t_minimap minimap)
 
 static void	set_array_colours(int32_t *colours)
 {
-	colours[0] = get_rgba(255, 255, 255, 255);
-	colours[1] = get_rgba(0, 0, 0, 255);
-	colours[2] = get_rgba(255, 0, 255, 255);
-	colours[3] = get_rgba(255, 255, 0, 255);
-	colours[4] = get_rgba(0, 255, 0, 255);
+	colours[0] = cub_get_rgba(255, 255, 255, 255);
+	colours[1] = cub_get_rgba(0, 0, 0, 255);
+	colours[2] = cub_get_rgba(255, 0, 255, 255);
+	colours[3] = cub_get_rgba(255, 255, 0, 255);
+	colours[4] = cub_get_rgba(0, 255, 0, 255);
 }
 
 static void	minimap_init_corner(t_minimap *minimap, double max_column,
@@ -55,7 +55,7 @@ static void	minimap_init_corner(t_minimap *minimap, double max_column,
 	double	size_y;
 	double	scale;
 
-	scale = (double) get_bigger_sizet(max_column, max_line);
+	scale = (double) cub_get_bigger_sizet(max_column, max_line);
 	minimap->offset_x = (END_X - START_X) / 100 * 2;
 	minimap->offset_y = (END_Y - START_Y) / 100 * 2;
 	point_set(&minimap->content_start,
@@ -87,7 +87,7 @@ static void	minimap_init_fullscreen(t_minimap *minimap, double max_column,
 
 	minimap->offset_x = 0;
 	minimap->offset_y = 0;
-	scale = (double) get_bigger_sizet(max_column, max_line) + (double) 1;
+	scale = (double) cub_get_bigger_sizet(max_column, max_line) + (double) 1;
 	point_set(&mid, WIDTH / 2, HEIGHT / 2);
 	size_y = (HEIGHT - WIDTH / 100 * 10) / scale;
 	size_x = size_y;

@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:28:07 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/26 21:15:51 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 08:37:30 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <math.h>   // needed for cos(), sin(), tan()
 #include <stdio.h>  // needed for dprintf()
 
-void	hook_keys(mlx_key_data_t key_data, void *context)
+void	cub_hook_keys(mlx_key_data_t key_data, void *context)
 {
 	t_all	*all;
 
@@ -37,6 +37,6 @@ void	hook_keys(mlx_key_data_t key_data, void *context)
 	}
 	else if (key_data.key == MLX_KEY_M && key_data.action == MLX_PRESS)
 	{
-		minimap_toggle(all);
+		cub_toggle_minimap(all);
 	}
 }

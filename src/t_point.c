@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   t_point.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 11:40:43 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/22 14:50:21 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/27 08:15:23 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,66 +75,3 @@ void	point_draw_disc(mlx_image_t *image, t_point a, double diameter,
 		y += 1;
 	}
 }
-
-//
-//static void	get_smaller_double(double x, double y)
-//{
-//	if (x <= y)
-//		return (x);
-//	else
-//		return (y);
-//}
-//
-//
-//
-//
-//void	point_draw_line(mlx_image_t *image, t_point a, t_point b)
-//{
-//	double	x;
-//	double	y;
-//
-//	x = 0;
-//	y = 0;
-//	while (y < HEIGHT)
-//	{
-//		while (x < WIDTH)
-//		{
-//			if (x ==
-//			x += 1;
-//		}
-//		y += 1;
-//	}
-//}
-
-//void	point_draw_circle(mlx_image_t *image, t_point a, double diameter,
-//		int32_t colour)
-//{
-//	int	x;
-//	int	y;
-//	int	decision;
-//
-//	x = (int) diameter;
-//	y = 0;
-//	decision = 1 - x;
-//	while (y <= x)
-//	{
-//		mlx_put_pixel(image, (int) a.x + x, (int) a.y + y, colour);
-//		mlx_put_pixel(image, (int) a.x - x, (int) a.y - y, colour);
-//		mlx_put_pixel(image, (int) a.x - y, (int) a.y + x, colour);
-//		mlx_put_pixel(image, (int) a.x - x, (int) a.y + y, colour);
-//		mlx_put_pixel(image, (int) a.x - y, (int) a.y - x, colour);
-//		mlx_put_pixel(image, (int) a.x + y, (int) a.y + x, colour);
-//		mlx_put_pixel(image, (int) a.x + y, (int) a.y - x, colour);
-//		mlx_put_pixel(image, (int) a.x + x, (int) a.y - y, colour);
-//		y += 1;
-//		if (decision <= 0)
-//		{
-//			decision = decision + (2 * y + 1);
-//		}
-//		else
-//		{
-//			x -= 1;
-//			decision = decision + (2 * (y - x) + 1);
-//		}
-//	}
-//}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_variables.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 14:09:49 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/23 11:24:12 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/27 08:29:55 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	split_that_color(t_rgba *color, const char *str)
 	if (i < 3)
 		cub_exit(EXIT_FAILURE, STDERR_FILENO,
 			"Map: Color values missing");
-	color->colour = get_rgba(ft_atoi(split[0]),
+	color->colour = cub_get_rgba(ft_atoi(split[0]),
 			ft_atoi(split[1]), ft_atoi(split[2]), 255);
 	lm_array_str_free(split);
 }

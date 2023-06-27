@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:23:46 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/26 21:23:56 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 08:37:22 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ static bool	hook_turn(t_all *all)
 	return (is_turn);
 }
 
-void	hook_frame(void *context)
+void	cub_hook_frame(void *context)
 {
 	t_all		*all;
 	bool		redraw;
@@ -148,7 +148,7 @@ void	hook_frame(void *context)
 	}
 	if (redraw == true)
 	{
-		game_update(all);
-		minimap_update(all, all->mode);
+		cub_update_game(all);
+		cub_update_minimap(all, all->mode);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:27:10 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/26 19:25:17 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 08:26:12 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stdbool.h>
 #include <unistd.h>	// needed for STDERR_FILENO
 
-size_t	get_bigger_sizet(size_t x, size_t y)
+size_t	cub_get_bigger_sizet(size_t x, size_t y)
 {
 	if (x < y)
 		return (y);
@@ -24,7 +24,7 @@ size_t	get_bigger_sizet(size_t x, size_t y)
 		return (x);
 }
 
-int	get_rgba(int r, int g, int b, int a)
+int	cub_get_rgba(int r, int g, int b, int a)
 {
 	if ((r > 255 || r < 0) || (g > 255 || g < 0) || (b > 255 || b < 0))
 		cub_exit(EXIT_FAILURE, STDERR_FILENO,

@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 13:37:46 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/27 08:08:00 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 08:30:02 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	draw_walls(t_all cub, int x, t_raycaster ray)
 		{
 			wal.tex_index = ((wal.y_off * wal.t_height + wal.x_off) * 4);
 			if (wal.tex_index + 3 < wal.texture_size && wal.tex_index >= 0)
-				mlx_put_pixel(cub.image_game, x, y, get_rgba(
+				mlx_put_pixel(cub.image_game, x, y, cub_get_rgba(
 						cub.map.mlx_wall[ray.c_d]->pixels[wal.tex_index],
 						cub.map.mlx_wall[ray.c_d]->pixels[wal.tex_index + 1],
 						cub.map.mlx_wall[ray.c_d]->pixels[wal.tex_index + 2],

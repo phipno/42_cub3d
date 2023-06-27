@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:45:22 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/23 10:23:02 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/27 08:13:29 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,18 +93,19 @@ typedef struct s_minimap
 //								functions
 /* -------------------------------------------------------------------------- */
 
+//--------------------t_point
 void	debug_print_t_point(char *name, t_point point);
 void	point_set(t_point *point, int x, int y);
 void	point_set_mid(t_point *mid, t_point a, t_point b);
 void	point_draw_disc(mlx_image_t *image, t_point a, double diameter,
 			int32_t colour);
-//void	point_draw_circle(mlx_image_t *image, t_point a, double diameter,
-//			int32_t colour);
 
+//--------------------t_element
 void	debug_print_t_element(char *name, t_minimap_element element);
 void	element_set(t_minimap_element *element, size_t size_x, size_t size_y);
 void	element_set_colour(t_minimap *minimap, char symbol);
 
+//--------------------t_minimap
 void	debug_print_t_minimap(char *name, t_minimap minimap);
 void	minimap_init(t_minimap *minimap, size_t max_column, size_t max_line,
 			int mode);

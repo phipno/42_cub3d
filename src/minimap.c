@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:49:37 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/27 08:09:27 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 08:34:03 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "cub3d.h"			// needed for t_all and t_player
 #include <unistd.h>			// needed for STDERR_FILENO
 
-void	minimap_update(t_all *all, int mode)
+void	cub_update_minimap(t_all *all, int mode)
 {
 	if (mode == MODE_OFF)
 		return ;
@@ -26,7 +26,7 @@ void	minimap_update(t_all *all, int mode)
 	minimap_draw(all->map.a_map, all->image_game, &all->minimap);
 }
 
-void	minimap_toggle(t_all *all)
+void	cub_toggle_minimap(t_all *all)
 {
 	static size_t	i;
 
@@ -44,8 +44,8 @@ void	minimap_toggle(t_all *all)
 		all->mode = MODE_OFF;
 		i = 0;
 	}
-	game_update(all);
-	minimap_update(all, all->mode);
+	cub_update_game(all);
+	cub_update_minimap(all, all->mode);
 }
 
 void	minimap_draw_element(mlx_image_t *image, size_t index_x,
