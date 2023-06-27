@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:49:37 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/27 08:48:19 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 10:18:37 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,11 @@ void	minimap_draw(char **map, mlx_image_t *image, t_minimap *minimap)
 	{
 		while (map[index_y][index_x] != '\0')
 		{
-			element_set_colour(minimap, map[index_y][index_x]);
+			if ((int) index_y == minimap->player_y
+				&& (int) index_x == minimap->player_x)
+				minimap->element.colour = minimap->colours[GREEN];
+			else
+				element_set_colour(minimap, map[index_y][index_x]);
 			minimap_draw_element(image, index_x, index_y, minimap);
 			index_x += 1;
 		}

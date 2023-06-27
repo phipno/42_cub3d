@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:45:22 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/27 09:10:34 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 10:01:52 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ typedef struct s_minimap_element
 /// @param double offset_y
 /// @param double size_x
 /// @param double size_y
+/// @param int player_x
+/// @param int player_y
 typedef struct s_minimap
 {
 	t_point				border_start;
@@ -95,6 +97,8 @@ typedef struct s_minimap
 	double				offset_y;
 	double				size_x;
 	double				size_y;
+	int					player_x;
+	int					player_y;
 }			t_minimap;
 
 /* -------------------------------------------------------------------------- */

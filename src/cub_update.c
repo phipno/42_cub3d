@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 08:46:54 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/27 09:18:16 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 10:11:10 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	cub_update_game(t_all *all)
 
 void	cub_update_minimap(t_all *all, int mode)
 {
+	all->minimap.player_x = (int) all->per.pos.x;
+	all->minimap.player_y = (int) all->per.pos.y;
 	if (mode == MODE_OFF)
 		return ;
 	minimap_init(&all->minimap,

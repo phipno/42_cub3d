@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:08:24 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/27 09:20:22 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 10:18:14 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	element_set_colour(t_minimap *minimap, char symbol)
 {
 	if (symbol == SYMBOL_EMPTY)
 	{
-		minimap->element.colour = minimap->colours[GREEN];
+		minimap->element.colour = minimap->colours[MAGENTA];
 	}
 	else if (symbol == SYMBOL_FLOOR)
 	{
