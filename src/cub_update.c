@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_update.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 08:46:54 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/27 08:49:48 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 10:26:35 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

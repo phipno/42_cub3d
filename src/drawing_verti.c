@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 13:37:46 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/26 13:35:41 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/27 10:15:01 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ void	draw_rays_verti(t_all cub, t_raycaster *ray)
 
 	dof = 0;
 	ray->dir = cub.per.dir;
-	if (ray->dir > P2 && ray->dir < P3)
+	if (ray->dir > ray->pi_half && ray->dir < ray->pi_three_half)
 		looking_right_verti(cub, ray);
-	if (ray->dir < P2 || ray->dir > P3)
+	if (ray->dir < ray->pi_half || ray->dir > ray->pi_three_half)
 		looking_left_verti(cub, ray);
-	if (ray->dir == P2 || ray->dir == P3)
+	if (ray->dir == ray->pi_half || ray->dir == ray->pi_three_half)
 		looking_straight_verti(cub, ray, &dof);
 	while (dof < DEPTH_OF_FIELD)
 	{

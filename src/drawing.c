@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:48:45 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/26 15:31:05 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/27 10:19:01 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,14 @@ double	pythagoras(float ax, float ay, float bx, float by)
 	return (sqrt((bx - ax) * (bx - ax) + (by - ay) * (by - ay)));
 }
 
-static	void	init_some_var(t_all *cub, double *angle_add)
+static	void	init_some_var(t_all *cub, t_raycaster *ray, double *angle_add)
 {
 	cub->per.d_pos.x = cub->per.pos.x * 64;
 	cub->per.d_pos.y = cub->per.pos.y * 64;
 	cub->per.dir = (cub->per.mid_dir * (PI / 180)) - (FOV * (PI / 180)) / 2;
 	*angle_add = (FOV * (PI / 180)) / WIDTH * 1.0;
+	ray->pi_half = M_PI / 2;
+	ray->pi_three_half = 3 * M_PI / 2;
 }
 
 void	draw_player(t_all cub)
@@ -89,7 +91,7 @@ void	draw_player(t_all cub)
 	int			x;
 
 	x = 0;
-	init_some_var(&cub, &angle_add);
+	init_some_var(&cub, &rays[1], &angle_add);
 	while (x < WIDTH)
 	{
 		if (cub.per.dir < 0)

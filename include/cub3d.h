@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/27 09:17:41 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 10:26:11 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@
 # define WEST 3
 
 // defines for the movement directions in the hook
-#define FORWARD 1
-#define BACKWARD 2
-#define RIGHT 1
-#define LEFT 2
+# define FORWARD 1
+# define BACKWARD 2
+# define RIGHT 1
+# define LEFT 2
 
 // define field of view, normal value 70
 # define FOV 90
@@ -71,8 +71,8 @@ typedef union u_rgba {
 
 /// @param t_game a struct for the map
 /// @param a_map a double char array that saves a map
-/// @param map_collumn_max  map_collum_max * map_line_max make up the size from a_map
-/// @param map_line_max map_collum_max * map_line_max make up the size from a_map
+/// @param map_collumn_max  biggest count on the parsed map x value
+/// @param map_line_max biggest count on the parsed map y value
 /// @param sky_color color of the sky/ceiling of the map
 /// @param floor_color color of the floor of the map
 /// @param mlx_wall a texture array that has the loaded textures from textures/
@@ -92,15 +92,15 @@ typedef struct s_game
 /// @param d_pos is the position scaled by 64
 /// @param offset dunno
 /// @param fov Field of View
-/// @param dir Direction that is update while running goes. Goes over field of view
+/// @param dir the current ray direction
 /// @param mid_dir The Direction of the middest direction from north
 /// @param ms Movement Speed of the player
 typedef struct s_player
 {
 	t_point	pos;
-	t_point start_pos;
-	t_point d_pos;
-	t_point offset;
+	t_point	start_pos;
+	t_point	d_pos;
+	t_point	offset;
 	double	fov;
 	double	dir;
 	double	mid_dir;
@@ -125,7 +125,7 @@ typedef struct s_all
 	mlx_t		*mlx;
 	mlx_image_t	*image_game;
 	mlx_image_t	*image_background;
-	mlx_image_t *image_player;
+	mlx_image_t	*image_player;
 	int			mode;
 }	t_all;
 
