@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_t_point.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 11:40:43 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/27 09:19:36 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 13:32:07 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,3 +74,5 @@ void	point_draw_disc(mlx_image_t *image, t_point a, double diameter,
 		y += 1;
 	}
 }
+
+/* ************************************************************************** */

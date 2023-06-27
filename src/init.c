@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 15:45:01 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/23 10:25:21 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/27 13:32:43 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,10 @@ static void	variable_shall_be_declared(t_game *map, char **content_split)
 	if (fail < 9)
 		cub_exit(EXIT_FAILURE, STDERR_FILENO,
 			"Not enough Information given in .cub file");
-	walls[0] = sub_str_walls(content_split[0]);
-	walls[1] = sub_str_walls(content_split[1]);
-	walls[2] = sub_str_walls(content_split[2]);
-	walls[3] = sub_str_walls(content_split[3]);
+	walls[0] = sub_str_walls(ide_search(content_split, "NO"));
+	walls[1] = sub_str_walls(ide_search(content_split, "EA"));
+	walls[2] = sub_str_walls(ide_search(content_split, "SO"));
+	walls[3] = sub_str_walls(ide_search(content_split, "WE"));
 	map->mlx_wall[0] = mlx_load_png(walls[0]);
 	map->mlx_wall[1] = mlx_load_png(walls[1]);
 	map->mlx_wall[2] = mlx_load_png(walls[2]);
@@ -103,8 +103,8 @@ static void	variable_shall_be_declared(t_game *map, char **content_split)
 	if (map->mlx_wall[0] == NULL || map->mlx_wall[1] == NULL
 		|| map->mlx_wall[2] == NULL || map->mlx_wall[3] == NULL)
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "MLX load png Error");
-	split_that_color(&map->floor_color, content_split[4]);
-	split_that_color(&map->sky_color, content_split[5]);
+	split_that_color(&map->floor_color, ide_search(content_split, "F"));
+	split_that_color(&map->sky_color, ide_search(content_split, "C"));
 }
 
 void	cub_map_muncher(t_all *cub, char *file)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_update.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 08:46:54 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/27 10:33:50 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 13:31:47 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,3 +47,5 @@ void	cub_update_minimap(t_all *all, int mode)
 		mode);
 	minimap_draw(all->map.a_map, all->image_game, &all->minimap);
 }
+
+/* ************************************************************************** */

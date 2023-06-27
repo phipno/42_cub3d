@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_t_minimap.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:08:24 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/27 10:20:49 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 13:32:10 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,3 +121,5 @@ void	minimap_init(t_minimap *minimap, size_t max_column, size_t max_line,
 	minimap->size_x = minimap->content_end.x - minimap->content_start.x;
 	minimap->size_y = minimap->content_end.y - minimap->content_start.y;
 }
+
+/* ************************************************************************** */

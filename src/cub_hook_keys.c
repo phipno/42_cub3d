@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_hook_keys.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:28:07 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/27 10:33:44 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 13:31:53 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,3 +56,5 @@ void	cub_hook_keys(mlx_key_data_t key_data, void *context)
 		toggle_minimap(all);
 	}
 }
+
+/* ************************************************************************** */

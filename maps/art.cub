@@ -1,10 +1,10 @@
-NO ./textures/south.png
-EA ./textures/south.png
-SO ./textures/south.png
-WE ./textures/south.png
+NO ./textures/west4.png
+EA ./textures/west4.png
+SO ./textures/west4.png
+WE ./textures/west4.png
 
-F 0, 0, 0
-C 0, 0, 0
+F 112, 154, 209
+C 112, 154, 209
 
 111
 1S1

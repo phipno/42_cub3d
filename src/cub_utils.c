@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:27:10 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/27 09:00:00 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 13:31:44 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,3 +28,5 @@ int	cub_get_rgba(int r, int g, int b, int a)
 			"Map: Color should only be in range of 0-255");
 	return (r << 24 | g << 16 | b << 8 | a);
 }
+
+/* ************************************************************************** */

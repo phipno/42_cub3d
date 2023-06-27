@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_clean_up.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 10:05:58 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/27 08:55:17 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 13:31:58 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,3 +29,5 @@ void	cub_exit(int exit_code, int fd, char *message)
 	ft_putendl_fd(message, fd);
 	exit(exit_code);
 }
+
+/* ************************************************************************** */

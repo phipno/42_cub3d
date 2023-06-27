@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/27 10:33:57 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 13:33:56 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 # endif // DEBUG
 
 // defines screen width and screen height
-# define WIDTH  2560
-# define HEIGHT 1440
+# define WIDTH  1080
+# define HEIGHT 720
 
 // defines the movement_speed of the player, normal value 0.075
 # define MOVEMENT_SPEED 0.075
@@ -47,7 +47,7 @@
 # define LEFT 2
 
 // define field of view, normal value 70
-# define FOV 90
+# define FOV 70
 
 // define how tall the walls should be normal value 64
 # define WALL_HEIGHT 70
@@ -133,8 +133,9 @@ typedef struct s_all
 void	cub_map_muncher(t_all *cub, char *file);
 void	creation_of_map(t_game *map_info, char **da);
 void	parse_map(t_game *map, char **content_split);
-int		map_valid_question_mark(t_all *cub);
 void	split_that_color(t_rgba *color, const char *str);
+char	*ide_search(char **c_s, char *search);
+int		map_valid_question_mark(t_all *cub);
 char	*sub_str_walls(const char *str);
 void	get_player_start(t_all *cub);
 

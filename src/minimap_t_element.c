@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_t_element.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:08:24 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/27 10:18:14 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 13:32:13 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,3 +60,5 @@ void	element_set_colour(t_minimap *minimap, char symbol)
 		minimap->element.colour = minimap->colours[MAGENTA];
 	}
 }
+
+/* ************************************************************************** */

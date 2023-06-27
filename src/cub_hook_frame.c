@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_hook_frame.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:23:46 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/27 10:11:20 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 13:31:56 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,3 +142,5 @@ void	cub_hook_frame(void *context)
 		cub_update_minimap(all, all->mode);
 	}
 }
+
+/* ************************************************************************** */

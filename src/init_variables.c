@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_variables.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 14:09:49 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/27 08:29:55 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 13:46:45 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ char	*sub_str_walls(const char *str)
 	char	*path_to_wall;
 
 	i = 0;
+	if (str == NULL)
+		return (NULL);
 	while (str[i] != '.' && str[i] != '\0')
 		i++;
 	path_to_wall = ft_substr(str, i, ft_strlen(str));
@@ -41,6 +43,23 @@ char	*sub_str_walls(const char *str)
 	return (path_to_wall);
 }
 
+char	*ide_search(char **c_s, char *search)
+{
+	char	*needle;
+	int		i;
+
+	i = 0;
+	needle = NULL;
+	while (c_s[i] != NULL)
+	{
+		needle = ft_strnstr(c_s[i], search, ft_strlen(c_s[i]));
+		if (needle != NULL)
+			return (needle);
+		i++;
+	}
+	return (needle);
+}
+
 void	split_that_color(t_rgba *color, const char *str)
 {
 	int		i;
@@ -48,6 +67,8 @@ void	split_that_color(t_rgba *color, const char *str)
 	char	**split;
 
 	i = 0;
+	if (str == NULL)
+		cub_exit(1, 2, "Map: No Color found");
 	while (ft_isdigit(str[i]) == 0 && str[i] != '\0')
 	{
 		if (str[i] == '-')

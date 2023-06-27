@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_mlx.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 10:04:11 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/27 08:54:00 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 13:31:50 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,3 +46,5 @@ void	cub_init_mlx(t_all *all, char *argv[])
 	cub_update_minimap(all, all->mode);
 	all->per.ms = MOVEMENT_SPEED;
 }
+
+/* ************************************************************************** */
