@@ -6,13 +6,13 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:15:21 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/27 08:37:36 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 08:48:59 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"   // needed for t_all, MLX42, func()
+#include "cub3d.h"   // needed for t_all, MLX42.h, cub_*()
 #include "drawing.h" // needed for draw_*()
-#include <unistd.h>  // needed for STDERR_FILENO
+#include <unistd.h>  // needed for MACROS
 
 int	main(int argc, char *argv[])
 {

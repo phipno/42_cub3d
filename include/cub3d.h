@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/27 08:38:32 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 08:45:37 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,6 @@
 # ifndef DEBUG
 #  define DEBUG 0
 # endif // DEBUG
-
-//if defined as 1, program exits after parsing
-# ifndef PARSING_TESTER
-#  define PARSING_TESTER 0
-# endif // PARSING_TESTER
 
 // defines screen width and screen height
 # define WIDTH  2560
@@ -67,7 +62,6 @@ typedef union u_rgba {
 		uint8_t	r;
 	} rgba;
 }	t_rgba;
-
 
 /// @param t_game a struct for the map
 /// @param a_map a double char array that saves a map
@@ -145,7 +139,6 @@ void	cub_update_game(t_all *all);
 
 //--------------------Minimap
 void	cub_update_minimap(t_all *all, int mode);
-void	cub_toggle_minimap(t_all *all);
 
 //--------------------MLX42
 void	cub_image_init(t_all *cub, mlx_image_t **image);

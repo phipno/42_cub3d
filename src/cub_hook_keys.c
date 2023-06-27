@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:28:07 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/27 08:37:30 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 08:44:02 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,29 @@
 #include <unistd.h> // needed for STDERR_FILENO
 #include <math.h>   // needed for cos(), sin(), tan()
 #include <stdio.h>  // needed for dprintf()
+
+static void	toggle_minimap(t_all *all)
+{
+	static size_t	i;
+
+	i += 1;
+	if (i == 1)
+	{
+		all->mode = MODE_FULLSCREEN;
+	}
+	else if (i == 2)
+	{
+		all->mode = MODE_CORNER;
+	}
+	else if (i == 3)
+	{
+		all->mode = MODE_OFF;
+		i = 0;
+	}
+	cub_update_game(all);
+	cub_update_minimap(all, all->mode);
+}
+
 
 void	cub_hook_keys(mlx_key_data_t key_data, void *context)
 {
@@ -37,6 +60,6 @@ void	cub_hook_keys(mlx_key_data_t key_data, void *context)
 	}
 	else if (key_data.key == MLX_KEY_M && key_data.action == MLX_PRESS)
 	{
-		cub_toggle_minimap(all);
+		toggle_minimap(all);
 	}
 }
