@@ -6,7 +6,7 @@
 #    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/08 17:11:30 by pnolte            #+#    #+#              #
-#    Updated: 2023/06/27 08:51:57 by jwillert         ###   ########.fr        #
+#    Updated: 2023/06/27 09:14:26 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,12 +58,16 @@ DEBUG_DIR             = ./debug/
 DEBUG_SRC             =
 
 SRC_DIR               = ./src/
-SRC_FILES             = main.c cub_clean_up.c\
-						minimap.c minimap_t_point.c minimap_t_minimap.c minimap_t_element.c\
-						cub_hook_keys.c	cub_hook_frame.c cub_utils.c cub_update.c\
-						init.c init_map.c init_variables.c valid_map.c cub_mlx.c\
-						drawing.c drawing_hori.c drawing_verti.c drawing_walls.c \
-
+SRC_FILES             = main.c\
+						cub_clean_up.c cub_hook_frame.c	cub_hook_keys.c\
+						cub_mlx.c cub_update.c cub_utils.c\
+						drawing_hori.c drawing_verti.c drawing_walls.c\
+						drawing.c\
+						init_map.c init_variables.c\
+						init.c\
+						minimap_t_element.c minimap_t_minimap.c minimap_t_point.c\
+						minimap.c\
+						valid_map.c
 OBJ_DIR               = ./obj/
 OBJ_FILES             = $(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(SRC_FILES)))
 

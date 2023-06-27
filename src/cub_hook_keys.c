@@ -1,22 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hook_keys.c                                        :+:      :+:    :+:   */
+/*   cub_hook_keys.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:28:07 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/27 08:44:02 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 08:58:59 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "MLX42.h"  // needed for MACROS, mlx_*(), mlx_key_data_t
-#include "cub3d.h"  // needed for t_all
-#include "minimap.h"// needed for macros, t_minimap
-#include "drawing.h"
-#include <unistd.h> // needed for STDERR_FILENO
-#include <math.h>   // needed for cos(), sin(), tan()
-#include <stdio.h>  // needed for dprintf()
+#include "cub3d.h" // needed for t_all, MLX42.h, MACROS, size_t
 
 static void	toggle_minimap(t_all *all)
 {

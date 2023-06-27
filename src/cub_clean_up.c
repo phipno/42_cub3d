@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_up.c                                         :+:      :+:    :+:   */
+/*   cub_clean_up.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 10:05:58 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/27 08:26:58 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 08:55:17 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-#include "MLX42.h"
-#include "libft.h"
-#include "lm_array_str.h"
+#include "cub3d.h"        // needed for t_all, MLX42.h, cub_*()
+#include "libft.h"        // needed for ft_putstr_fd(), ft_putendl_fd()
+#include "lm_array_str.h" // needed for lm_array_str_free()
 
 void	cub_freeee(t_all *cub)
 {

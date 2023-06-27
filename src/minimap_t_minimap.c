@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_minimap.c                                        :+:      :+:    :+:   */
+/*   minimap_t_minimap.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:08:24 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/27 08:28:56 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 09:05:57 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	debug_print_t_minimap(char *name, t_minimap minimap)
 		debug_print_t_point("minimap.border_end", minimap.border_end);
 		debug_print_t_point("minimap.content_start", minimap.content_start);
 		debug_print_t_point("minimap.content_end", minimap.content_end);
-		debug_print_t_point("minimap.player_pos", minimap.player_pos);
 		debug_print_t_element("minimap.element", minimap.element);
 		dprintf(fd, "minimap.offset_x [%f]\n", minimap.offset_x);
 		dprintf(fd, "minimap.offset_y [%f]\n", minimap.offset_y);
@@ -110,7 +109,6 @@ void	minimap_init(t_minimap *minimap, size_t max_column, size_t max_line,
 			int mode)
 {
 	set_array_colours(minimap->colours);
-	minimap->flag_player = 0;
 	if (mode == MODE_CORNER)
 	{
 		minimap_init_corner(minimap, (double) max_column, (double) max_line);

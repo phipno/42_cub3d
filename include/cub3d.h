@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/27 08:45:37 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 08:57:53 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,12 @@
 # define EAST 1
 # define SOUTH 2
 # define WEST 3
+
+// defines for the movement directions in the hook
+#define FORWARD 1
+#define BACKWARD 2
+#define RIGHT 1
+#define LEFT 2
 
 // define field of view, normal value 70
 # define FOV 90

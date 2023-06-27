@@ -1,21 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx.c                                              :+:      :+:    :+:   */
+/*   cub_mlx.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 10:04:11 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/27 08:47:13 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 08:54:00 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "MLX42.h"
-#include "minimap.h"
-#include "cub3d.h"
-#include "drawing.h"
-
-#include <unistd.h>
+#include "cub3d.h"  // needed for t_all, MLX42.h, cub_*(), MACROS
+#include <unistd.h> // needed for MACROS
 
 void	cub_image_init(t_all *cub, mlx_image_t **image)
 {

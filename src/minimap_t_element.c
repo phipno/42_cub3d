@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_element.c                                        :+:      :+:    :+:   */
+/*   minimap_t_element.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:08:24 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/16 15:50:50 by jwillert         ###   ########          */
+/*   Updated: 2023/06/27 09:06:04 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	element_set_colour(t_minimap *minimap, char symbol)
 	}
 	else if (symbol == 'N' || symbol == 'W' || symbol == 'E' || symbol == 'S')
 	{
-		minimap->flag_player = 1;
 		minimap->element.colour = minimap->colours[WHITE];
 	}
 	else

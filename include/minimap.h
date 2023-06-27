@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:45:22 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/27 08:13:29 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 09:10:34 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,17 @@
 //								structs
 /* -------------------------------------------------------------------------- */
 
-/// @param double x coord
-/// @param double y coord
+/// @brief struct that contains two coordinates
+/// @param double x
+/// @param double y
 typedef struct s_point
 {
 	double	x;
 	double	y;
 }			t_point;
 
+/// @brief struct that contains information about a minimap_element that is
+/// @brief being drawn
 /// @param double size_x
 /// @param double size_y
 /// @param int32_t colour
@@ -69,24 +72,29 @@ typedef struct s_minimap_element
 	int32_t	colour;
 }				t_minimap_element;
 
-/// @param t_point start
-/// @param t_point end
+/// @brief struct that contains information about the minimap.
+/// @param t_point border_start
+/// @param t_point border_end
+/// @param t_point content_start
+/// @param t_point content_end
 /// @param t_minimap_element element
 /// @param int32_t colours[5]
+/// @param double offset_x
+/// @param double offset_y
+/// @param double size_x
+/// @param double size_y
 typedef struct s_minimap
 {
 	t_point				border_start;
 	t_point				border_end;
 	t_point				content_start;
 	t_point				content_end;
-	t_point				player_pos;
 	t_minimap_element	element;
 	int32_t				colours[5];
 	double				offset_x;
 	double				offset_y;
 	double				size_x;
 	double				size_y;
-	int					flag_player;
 }			t_minimap;
 
 /* -------------------------------------------------------------------------- */

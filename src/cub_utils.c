@@ -1,20 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   cub_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:27:10 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/27 08:26:12 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 09:00:00 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"	// needed for cub_exit
-
-#include <stdlib.h>	// needed for size_t
-#include <stdbool.h>
-#include <unistd.h>	// needed for STDERR_FILENO
+#include "cub3d.h"	// needed for size_t, cub_exit()
+#include <unistd.h> // needed for STDERR_FILENO
 
 size_t	cub_get_bigger_sizet(size_t x, size_t y)
 {

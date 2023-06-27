@@ -1,27 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hook_frame.c                                       :+:      :+:    :+:   */
+/*   cub_hook_frame.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:23:46 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/27 08:37:22 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/27 08:57:57 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "MLX42.h"  // needed for MACROS, mlx_*(), mlx_key_data_t
-#include "cub3d.h"  // needed for t_all
-#include "minimap.h"// needed for macros, t_minimap
-#include "drawing.h"
-#include <unistd.h> // needed for STDERR_FILENO
-#include <math.h>   // needed for cos(), sin(), tan()
-#include <stdio.h>  // needed for dprintf()
-
-#define FORWARD 1
-#define BACKWARD 2
-#define RIGHT 1
-#define LEFT 2
+#include "cub3d.h" // needed for t_all, MLX42.h, cub_*()
+#include <math.h>  // needed for cos(), sin(), M_PI
 
 static void	move_bilateral(t_all *all, int movement)
 {
