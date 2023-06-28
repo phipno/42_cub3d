@@ -3,21 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/27 13:33:56 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/28 07:36:38 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+/* -------------------------------------------------------------------------- */
+//								includes
+/* -------------------------------------------------------------------------- */
+
 # include "MLX42.h"		// needed for mlx_t, mlx_image_t, mlx_key_data_t
 # include "minimap.h"	// needed for t_minimap
 # include <stdlib.h>	// needed for size_t
 # include <stdbool.h>	// needed for bool
-//--------------------macros
+
+/* -------------------------------------------------------------------------- */
+//								macros
+/* -------------------------------------------------------------------------- */
 
 // defines where all debugging information is written to
 # define DEBUG_FD STDERR_FILENO
@@ -55,7 +62,10 @@
 // define how deep the raycasting algorithm should look, normal value 32
 # define DEPTH_OF_FIELD 32
 
-//--------------------structs
+/* -------------------------------------------------------------------------- */
+//								structs
+/* -------------------------------------------------------------------------- */
+
 /// @param t_rgba a union struct that can store a colour in hex-format
 /// @param colour the combined colour channel
 /// @param s_rgba rgba all the single channels
@@ -128,6 +138,10 @@ typedef struct s_all
 	mlx_image_t	*image_player;
 	int			mode;
 }	t_all;
+
+/* -------------------------------------------------------------------------- */
+//								functions
+/* -------------------------------------------------------------------------- */
 
 //--------------------Parsing
 void	cub_map_muncher(t_all *cub, char *file);

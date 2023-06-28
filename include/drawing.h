@@ -3,18 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   drawing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 20:50:39 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/27 10:24:19 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/28 07:38:24 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DRAWING_H
 # define DRAWING_H
 
+/* -------------------------------------------------------------------------- */
+//								includes
+/* -------------------------------------------------------------------------- */
+
 # include "cub3d.h"		// needed for t_all
 # include "minimap.h"	// needed for t_point
+
+/* -------------------------------------------------------------------------- */
+//								structs
+/* -------------------------------------------------------------------------- */
 
 /// @brief Variables for the wall_hit calculation
 /// @param x hit on x-axis
@@ -78,19 +86,21 @@ typedef struct s_dda
 	int			steps;
 }	t_dda;
 
+/* -------------------------------------------------------------------------- */
+//								functions
+/* -------------------------------------------------------------------------- */
+
 //--------------------Drawing
 void	draw_heaven_and_hell(t_all cub);
 void	draw_player(t_all cub);
 void	draw_rays_verti(t_all cub, t_raycaster *ray);
 void	draw_rays_hori(t_all cub, t_raycaster *ray);
-
-//--------------------Walls
 void	draw_walls(t_all cub, int x, t_raycaster ray);
 
 //--------------------Utils
 void	ft_dda(t_point_int fir, t_point_int sec, t_all cub, int32_t color);
 double	pythagoras(float ax, float ay, float bx, float by);
 
-#endif
+#endif // DRAWING_H
 
 /* ************************************************************************** */
