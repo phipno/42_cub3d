@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 20:50:39 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/28 07:38:24 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/28 08:23:11 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 //								includes
 /* -------------------------------------------------------------------------- */
 
-# include "cub3d.h"		// needed for t_all
-# include "minimap.h"	// needed for t_point
+# include "cub3d.h"   // needed for t_all
+# include "minimap.h" // needed for t_point
 
 /* -------------------------------------------------------------------------- */
 //								structs

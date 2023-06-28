@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/28 08:18:35 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/28 08:23:23 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 //								includes
 /* -------------------------------------------------------------------------- */
 
-# include "MLX42.h"		// needed for mlx_t, mlx_image_t, mlx_key_data_t
-# include "minimap.h"	// needed for t_minimap
-# include <stdlib.h>	// needed for size_t
-# include <stdbool.h>	// needed for bool
+# include "MLX42.h"   // needed for mlx_t, mlx_image_t, mlx_key_data_t
+# include "minimap.h" // needed for t_minimap
+# include <stdlib.h>  // needed for size_t
+# include <stdbool.h> // needed for bool
 
 /* -------------------------------------------------------------------------- */
 //								macros
