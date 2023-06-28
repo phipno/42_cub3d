@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 16:10:22 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/26 19:32:18 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/28 15:00:54 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int	im_the_logicchecker(t_game *a, size_t line)
 			|| a->a_map[line][i] == 'E' || a->a_map[line][i] == 'S'
 			|| a->a_map[line][i] == 'W')
 		{
-			if (line == 0 || line == a->map_line_max)
+			if (line == 0 || line == a->map_line_max - 1)
 				return (true);
-			if (i == 0 || i == a->map_column_max)
+			if (i == 0 || i == a->map_column_max - 1)
 				return (true);
 			if (a->a_map[line][i - 1] == ' ' || a->a_map[line][i + 1] == ' '
 				|| a->a_map[line + 1][i] == ' ' || a->a_map[line - 1][i] == ' '
