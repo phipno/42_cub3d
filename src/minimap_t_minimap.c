@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_t_minimap.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:08:24 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/27 13:32:10 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/28 07:33:26 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minimap.h"		// needed for t_minimap, debug_*()
-#include "cub3d.h"			// needed for cub_get_rgba()
-#include <unistd.h>			// needed for STDERR_FILENO
-#include <stdio.h>			// needed for dprintf()
+#include "minimap.h" // needed for t_minimap, debug_*()
+#include "cub3d.h"   // needed for cub_get_rgba()
+#include <unistd.h>  // needed for STDERR_FILENO
+#include <stdio.h>   // needed for dprintf()
 
 void	debug_print_t_minimap(char *name, t_minimap minimap)
 {

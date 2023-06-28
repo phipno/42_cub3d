@@ -3,21 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/27 13:33:56 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/28 09:19:24 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "MLX42.h"		// needed for mlx_t, mlx_image_t, mlx_key_data_t
-# include "minimap.h"	// needed for t_minimap
-# include <stdlib.h>	// needed for size_t
-# include <stdbool.h>	// needed for bool
-//--------------------macros
+/* -------------------------------------------------------------------------- */
+//								includes
+/* -------------------------------------------------------------------------- */
+
+# include "MLX42.h"   // needed for mlx_t, mlx_image_t, mlx_key_data_t
+# include "minimap.h" // needed for t_minimap
+# include <stdlib.h>  // needed for size_t
+# include <stdbool.h> // needed for bool
+
+/* -------------------------------------------------------------------------- */
+//								macros
+/* -------------------------------------------------------------------------- */
 
 // defines where all debugging information is written to
 # define DEBUG_FD STDERR_FILENO
@@ -55,7 +62,10 @@
 // define how deep the raycasting algorithm should look, normal value 32
 # define DEPTH_OF_FIELD 32
 
-//--------------------structs
+/* -------------------------------------------------------------------------- */
+//								structs
+/* -------------------------------------------------------------------------- */
+
 /// @param t_rgba a union struct that can store a colour in hex-format
 /// @param colour the combined colour channel
 /// @param s_rgba rgba all the single channels
@@ -125,24 +135,27 @@ typedef struct s_all
 	mlx_t		*mlx;
 	mlx_image_t	*image_game;
 	mlx_image_t	*image_background;
-	mlx_image_t	*image_player;
 	int			mode;
 }	t_all;
+
+/* -------------------------------------------------------------------------- */
+//								functions
+/* -------------------------------------------------------------------------- */
 
 //--------------------Parsing
 void	cub_map_muncher(t_all *cub, char *file);
 void	creation_of_map(t_game *map_info, char **da);
+void	get_player_start(t_all *cub);
 void	parse_map(t_game *map, char **content_split);
 void	split_that_color(t_rgba *color, const char *str);
 char	*ide_search(char **c_s, char *search);
-int		map_valid_question_mark(t_all *cub);
 char	*sub_str_walls(const char *str);
-void	get_player_start(t_all *cub);
+int		map_valid_question_mark(t_all *cub);
 
 //--------------------MLX42
+void	cub_init_mlx_and_map(t_all *all, char *argv[]);
 void	cub_image_init(t_all *cub, mlx_image_t **image);
 void	cub_image_to_window(t_all *cub, mlx_image_t *image);
-void	cub_init_mlx(t_all *all, char *argv[]);
 
 //--------------------Game Loop
 void	cub_hook_keys(mlx_key_data_t key_data, void *context);

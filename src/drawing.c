@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:48:45 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/27 17:58:18 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/28 09:29:22 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,7 @@
 #include "MLX42.h"
 #include "libft.h"
 #include "drawing.h"
-
 #include <math.h>
-
-#include <stdio.h> //for debugging
-
-void	ft_dda(t_point_int fir, t_point_int sec, t_all cub, int32_t color)
-{
-	int		i;
-	t_dda	dda;
-
-	i = 0;
-	dda.delta.x = sec.x - fir.x;
-	dda.delta.y = sec.y - fir.y;
-	if (abs(dda.delta.x) > abs(dda.delta.y))
-		dda.steps = abs(dda.delta.x);
-	else
-		dda.steps = abs(dda.delta.y);
-	dda.inc.x = dda.delta.x / (float)dda.steps;
-	dda.inc.y = fir.y / (float)dda.steps;
-	dda.scr.x = fir.x;
-	dda.scr.y = fir.y;
-	while (i <= dda.steps)
-	{
-		if ((dda.scr.x >= 0 && dda.scr.x < WIDTH)
-			&& (dda.scr.y >= 0 && dda.scr.y < HEIGHT))
-			mlx_put_pixel(cub.image_player, dda.scr.x, dda.scr.y, color);
-		dda.scr.x += dda.inc.x;
-		dda.scr.y += dda.inc.y;
-		i++;
-	}
-}
 
 void	draw_heaven_and_hell(t_all cub)
 {

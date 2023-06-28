@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:49:37 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/27 13:32:04 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/28 07:33:55 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "MLX42.h"			// needed for mlx_*()
-#include "minimap.h"		// needed for t_point
-#include "cub3d.h"			// needed for t_all and t_player
-#include <unistd.h>			// needed for STDERR_FILENO
+#include "MLX42.h"   // needed for mlx_*()
+#include "minimap.h" // needed for t_point
+#include "cub3d.h"   // needed for t_all and t_player
+#include <unistd.h>  // needed for STDERR_FILENO
 
 void	minimap_draw_element(mlx_image_t *image, size_t index_x,
 	size_t index_y, t_minimap *mmap)

@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:15:21 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/27 18:01:35 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/28 09:29:52 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int argc, char *argv[])
 	if (argc != 2)
 		cub_exit(EXIT_FAILURE, STDERR_FILENO,
 			"Usage: \"./cub3D maps/<pick one>");
-	cub_init_mlx(&all, argv);
+	cub_init_mlx_and_map(&all, argv);
 	draw_heaven_and_hell(all);
 	cub_image_to_window(&all, all.image_background);
 	draw_player(all);
@@ -31,7 +31,6 @@ int	main(int argc, char *argv[])
 	mlx_loop(all.mlx);
 	mlx_terminate(all.mlx);
 	cub_freeee(&all);
-	//system("leaks cub3d");
 	return (EXIT_SUCCESS);
 }
 

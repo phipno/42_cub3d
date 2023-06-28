@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_variables.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 14:09:49 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/27 13:46:45 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/28 07:51:42 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*sub_str_walls(const char *str)
 		ft_putstr_fd((char *)str, 2);
 		ft_putstr_fd("\" : ", 2);
 		perror("");
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Wall Texutres!");
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Textures: Wall textures!");
 	}
 	close(fd);
 	return (path_to_wall);
@@ -72,7 +72,7 @@ void	split_that_color(t_rgba *color, const char *str)
 	while (ft_isdigit(str[i]) == 0 && str[i] != '\0')
 	{
 		if (str[i] == '-')
-			cub_exit(1, 2, "Map: No negativ Numbers");
+			cub_exit(1, 2, "Map: Negative numbers found!");
 		i++;
 	}
 	sub = ft_substr(str, i, ft_strlen(str));

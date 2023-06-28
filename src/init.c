@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 15:45:01 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/27 18:00:23 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/28 09:29:35 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static void	variable_shall_be_declared(t_game *map, char **content_split)
 		fail++;
 	if (fail < 9)
 		cub_exit(EXIT_FAILURE, STDERR_FILENO,
-			"Not enough Information given in .cub file");
+			"Map: Not enough Information given in .cub file");
 	walls[0] = sub_str_walls(ide_search(content_split, "NO"));
 	walls[1] = sub_str_walls(ide_search(content_split, "EA"));
 	walls[2] = sub_str_walls(ide_search(content_split, "SO"));
@@ -102,7 +102,7 @@ static void	variable_shall_be_declared(t_game *map, char **content_split)
 	freeee_walls(walls);
 	if (map->mlx_wall[0] == NULL || map->mlx_wall[1] == NULL
 		|| map->mlx_wall[2] == NULL || map->mlx_wall[3] == NULL)
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "MLX load png Error");
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, "MLX: Loading png failed");
 	split_that_color(&map->floor_color, ide_search(content_split, "F"));
 	split_that_color(&map->sky_color, ide_search(content_split, "C"));
 }
@@ -113,7 +113,7 @@ void	cub_map_muncher(t_all *cub, char *file)
 	int		content_size;
 
 	if (lm_str_check_viable_end(file, ".cub") != 1)
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "map: wrong file extension");
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Map: Wrong file extension");
 	content_size = determine_file_size(file);
 	if (content_size == 0)
 		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Map: File seems empty");
@@ -127,7 +127,7 @@ void	cub_map_muncher(t_all *cub, char *file)
 	cub->per.pos.y = cub->per.start_pos.y;
 	cub->per.mid_dir = cub->per.dir;
 	if (map_valid_question_mark(cub) == EXIT_FAILURE)
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Map didnt pass validation");
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, "Map: Didnt pass validation");
 }
 
 /* ************************************************************************** */

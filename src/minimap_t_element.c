@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_t_element.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:08:24 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/27 13:32:13 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/28 07:33:39 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minimap.h"		// needed for t_minimap, t_minimap_element, MACROS
-#include "cub3d.h"			// needed for MACROS
-#include <unistd.h>			// needed for STDERR_FILENO
-#include <stdio.h>			// needed for dprintf()
+#include "minimap.h" // needed for t_minimap, t_minimap_element, MACROS
+#include "cub3d.h"   // needed for MACROS
+#include <unistd.h>  // needed for STDERR_FILENO
+#include <stdio.h>   // needed for dprintf()
 
 void	debug_print_t_element(char *name, t_minimap_element element)
 {

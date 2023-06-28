@@ -6,7 +6,7 @@
 #    By: pnolte <pnolte@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/08 17:11:30 by pnolte            #+#    #+#              #
-#    Updated: 2023/06/27 18:09:35 by pnolte           ###   ########.fr        #
+#    Updated: 2023/06/28 09:29:28 by pnolte           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,7 +93,8 @@ REMOVE_DIR            = rm -rf
 all: $(NAME)
 
 $(NAME): $(SUBMODULE) $(OBJ_FILES) $(MLX42) $(LIBALLME_MODULES)
-	$(CC) $(C_FLAGS) $(OBJ_FILES) $(MLX_FLAGS) $(MLX42) $(LIBALLME_MODULES) -o $(NAME)
+	$(CC) $(C_FLAGS) $(OBJ_FILES) $(MLX_FLAGS) $(MLX42) \
+		$(LIBALLME_MODULES) -o $(NAME)
 
 $(OBJ_DIR)%.o: %.c
 	$(CC) $(C_FLAGS) $< -c -o $@
@@ -113,8 +114,10 @@ $(SUBMODULE):
 
 submodule_update:
 	git submodule update --init --recursive --remote
-	#git submodule foreach git pull origin master
 	cd ./lib/liballme/ && git checkout modules && git pull
+
+# pull each repos master...
+# git submodule foreach git pull origin master
 
 #---------------------parser test
 .PHONY: mtest

@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:45:22 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/27 10:20:51 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/28 08:23:52 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 //								includes
 /* -------------------------------------------------------------------------- */
 
-# include "MLX42.h"   // needed for mlx_image_t
-# include <stdlib.h>  // needed for size_t
+# include "MLX42.h"  // needed for mlx_image_t
+# include <stdlib.h> // needed for size_t
 
 /* -------------------------------------------------------------------------- */
 //								macros
