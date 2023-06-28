@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 20:50:39 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/28 08:23:11 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/28 09:19:39 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,15 +90,11 @@ typedef struct s_dda
 //								functions
 /* -------------------------------------------------------------------------- */
 
-//--------------------Drawing
 void	draw_heaven_and_hell(t_all cub);
 void	draw_player(t_all cub);
 void	draw_rays_verti(t_all cub, t_raycaster *ray);
 void	draw_rays_hori(t_all cub, t_raycaster *ray);
 void	draw_walls(t_all cub, int x, t_raycaster ray);
-
-//--------------------Utils
-void	ft_dda(t_point_int fir, t_point_int sec, t_all cub, int32_t color);
 double	pythagoras(float ax, float ay, float bx, float by);
 
 #endif // DRAWING_H

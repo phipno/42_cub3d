@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:48:45 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/28 08:17:38 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/28 09:19:16 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,7 @@
 #include "MLX42.h"
 #include "libft.h"
 #include "drawing.h"
-
 #include <math.h>
-
-#include <stdio.h> //for debugging
-
-void	ft_dda(t_point_int fir, t_point_int sec, t_all cub, int32_t color)
-{
-	int		i;
-	t_dda	dda;
-
-	i = 0;
-	dda.delta.x = sec.x - fir.x;
-	dda.delta.y = sec.y - fir.y;
-	if (abs(dda.delta.x) > abs(dda.delta.y))
-		dda.steps = abs(dda.delta.x);
-	else
-		dda.steps = abs(dda.delta.y);
-	dda.inc.x = dda.delta.x / (float)dda.steps;
-	dda.inc.y = fir.y / (float)dda.steps;
-	dda.scr.x = fir.x;
-	dda.scr.y = fir.y;
-	while (i <= dda.steps)
-	{
-		//@note this was image_player before. even though that image was not
-		// initialised and never used elsewhere?
-		if ((dda.scr.x >= 0 && dda.scr.x < WIDTH)
-			&& (dda.scr.y >= 0 && dda.scr.y < HEIGHT))
-			mlx_put_pixel(cub.image_game, dda.scr.x, dda.scr.y, color);
-		dda.scr.x += dda.inc.x;
-		dda.scr.y += dda.inc.y;
-		i++;
-	}
-}
 
 void	draw_heaven_and_hell(t_all cub)
 {

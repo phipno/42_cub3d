@@ -1,7 +1,7 @@
 EA ./textures/east.png
-NO ./textures/north.png
-SO ./textures/south.png
-WE ./textures/west.png
+NO ./textures/east.png
+SO ./textures/east.png
+WE ./textures/east.png
 
 F 130, 128, 111
 C 111, 127, 144
@@ -14,4 +14,3 @@ C 111, 127, 144
 100N000001
 1000000111
 1111111111
-	

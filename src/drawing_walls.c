@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing_walls.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 13:37:46 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/27 13:31:33 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/28 09:17:29 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "drawing.h"
 
 #include <math.h>	// needed cos and floor
+
+#include <stdio.h> // needed for debugging
 
 static void	fish_eye(t_all cub, t_raycaster *ray)
 {
@@ -34,9 +36,14 @@ static int	calc_tex(t_all cub, t_raycaster ray)
 
 	ray.x = ray.x / 64;
 	ray.y = ray.y / 64;
-	if (ray.c_d == NORTH || ray.c_d == SOUTH)
+	wallx = 0;
+	if (ray.c_d == NORTH)
+		wallx = 1.0 - (ray.x - (int)ray.x);
+	else if (ray.c_d == SOUTH)
 		wallx = (ray.x - (int)ray.x);
-	if (ray.c_d == EAST || ray.c_d == WEST)
+	else if (ray.c_d == EAST)
+		wallx = 1.0 - (ray.y - (int)ray.y);
+	else if (ray.c_d == WEST)
 		wallx = (ray.y - (int)ray.y);
 	ret = cub.map.mlx_wall[ray.c_d]->width * wallx;
 	return (ret);
@@ -68,11 +75,13 @@ void	draw_walls(t_all cub, int x, t_raycaster ray)
 		{
 			wal.tex_index = ((wal.y_off * wal.t_height + wal.x_off) * 4);
 			if (wal.tex_index + 3 < wal.texture_size && wal.tex_index >= 0)
+			{
 				mlx_put_pixel(cub.image_game, x, y, cub_get_rgba(
 						cub.map.mlx_wall[ray.c_d]->pixels[wal.tex_index],
 						cub.map.mlx_wall[ray.c_d]->pixels[wal.tex_index + 1],
 						cub.map.mlx_wall[ray.c_d]->pixels[wal.tex_index + 2],
 						cub.map.mlx_wall[ray.c_d]->pixels[wal.tex_index + 3]));
+			}
 		}
 		wal.line_at--;
 		y++;

@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/28 08:23:23 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/28 09:19:24 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,8 +135,6 @@ typedef struct s_all
 	mlx_t		*mlx;
 	mlx_image_t	*image_game;
 	mlx_image_t	*image_background;
-	//@note i believe this should be removed?
-	//mlx_image_t	*image_player;
 	int			mode;
 }	t_all;
 
