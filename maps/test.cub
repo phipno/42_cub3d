@@ -1,10 +1,10 @@
-EA ./textures/east.png
-NO ./textures/north.png
-SO ./textures/south.png
-WE ./textures/west.png
+EA ./textures/nice.png
+NO ./textures/nice.png
+SO ./textures/nice.png
+WE ./textures/nice.png
 
-F 130, 128, 111
-C 111, 127, 144
+C 0, 187, 212
+F 229, 56, 53
 
 1111111111
 1000001001

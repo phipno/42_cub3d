@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:15:21 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/27 12:36:14 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/27 18:01:35 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(int argc, char *argv[])
 	mlx_loop(all.mlx);
 	mlx_terminate(all.mlx);
 	cub_freeee(&all);
-	system("leaks cub3d");
+	//system("leaks cub3d");
 	return (EXIT_SUCCESS);
 }
 
