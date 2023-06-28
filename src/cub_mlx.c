@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 10:04:11 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/28 07:47:41 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/28 07:54:51 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	cub_image_to_window(t_all *cub, mlx_image_t *image)
 	}
 }
 
-void	cub_init_mlx(t_all *all, char *argv[])
+void	cub_init_mlx_and_map(t_all *all, char *argv[])
 {
 	all->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
 	if (all->mlx == NULL)

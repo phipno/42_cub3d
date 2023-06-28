@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:48:45 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/27 10:31:22 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/28 08:17:38 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,11 @@ void	ft_dda(t_point_int fir, t_point_int sec, t_all cub, int32_t color)
 	dda.scr.y = fir.y;
 	while (i <= dda.steps)
 	{
+		//@note this was image_player before. even though that image was not
+		// initialised and never used elsewhere?
 		if ((dda.scr.x >= 0 && dda.scr.x < WIDTH)
 			&& (dda.scr.y >= 0 && dda.scr.y < HEIGHT))
-			mlx_put_pixel(cub.image_player, dda.scr.x, dda.scr.y, color);
+			mlx_put_pixel(cub.image_game, dda.scr.x, dda.scr.y, color);
 		dda.scr.x += dda.inc.x;
 		dda.scr.y += dda.inc.y;
 		i++;

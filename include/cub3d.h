@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 17:43:34 by pnolte            #+#    #+#             */
-/*   Updated: 2023/06/28 07:36:38 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/28 08:18:35 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,8 @@ typedef struct s_all
 	mlx_t		*mlx;
 	mlx_image_t	*image_game;
 	mlx_image_t	*image_background;
-	mlx_image_t	*image_player;
+	//@note i believe this should be removed?
+	//mlx_image_t	*image_player;
 	int			mode;
 }	t_all;
 
@@ -146,17 +147,17 @@ typedef struct s_all
 //--------------------Parsing
 void	cub_map_muncher(t_all *cub, char *file);
 void	creation_of_map(t_game *map_info, char **da);
+void	get_player_start(t_all *cub);
 void	parse_map(t_game *map, char **content_split);
 void	split_that_color(t_rgba *color, const char *str);
 char	*ide_search(char **c_s, char *search);
-int		map_valid_question_mark(t_all *cub);
 char	*sub_str_walls(const char *str);
-void	get_player_start(t_all *cub);
+int		map_valid_question_mark(t_all *cub);
 
 //--------------------MLX42
+void	cub_init_mlx_and_map(t_all *all, char *argv[]);
 void	cub_image_init(t_all *cub, mlx_image_t **image);
 void	cub_image_to_window(t_all *cub, mlx_image_t *image);
-void	cub_init_mlx(t_all *all, char *argv[]);
 
 //--------------------Game Loop
 void	cub_hook_keys(mlx_key_data_t key_data, void *context);

@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 08:46:54 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/28 07:46:40 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/06/28 08:10:29 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,9 @@ void	cub_update_game(t_all *all)
 		all->image_game->enabled = true;
 		mlx_delete_image(all->mlx, all->image_game);
 	}
-	all->image_game = mlx_new_image(all->mlx, WIDTH, HEIGHT);
-	if (all->image_game == NULL)
-	{
-		mlx_terminate(all->mlx);
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "MLX: Image_game init");
-	}
+	cub_image_init(all, &all->image_game);
 	draw_player(*all);
-	if (mlx_image_to_window(all->mlx, all->image_game, 0, 0) == -1)
-	{
-		mlx_terminate(all->mlx);
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "MLX: Image_game to window");
-	}
+	cub_image_to_window(all, all->image_game);
 }
 
 void	cub_update_minimap(t_all *all, int mode)
