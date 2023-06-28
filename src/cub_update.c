@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_update.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 08:46:54 by jwillert          #+#    #+#             */
-/*   Updated: 2023/06/27 13:31:47 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/06/28 07:46:40 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ void	cub_update_game(t_all *all)
 	if (all->image_game == NULL)
 	{
 		mlx_terminate(all->mlx);
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_game init");
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, "MLX: Image_game init");
 	}
 	draw_player(*all);
 	if (mlx_image_to_window(all->mlx, all->image_game, 0, 0) == -1)
 	{
 		mlx_terminate(all->mlx);
-		cub_exit(EXIT_FAILURE, STDERR_FILENO, "image_game to window");
+		cub_exit(EXIT_FAILURE, STDERR_FILENO, "MLX: Image_game to window");
 	}
 }
 
